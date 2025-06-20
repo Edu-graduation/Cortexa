@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>section</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" type="image/x-icon" href="src/images/favicon.ico" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="src/images/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="src/images/favicon-16x16.png"
+    />
+    <link rel="stylesheet" href="src/css/base.css" />
+    <link rel="stylesheet" href="src/css/section.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="logout-modal" id="confirmationModal">
+        <div class="logout-modal-content">
+          <div class="logout-modal-header">
+            <h2>Confirmation</h2>
+            <button id="logout-closeModal">&times;</button>
+          </div>
+          <div class="logout-modal-message">
+            <p>
+              Are you sure you want to logout?
+            </p>
+          </div>
+          <div class="logout-modal-buttons">
+            <button class="cancel-button" id="logout-cancelButton">Cancel</button>
+            <button class="confirm-button" id="logout-confirmButton">Yes</button>
+          </div>
+        </div>
+      </div>
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="logo">
+
+          <img src="src/images/logo.svg" class="img-logo" alt="Cortexa Logo" />
+          <p class="logo-text">
+            Cortexa
+          </p>
+
+      </div>
+        <ul class="sidebar__list">
+          <li id="home" class="Sli homeli">
+            <a href="home.html">Home</a>
+          </li>
+          <li id="courses" class="Sli couli active-button">
+            <a href="courses.html">Courses</a>
+          </li>
+          <li id="calendar" class="Sli calli">
+            <a href="calendar.html">Calendar</a>
+          </li>
+          <li id="chats" class="chatli">
+            <a class="Sli" href="chats.html">Chats</a>
+          </li>
+          <li class="log-out">
+            <button class="Btn">
+              <div class="sign">
+                <svg viewBox="0 0 512 512">
+                  <path
+                    d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1
+                                20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128
+                                0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0
+                                17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32
+                                14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3
+                                32 32s-14.3 32-32 32z"
+                  ></path>
+                </svg>
+              </div>
+              <div class="text">Logout</div>
+            </button>
+          </li>
+        </ul>
+      </div>
+      <!-- Main Content -->
+      <div class="main-content">
+        <div class="Title_container">
+          <div class="back-button">
+            <button class="back-btn" onclick="window.history.back()">
+                <i class="fa-solid fa-angle-left"></i>
+            </button>
+        </div>
+          <h1 id="section-title">Section Title</h1>
+        </div>
+        <div class="course__details">
+          <div class="card-container1" id="section-container">
+            <div class="card1">
+              <img src="src/images/book.png" class="card1_img" />
+              <div class="card-content">
+                <h1 class="student-name">Hi, ...</h1>
+                <br /><!-- سيتم استبداله بالاسم من JavaScript -->
+                <p class="course-name">What Will We Study Today?</p>
+                <br />
+                <!-- سيتم تعديل النص بناءً على اسم الكورس -->
+                <div class="icon_container">
+                  <div class="row">
+                    <a
+                      href="./lectures.html"
+                      style="text-decoration: none; color: inherit"
+                    >
+                      <div class="lecturs">
+                        <span
+                          ><img
+                            src="./src/images/journal-alt.png"
+                            style="width: 20px; height: 20px"
+                        /></span>
+                        Lectures
+                      </div>
+                    </a>
+                    <a
+                      href="./assignments.html"
+                      style="text-decoration: none; color: inherit"
+                    >
+                      <div class="Assignment">
+                        <span
+                          ><img
+                            src="./src/images/summary-check.png"
+                            style="width: 20px; height: 20px"
+                        /></span>
+                        Assignment
+                      </div>
+                    </a>
+                  </div>
+                  <div class="row">
+                    <a
+                      href="./quiz.html"
+                      style="text-decoration: none; color: inherit"
+                    >
+                      <div class="Quiz">
+                        <span
+                          ><img
+                            src="./src/images/quiz.png"
+                            style="width: 20px; height: 20px"
+                        /></span>
+                        Quiz
+                      </div>
+                    </a>
+                    <a
+                      href="./projects.html"
+                      style="text-decoration: none; color: inherit"
+                    >
+                      <div class="Project">
+                        <span
+                          ><img
+                            src="./src/images/blueprint.png"
+                            style="width: 20px; height: 20px"
+                        /></span>
+                        Project
+                      </div>
+                    </a>
+                  </div>
+                  <div class="row">
+                    <a
+                      href="./chats.html"
+                      style="text-decoration: none; color: inherit"
+                    >
+                      <div class="Chats">
+                        <span
+                          ><img
+                            src="./src/images/comment.png"
+                            style="width: 20px; height: 20px"
+                        /></span>
+                        Chats
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-container2">
+            <div class="bell-image">
+              <!-- <img src="src/images/bell.png" width="30"> -->
+            </div>
+            <div class="section-box">
+              <h2>Section Instructor</h2>
+              <p id="instructorName">Dr. Abeer Amer</p>
+
+              <h2>About Section</h2>
+              <p id="abouCourse">Programming</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="cards-container">
+          <div class="card-stack">
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card">
+              <img src="src/images/mysql.png" alt="MySQL" width="60" />
+              <p class="section">section 1</p>
+              <h2>Database</h2>
+            </div>
+          </div>
+
+          <div class="card-stack">
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card">
+              <img src="src/images/coding.png" alt="coding" width="60" />
+              <p class="section">section 2</p>
+              <h2>bla blaaa</h2>
+            </div>
+          </div>
+
+          <div class="card-stack">
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card">
+              <img
+                src="src/images/coding (1).png"
+                alt="Coding (1)"
+                width="60"
+              />
+              <p class="section">section 3</p>
+              <h2>blaaaa</h2>
+            </div>
+          </div>
+
+          <div class="card-stack">
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card">
+              <img src="./src/images/coding.png" alt="program" width="60" />
+              <p class="section">section 2</p>
+              <p class="sectionTime"></p>
+              <h2>blaa blaa</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div></div>
+    </div>
+
+    <script src=" https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script type="module" src="src/js/app.js"></script>
+    <script>
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        const courseId = sessionStorage.getItem("courseId");
+        const currentStudentId = sessionStorage.getItem("studentId");
+        const titleElement = document.getElementById("section-title");
+        const sectionBox = document.querySelector(".section-box");
+        const studentNameElement = document.querySelector(".student-name");
+        const courseNameElement = document.querySelector(".course-name");
+        const sectionCount = document.getElementById("section-count");
+        const cardsContainer = document.querySelector(".cards-container");
+        const instructorNameElement = document.getElementById("instructorName");
+
+        const apiUrl =
+          "https://nwwqsqkwmkkuunczucdm.supabase.co/rest/v1/enrollment";
+        const queryParams = "select=*,student(*),course(*)";
+        const API_KEY =
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53d3FzcWt3bWtrdXVuY3p1Y2RtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY1MzEyODIsImV4cCI6MjA2MjEwNzI4Mn0.EF6CGrpM3bjxBo4-ItU3S1BPjfVHdv2HnvoeAdfPZug";
+          cardsContainer.addEventListener('wheel', function (event) {
+  if (event.deltaY !== 0) {
+    event.preventDefault();
+    cardsContainer.scrollLeft += event.deltaY;
+  }
+});
+        try {
+          const response = await fetch(`${apiUrl}?${queryParams}`, {
+            headers: {
+              apikey: API_KEY,
+              Authorization: `Bearer ${API_KEY}`,
+              "Content-Type": "application/json",
+            },
+          });
+
+          if (!response.ok)
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          const enrollments = await response.json();
+
+          const myCourses = enrollments.filter(
+            (item) => item.student?.student_id == currentStudentId
+          );
+          const currentCourse = myCourses.find(
+            (item) => item.course?.course_id == courseId
+          );
+
+          if (!currentCourse) {
+            titleElement.textContent = "No course data found.";
+            return;
+          }
+
+          const courseInfo = currentCourse.course;
+          const studentInfo = currentCourse.student;
+
+          if (courseInfo?.course_name)
+            titleElement.textContent = courseInfo.course_name;
+          if (studentNameElement && studentInfo?.student_name)
+            studentNameElement.textContent = `Hi, ${studentInfo.student_name}`;
+          if (courseNameElement && courseInfo?.course_name)
+            courseNameElement.textContent = `What Will We Study Today in \"${courseInfo.course_name}\" Section?`;
+          if (sectionBox) {
+            const aboutSectionP = document.getElementById("abouCourse");
+            if (aboutSectionP && courseInfo.course_description)
+              aboutSectionP.textContent = courseInfo.course_description;
+          }
+
+          const sessionsResponse = await fetch(
+            `https://nwwqsqkwmkkuunczucdm.supabase.co/rest/v1/session?course_id=eq.${courseId}&select=*`,
+            {
+              headers: {
+                apikey: API_KEY,
+                Authorization: `Bearer ${API_KEY}`,
+              },
+            }
+          );
+
+          const sessions = await sessionsResponse.json();
+
+          const sections = sessions.filter((session) =>
+            session.session_type?.toLowerCase().includes("section")
+          );
+
+          sections.sort(
+            (a, b) => new Date(a.session_time) - new Date(b.session_time)
+          );
+
+          if (cardsContainer) {
+            cardsContainer.innerHTML = "";
+const sectionsToShow = sections.filter(session =>
+    new Date(session.session_time) < new Date()
+);
+                    if (sectionsToShow.length === 0) {
+                        cardsContainer.innerHTML = '<p class="no-sections">No sections available</p>';
+                    }
+            sectionsToShow.forEach((section, index) => {
+              const sectionNumber = index + 1;
+              const sectionTitle =
+                section.session_name ||
+                section.session_file_path
+                  ?.split("/")
+                  .pop()
+                  .replace(/\.[^/.]+$/, "") ||
+                `Section ${sectionNumber}`;
+              const fileName = section.session_file_path?.split("/").pop();
+              const fileUrl = fileName
+                ? `https://nwwqsqkwmkkuunczucdm.supabase.co/storage/v1/object/public/sessions/${fileName}`
+                : "#";
+
+              let sessionDate = "";
+              if (section.session_time) {
+                const options = {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                };
+                sessionDate = new Date(section.session_time).toLocaleDateString(
+                  "en-US",
+                  options
+                );
+              }
+
+              const cardHtml = `
+                                <div class="card-stack">
+                                    <div class="card"></div>
+                                    <div class="card"></div>
+                                    <div class="card main-card">
+                                        <img src="./src/images/material-icons/section-${index}.png" alt="Section ${sectionNumber}" width="60"
+                                        onerror="this.onerror=null; this.src='src/images/material-icons/section-1.png';">
+                                        <p class="section">Section ${sectionNumber}</p>
+                                        <p class="session-date">${sessionDate}</p>
+                                        ${
+                                          fileName
+                                            ? `<a href="${fileUrl}" target="_blank" class="file-button-outline">Open File</a>`
+                                            : "<p>No File Available</p>"
+                                        }
+                                    </div>
+                                </div>
+                            `;
+
+              cardsContainer.innerHTML += cardHtml;
+            });
+
+            document.querySelectorAll(".main-card").forEach((card) => {
+              card.style.cursor = "pointer";
+            });
+          }
+
+          if (sectionCount) {
+            sectionCount.textContent = `Your Sections (${sections.length})`;
+          }
+        } catch (error) {
+          console.error("Error fetching section data:", error);
+          if (titleElement)
+            titleElement.textContent = "Error loading sections.";
+        }
+      });
+    </script>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script type="module" src="src/js/app.js"></script>
+    <script type="module" src="src/js/section.js"></script>
+  </body>
+</html>

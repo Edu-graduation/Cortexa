@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Instructor Dashboard - Reports</title>
+    <link rel="icon" type="image/x-icon" href="/src/images/favicon.ico" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="src/images/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="src/images/favicon-16x16.png"
+    />
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"> -->
+    <link rel="stylesheet" href="src/css/base.css" />
+    <link rel="stylesheet" href="src/css/reports.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="logout-modal" id="confirmationModal">
+        <div class="logout-modal-content">
+          <div class="logout-modal-header">
+            <h2>Confirmation</h2>
+            <button id="logout-closeModal">&times;</button>
+          </div>
+          <div class="logout-modal-message">
+            <p>
+              Are you sure you want to logout?
+            </p>
+          </div>
+          <div class="logout-modal-buttons">
+            <button class="cancel-button" id="logout-cancelButton">Cancel</button>
+            <button class="confirm-button" id="logout-confirmButton">Yes</button>
+          </div>
+        </div>
+      </div>
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="logo">
+          <img src="src/images/logo.svg" class="img-logo" alt="Cortexa Logo" />
+          <p class="logo-text">
+            Cortexa
+          </p>
+      </div>
+        <ul class="sidebar__list">
+          <li id="home" class="Sli homeli">
+            <a class="nav__link" href="home.html">Home</a>
+          </li>
+          <li id="courses" class="Sli couli">
+            <a class="nav__link" href="session.html">Session</a>
+          </li>
+          <li id="quiz" class="Sli calli">
+            <a class="nav__link" href="quiz.html">Quiz</a>
+          </li>
+          <li id="assignment" class="chatli">
+            <a class="Sli" href="assignment.html">Assignment</a>
+          </li>
+          <li id="project" class="chatli">
+            <a class="Sli" href="project.html">Project</a>
+          </li>
+          <li id="calendar" class="chatli">
+            <a class="Sli" href="calendar.html">Calendar</a>
+          </li>
+          <li id="chats" class="chatli">
+            <a class="Sli" href="chats.html">Chats</a>
+          </li>
+          <li id="reports" class="chatli active-button">
+            <a class="Sli" href="reports.html">Reports</a>
+          </li>
+          <li class="log-out">
+            <a>
+              <button class="Btn">
+                <div class="sign">
+                  <svg viewBox="0 0 512 512">
+                    <path
+                      d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1
+                                            20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128
+                                            0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0
+                                            17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32
+                                            14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3
+                                            32 32s-14.3 32-32 32z"
+                    ></path>
+                  </svg>
+                </div>
+                <div class="text">Logout</div>
+              </button>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <div class="reports-header">
+          <h1 id="dashboardTitle">Instructor Analytics</h1>
+          <p>Personalized insights to improve your teaching effectiveness</p>
+          <div class="reports-filters">
+            <select id="courseFilter" class="filter-select">
+              <option value="all">All My Courses</option>
+            </select>
+            <!-- <select id="timeRangeFilter" class="filter-select">
+              <option value="all">All Time</option>
+              <option value="month" selected>Last Month</option>
+              <option value="quarter">Last Quarter</option>
+              <option value="year">Last Year</option>
+            </select> -->
+            <button id="refreshBtn" class="Btn">
+              <div class="sign">
+                <svg viewBox="0 0 512 512">
+                  <path
+                    d="M440.65 12.57l4 82.77A247.16 247.16 0 0 0 255.83 8C134.73 8 33.91 94.92 12.29 209.82A12 12 0 0 0 24.09 224h49.05a12 12 0 0 0 11.67-9.26 175.91 175.91 0 0 1 317-56.94l-101.46-4.86a12 12 0 0 0-12.57 12v47.41a12 12 0 0 0 12 12H500a12 12 0 0 0 12-12V12a12 12 0 0 0-12-12h-47.37a12 12 0 0 0-11.98 12.57z"
+                  ></path>
+                </svg>
+              </div>
+              <div class="text">Refresh</div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Instructor Summary Card -->
+        <div class="instructor-summary">
+          <div class="summary-card">
+            <div class="summary-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+            </div>
+            <div class="summary-content">
+              <h3>Total Students</h3>
+              <p id="totalStudents">Loading...</p>
+            </div>
+          </div>
+          <div class="summary-card">
+            <div class="summary-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                <path
+                  d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"
+                ></path>
+              </svg>
+            </div>
+            <div class="summary-content">
+              <h3>Active Courses</h3>
+              <p id="activeCourses">Loading...</p>
+            </div>
+          </div>
+          <div class="summary-card">
+            <div class="summary-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+              </svg>
+            </div>
+            <div class="summary-content">
+              <h3 class="key-change">Pending Assignments Submissions</h3>
+              <p id="pendingSubmissions">Loading...</p>
+            </div>
+          </div>
+          <!-- <div class="summary-card">
+                    <div class="summary-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                    </div>
+                    <div class="summary-content">
+                        <h3>Avg. Response Time</h3>
+                        <p id="avgResponseTime">Loading...</p>
+                    </div>
+                </div> -->
+        </div>
+
+        <div class="reports-grid">
+          <!-- Course Performance Section -->
+          <div class="report-card wide-card">
+            <h3>Course Performance Overview</h3>
+            <div class="chart-container">
+              <canvas id="coursePerformanceChart"></canvas>
+              <div class="loading-indicator" id="coursePerformanceChartLoading">
+                <div class="spinner"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Student Engagement Section -->
+          <div class="report-card">
+            <h3>Student Engagement</h3>
+            <div class="chart-container">
+              <canvas id="studentEngagementChart"></canvas>
+              <div class="loading-indicator" id="studentEngagementChartLoading">
+                <div class="spinner"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Assignment Completion Section -->
+          <div class="report-card">
+            <h3 class="card-title">Assignment Completion Rates</h3>
+            <div class="chart-container">
+              <canvas id="assignmentCompletionChart"></canvas>
+              <div
+                class="loading-indicator"
+                id="assignmentCompletionChartLoading"
+              >
+                <div class="spinner"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quiz Performance Section -->
+          <div class="report-card wide-card">
+            <h3>Quiz Performance by Course</h3>
+            <div class="chart-container">
+              <canvas id="quizPerformanceChart"></canvas>
+              <div class="loading-indicator" id="quizPerformanceChartLoading">
+                <div class="spinner"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Student Progress Section -->
+          <!-- <div class="report-card">
+            <h3>Student Progress Distribution</h3>
+            <div class="chart-container">
+              <canvas id="studentProgressChart"></canvas>
+              <div class="loading-indicator" id="studentProgressChartLoading">
+                <div class="spinner"></div>
+              </div>
+            </div>
+          </div> -->
+
+          <!-- Activity Participation Section -->
+          <div class="report-card">
+            <h3 class="card-title">Project Participation</h3>
+            <div class="chart-container">
+              <canvas id="activityParticipationChart"></canvas>
+              <div
+                class="loading-indicator"
+                id="activityParticipationChartLoading"
+              >
+                <div class="spinner"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Time Trend Analysis -->
+          <!-- <div class="report-card wide-card">
+                    <h3>Performance Trends Over Time</h3>
+                    <div class="chart-container">
+                        <canvas id="performanceTrendChart"></canvas>
+                        <div class="loading-indicator" id="performanceTrendChartLoading">
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                </div> -->
+          <div class="report-card wide-card">
+            <h3>CGPA Distribution</h3>
+            <div class="chart-container">
+              <canvas id="CGPADistributionChart"></canvas>
+              <div class="loading-indicator" id="CGPADistributionChartLoading">
+                <div class="spinner"></div>
+              </div>
+            </div>
+          </div>
+          <!-- At-Risk Students Section -->
+          <div class="report-card wide-card">
+            <div class="table__header">
+            <h3>At-Risk Students</h3>
+            <input type="search" id="atRiskSearch" placeholder="Search students...">
+            </div>
+
+            <div class="table-container" id="atRiskStudentsTable">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Student Name</th>
+                    <th>Course</th>
+                    <th class="key-change">Missing Assignments</th>
+                    <th>Avg. Quiz Score</th>
+                    <!-- <th>Last Activity</th> -->
+                    <!-- <th>Action</th> -->
+                  </tr>
+                </thead>
+                <tbody id="atRiskStudentsBody">
+                  <tr>
+                    <td colspan="6" class="loading-text">
+                      Loading student data...
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="loading-indicator" id="atRiskStudentsLoading">
+                <div class="spinner"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script type="module" src="src/js/main.js"></script>
+    <script type="module" src="src/js/reports.js"></script>
+  </body>
+</html>

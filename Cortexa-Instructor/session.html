@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Instructor Sessions</title>
+    <link rel="icon" type="image/x-icon" href="/src/images/favicon.ico" />
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="src/images/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="src/images/favicon-16x16.png"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/uicons-bold-straight/css/uicons-bold-straight.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css"
+    />
+    <link rel="stylesheet" href="src/css/base.css" />
+    <link rel="stylesheet" href="src/css/session.css " />
+  </head>
+  <body>
+    <div class="container">
+      <div class="logout-modal" id="confirmationModal">
+        <div class="logout-modal-content">
+          <div class="logout-modal-header">
+            <h2>Confirmation</h2>
+            <button id="logout-closeModal">&times;</button>
+          </div>
+          <div class="logout-modal-message">
+            <p>
+              Are you sure you want to logout?
+            </p>
+          </div>
+          <div class="logout-modal-buttons">
+            <button class="cancel-button" id="logout-cancelButton">Cancel</button>
+            <button class="confirm-button" id="logout-confirmButton">Yes</button>
+          </div>
+        </div>
+      </div>
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="logo">
+          <img src="src/images/logo.svg" class="img-logo" alt="Cortexa Logo" />
+          <p class="logo-text">
+            Cortexa
+          </p>
+      </div>
+        <ul class="sidebar__list">
+          <li id="home" class="Sli homeli">
+            <a class="nav__link" href="home.html">Home</a>
+          </li>
+          <li id="session" class="Sli couli active-button">
+            <a class="nav__link" href="session.html">Session</a>
+          </li>
+          <li id="quiz" class="Sli calli">
+            <a class="nav__link" href="quiz.html">Quiz</a>
+          </li>
+          <li id="assignment" class="chatli">
+            <a class="Sli" href="assignment.html">Assignment</a>
+          </li>
+          <li id="project" class="chatli">
+            <a class="Sli" href="project.html">Project</a>
+          </li>
+          <li id="calendar" class="chatli">
+            <a class="Sli" href="calendar.html">Calendar</a>
+          </li>
+          <li id="chats" class="chatli">
+            <a class="Sli" href="chats.html">Chats</a>
+          </li>
+          <li id="reports" class="chatli">
+            <a class="Sli" href="reports.html">Reports</a>
+          </li>
+          <li class="log-out">
+            <a>
+              <button class="Btn">
+                <div class="sign">
+                  <svg viewBox="0 0 512 512">
+                    <path
+                      d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1
+                                    20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128
+                                    0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0
+                                    17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32
+                                    14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3
+                                    32 32s-14.3 32-32 32z"
+                    ></path>
+                  </svg>
+                </div>
+                <div class="text">Logout</div>
+              </button>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="main-content">
+        <div class="modal-overlay" id="sessionModal">
+          <div class="modal">
+              <div class="loading-overlay" id="modalLoading" style="display: none;">
+                  <div class="loading-spinner"></div>
+              </div>
+
+              <div class="modal-header">
+                  <h2 class="modal-title" id="modalTitle">Create New Session</h2>
+                  <button class="close-btn" id="closeModalBtn">&times;</button>
+              </div>
+
+              <form class="modal-form" id="sessionForm">
+                  <div class="form-row">
+                      <div class="form-group">
+                          <label for="modalCourse">Course</label>
+                          <select id="modalCourse" name="course_id" required>
+                              <option value="">Select Course</option>
+                          </select>
+                      </div>
+                      <div class="form-group">
+                          <label for="modalSessionType">Session Type</label>
+                          <select id="modalSessionType" name="session_type" required>
+                              <option value="lecture">Lecture</option>
+                              <option value="section">Section</option>
+                          </select>
+                      </div>
+                  </div>
+
+                  <div class="form-row">
+                      <div class="form-group">
+                          <label for="modalSessionTime">Session Date & Time</label>
+                          <input type="datetime-local" id="modalSessionTime" name="session_time" required>
+                      </div>
+                      <div class="form-group">
+                          <label for="modalDuration">Session Place</label>
+                          <input type="text" id="modalDuration" name="session_place"required>
+                      </div>
+                  </div>
+
+                  <!-- <div class="form-group">
+                      <label for="modalDescription">Description (Optional)</label>
+                      <textarea id="modalDescription" name="description" placeholder="Session description..."></textarea>
+                  </div> -->
+                  <div class="form-group">
+                    <label for="modalFileInput">Session File (Optional)</label>
+                    <div id="modalFileUploadArea" class="modal-file-upload-area">
+                        <div class="file-upload-content">
+                            <div class="file-upload-icon">📁</div>
+                            <div class="file-upload-text">Click to select a file or drag and drop</div>
+                            <!-- <div class="file-upload-subtext">PDF, DOC, PPT, images, etc.</div> -->
+                        </div>
+                    </div>
+                    <input type="file" id="modalFileInput" class="hidden-file-input" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.jpg,.jpeg,.png,.gif,.zip,.rar">
+                    <div id="modalFilePreview" class="modal-file-preview"></div>
+                    <!-- <label class="custum-file-upload" for="modalFileInput">
+                      <div class="icon">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill=""
+                          viewBox="0 0 24 24"
+                        >
+                          <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
+                          <g
+                            stroke-linejoin="round"
+                            stroke-linecap="round"
+                            id="SVGRepo_tracerCarrier"
+                          ></g>
+                          <g id="SVGRepo_iconCarrier">
+                            <path
+                              fill=""
+                              d="M10 1C9.73478 1 9.48043 1.10536 9.29289 1.29289L3.29289 7.29289C3.10536 7.48043 3 7.73478 3 8V20C3 21.6569 4.34315 23 6 23H7C7.55228 23 8 22.5523 8 22C8 21.4477 7.55228 21 7 21H6C5.44772 21 5 20.5523 5 20V9H10C10.5523 9 11 8.55228 11 8V3H18C18.5523 3 19 3.44772 19 4V9C19 9.55228 19.4477 10 20 10C20.5523 10 21 9.55228 21 9V4C21 2.34315 19.6569 1 18 1H10ZM9 7H6.41421L9 4.41421V7ZM14 15.5C14 14.1193 15.1193 13 16.5 13C17.8807 13 19 14.1193 19 15.5V16V17H20C21.1046 17 22 17.8954 22 19C22 20.1046 21.1046 21 20 21H13C11.8954 21 11 20.1046 11 19C11 17.8954 11.8954 17 13 17H14V16V15.5ZM16.5 11C14.142 11 12.2076 12.8136 12.0156 15.122C10.2825 15.5606 9 17.1305 9 19C9 21.2091 10.7909 23 13 23H20C22.2091 23 24 21.2091 24 19C24 17.1305 22.7175 15.5606 20.9844 15.122C20.7924 12.8136 18.858 11 16.5 11Z"
+                              clip-rule="evenodd"
+                              fill-rule="evenodd"
+                            ></path>
+                          </g>
+                        </svg>
+                      </div>
+                      <div class="text">
+                        <span>Click to upload image</span>
+                      </div>
+                      <input type="file" id="modalFileInput" class="hidden-file-input"
+                      accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.jpg,.jpeg,.png"/>
+                      <div id="modalFileUploadArea" class="modal-file-upload-area">
+                        <div class="file-upload-content">
+                            <div class="file-upload-text">Click to select a file or drag and drop</div>
+                            <div class="file-upload-subtext">PDF, DOC, PPT, images, etc.</div>
+                        </div>
+                    </div>
+                    </label>
+                    <div id="modalFilePreview" class="modal-file-preview"></div> -->
+                </div>
+
+                  <div class="modal-actions">
+                      <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                      <button type="submit" class="btn btn-primary" id="saveBtn">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M17,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V7L17,3M19,19H5V5H16.17L19,7.83V19M12,12A3,3 0 0,0 9,15A3,3 0 0,0 12,18A3,3 0 0,0 15,15A3,3 0 0,0 12,12M6,6V10H15V6H6Z"/>
+                          </svg>
+                          Save Session
+                      </button>
+                  </div>
+              </form>
+          </div>
+      </div>
+      <div class="modal-overlay" id="deleteModal">
+        <div class="modal" style="max-width: 40rem;">
+            <div class="modal-header">
+                <h2 class="modal-title">Confirm Delete</h2>
+                <button class="close-btn" id="closeDeleteModalBtn">&times;</button>
+            </div>
+
+            <div class="delete-confirmation">
+                <div class="warning-icon">⚠️</div>
+                <h3>Are you sure?</h3>
+                <p>This action cannot be undone. The session will be permanently deleted.</p>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelDeleteBtn">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"/>
+                        </svg>
+                        Delete Session
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+        <h1 class="page-title">Session Management</h1>
+        <section class="session-section">
+          <div class="sessions-controls" style="margin-bottom: 2rem;">
+            <button class="create-btn" id="createSessionBtn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C13.1 2 14 2.9 14 4V10H20C21.1 10 22 10.9 22 12C22 13.1 21.1 14 20 14H14V20C14 21.1 13.1 22 12 22C10.9 22 10 21.1 10 20V14H4C2.9 14 2 13.1 2 12C2 10.9 2.9 10 4 10H10V4C10 2.9 10.9 2 12 2Z"/>
+                </svg>
+                Create New Session
+            </button>
+        </div>
+          <div class="sessions-side">
+            <header class="sessions-header">
+              <p class="sessions-header__number">session number</p>
+              <p class="sessions-header__date">session date</p>
+              <p class="sessions-header__file">preview</p>
+              <p class="sessions-header__action">actions</p>
+            </header>
+            <div class="sessions-container">
+            </div>
+          </div>
+          <form class="upload-from">
+            <h2 class="form__title">Upload Sessions</h2>
+            <div class="course__name">
+              <label for="course-name">Course Name</label>
+              <select name="courseName" id="course-name"></select>
+            </div>
+            <div class="group-container">
+              <div class="input__group">
+                <label for="session-type">Session Type</label>
+                <select name="sessionType" id="session-type">
+                  <option value="lecture">lecture</option>
+                  <option value="section">section</option>
+                </select>
+              </div>
+              <div class="input__group">
+                <label for="session-number">Session Number </label>
+                <select name="sessionNumber" id="session-number"></select>
+              </div>
+            </div>
+            <!-- <div class="upload-area">
+              <label for="file-0">upload</label>
+              <input class="upload-input" type="file" id="file-0" />
+            </div> -->
+            <label class="custum-file-upload" for="file">
+              <div class="icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill=""
+                  viewBox="0 0 24 24"
+                >
+                  <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
+                  <g
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                    id="SVGRepo_tracerCarrier"
+                  ></g>
+                  <g id="SVGRepo_iconCarrier">
+                    <path
+                      fill=""
+                      d="M10 1C9.73478 1 9.48043 1.10536 9.29289 1.29289L3.29289 7.29289C3.10536 7.48043 3 7.73478 3 8V20C3 21.6569 4.34315 23 6 23H7C7.55228 23 8 22.5523 8 22C8 21.4477 7.55228 21 7 21H6C5.44772 21 5 20.5523 5 20V9H10C10.5523 9 11 8.55228 11 8V3H18C18.5523 3 19 3.44772 19 4V9C19 9.55228 19.4477 10 20 10C20.5523 10 21 9.55228 21 9V4C21 2.34315 19.6569 1 18 1H10ZM9 7H6.41421L9 4.41421V7ZM14 15.5C14 14.1193 15.1193 13 16.5 13C17.8807 13 19 14.1193 19 15.5V16V17H20C21.1046 17 22 17.8954 22 19C22 20.1046 21.1046 21 20 21H13C11.8954 21 11 20.1046 11 19C11 17.8954 11.8954 17 13 17H14V16V15.5ZM16.5 11C14.142 11 12.2076 12.8136 12.0156 15.122C10.2825 15.5606 9 17.1305 9 19C9 21.2091 10.7909 23 13 23H20C22.2091 23 24 21.2091 24 19C24 17.1305 22.7175 15.5606 20.9844 15.122C20.7924 12.8136 18.858 11 16.5 11Z"
+                      clip-rule="evenodd"
+                      fill-rule="evenodd"
+                    ></path>
+                  </g>
+                </svg>
+              </div>
+              <div class="text">
+                <span>Click to upload image</span>
+              </div>
+              <input type="file" id="file" />
+            </label>
+
+            <button class="upload-btn">Upload</button>
+          </form>
+        </section>
+      </div>
+    </div>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script type="module" src="src/js/main.js"></script>
+    <script type="module" src="src/js/session.js"></script>
+  </body>
+</html>

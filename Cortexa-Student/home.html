@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <title>Home</title>
+  <link rel="icon" type="image/x-icon" href="/src/images/favicon.ico" />
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="32x32"
+    href="src/images/favicon-32x32.png"
+  />
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="16x16"
+    href="src/images/favicon-16x16.png"
+  />
+  <link rel="stylesheet" href="src/css/base.css">
+  <link rel="stylesheet" href="src/css/Home_St.css">
+</head>
+
+<body>
+  <div class="container">
+
+    <div class="logout-modal" id="confirmationModal">
+      <div class="logout-modal-content">
+        <div class="logout-modal-header">
+          <h2>Confirmation</h2>
+          <button id="logout-closeModal">&times;</button>
+        </div>
+        <div class="logout-modal-message">
+          <p>
+            Are you sure you want to logout?
+          </p>
+        </div>
+        <div class="logout-modal-buttons">
+          <button class="cancel-button" id="logout-cancelButton">Cancel</button>
+          <button class="confirm-button" id="logout-confirmButton">Yes</button>
+        </div>
+      </div>
+    </div>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="logo">
+        <img src="src/images/logo.svg" class="img-logo" alt="Cortexa Logo" />
+        <p class="logo-text">
+          Cortexa
+        </p>
+      </div>
+      <ul class="sidebar__list">
+        <li id="home" class="Sli homeli active-button"> <a class="nav__link" href="home.html">Home</a></li>
+        <li id="courses" class="Sli couli"><a class="nav__link" href="courses.html">Courses</a></li>
+        <li id="calendar" class="Sli calli"><a class="nav__link" href="calendar.html">Calendar</a></li>
+        <li id="chats" class="chatli">
+          <a class="Sli" href="chats.html">Chats</a>
+        </li>
+        <li class="log-out">
+          <a >
+            <button class="Btn">
+              <div class="sign">
+                <svg viewBox="0 0 512 512">
+                  <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1
+        20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128
+        0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0
+        17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32
+        14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3
+        32 32s-14.3 32-32 32z"></path>
+                </svg>
+              </div>
+              <div class="text">Logout</div>
+            </button>
+          </a>
+        </li>
+      </ul>
+
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+      <div class="welcome">
+        <div class="left">
+          <p class="goodMorning">Welcome <span id="goodMorning"> Sa3doka</span></p>
+          <p class="niceDay">Have a nice day !</p>
+        </div>
+        <div class="right">
+          <img src="src/images/welcome.png" alt="User Photo" />
+
+        </div>
+      </div>
+      <div class="Wdeadline">
+        <p class="deadline-title">Weakly Deadline :</p>
+        <div class="deadlineBoxes">
+          <!-- <div class="box" id="assignmentCard">
+            <div class="upper" id="title">MOT</div>
+            <div class="lower" id="type">Assignment</div>
+            <div class="box__time-container">
+              <p class="box__time" id="date">5 oct sun</p>
+              <img class="imgCard" src="src/images/icons8-clock-60.png" />
+            </div>
+          </div>
+          <div class="box">
+            <div class="upper">ITI</div>
+            <div class="lower">Assignment</div>
+            <div class="box__time-container">
+              <p class="box__time">3 nov mon</p>
+              <img class="imgCard" src="src/images/icons8-clock-60.png" />
+            </div>
+          </div>
+          <div class="box">
+            <div class="upper">SAD</div>
+            <div class="lower">Presentation</div>
+            <div class="box__time-container">
+              <p class="box__time">19 oct wed</p>
+              <img class="imgCard" src="src/images/icons8-clock-60.png" />
+            </div>
+          </div>
+          <div class="box">
+            <div class="upper">Database</div>
+            <div class="lower">Assignment</div>
+            <div class="box__time-container">
+              <p class="box__time">6 oct sat</p>
+              <img class="imgCard" src="src/images/icons8-clock-60.png" />
+            </div>
+          </div> -->
+        </div>
+        <div class="nav-buttons">
+          <button class="nav-button" id="prev"><i class="fa-solid fa-arrow-left"></i></button>
+          <button class="nav-button" id="next"><i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+      </div><br>
+
+      <div class="courses-wrapper">
+        <div id="box1" class="course-card">
+          <h3 id="text-box1" >Today’s Progress</h3>
+          <p class="today-progress-text"></p>
+          <div class="progress-track">
+            <div class="progress-fill today-progress-fill" style="width: 0%">
+              <span class="progress-text today-progress-percentage"></span>
+            </div>
+          </div>
+        </div>
+
+        <div id="box2"class="course-card">
+          <h3 id="text-box2">Semester Progress</h3>
+          <p class="semester-progress-date"></p>
+          <div class="progress-track">
+            <div class="progress-fill semester-progress-fill" style="width: 0%">
+              <span class="progress-text semester-progress-percentage"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Sidebar -->
+    <div class="user-profile">
+      <div class="user-info">
+        <img src="src/images/userSaad.jpg" class="img" /><br>
+        <h3 id="institutionName"></h3><br>
+        <div class="lines-container">
+          <div class="line line1"></div>
+          <div class="line line2"></div>
+          <div class="line line3"></div><br>
+        </div><br>
+        <div class="user-p">
+          <p><span class="label">Name:</span> <span class="value" id="name"></span></p><br>
+          <p><span class="label">ID:</span> <span class="value" id="id"></span></p><br>
+          <p><span class="label">GPA:</span> <span class="value" id="gpa"></span></p><br>
+          <p><span class="label">Level:</span> <span class="value" id="class"></span></p><br>
+          <p><span class="label">Major:</span> <span class="value" id="dep"></span></p><br>
+
+        </div>
+
+      </div>
+
+      <div class="calendar-container">
+        <div class="calendar-header">
+        </div>
+        <div class="calendar-days" id="calendar-container">
+        </div>
+        <div class="today-schedule">
+          <h4 class="Today-Schedule-title">Today’s Schedule</h4>
+          <div class="schedule-grid">
+            <div class="schedule-item">
+              <p> </p>
+              <span> </span>
+            </div>
+            <div class="schedule-item">
+              <p></p>
+              <span> </span>
+            </div>
+            <div class="schedule-item">
+              <p> </p>
+              <span> </span>
+            </div>
+            <div class="schedule-item">
+              <p> </p>
+              <span>  </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  </div>
+  </div>
+  <script src=" https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script type="module" src="src/js/app.js"></script>
+  <script type="module" src="src/js/home.js"></script>
+  <script type="module">
+    import {getInstitutionId} from './src/js/app.js';
+    const buttons = document.querySelectorAll("#home, #calendar, #courses, #chats");
+    const hoverElement = document.getElementById("hoverElement");
+    function resetButtonColors() {
+      buttons.forEach((button) => {
+        button.classList.remove("active-button");
+      });
+    }
+
+    buttons.forEach((button) => {
+      const positionMap = {
+        home: "109px",
+        calendar: "202px",
+        courses: "297px",
+        chats: "389px",
+      };
+
+      button.addEventListener("click", function () {
+        resetButtonColors();
+
+        this.classList.add("active-button");
+        hoverElement.style.top = positionMap[this.id];
+      });
+    });
+
+
+    function generateCalendar() {
+      const container = document.getElementById('calendar-container');
+      const today = new Date();
+      const currentDay = today.getDay(); // 0 = Sunday, 1 = Monday, etc.
+      const currentDate = today.getDate();
+
+      // Short day names
+      const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+      // Calculate the start date (3 days before today)
+      const startDate = new Date(today);
+      startDate.setDate(currentDate - 3);
+
+      // Generate 7 days (today in the middle)
+      for (let i = 0; i < 7; i++) {
+        const date = new Date(startDate);
+        date.setDate(startDate.getDate() + i);
+
+        const dayName = dayNames[date.getDay()];
+        const dayNumber = date.getDate();
+
+        // Create the day element
+        const dayElement = document.createElement('div');
+        dayElement.className = 'day';
+        if (date.getDate() === currentDate &&
+            date.getMonth() === today.getMonth() &&
+            date.getFullYear() === today.getFullYear()) {
+          dayElement.classList.add('active');
+        }
+
+        // Create day name and date elements
+        dayElement.innerHTML = `${dayName} <span>${dayNumber}</span>`;
+
+        // Add to container
+        container.appendChild(dayElement);
+      }
+    }
+
+    // Run when the page loads
+    window.addEventListener('DOMContentLoaded', generateCalendar);
+
+
+
+
+    const BASE_URL = "https://nwwqsqkwmkkuunczucdm.supabase.co/rest/v1/student";
+    const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53d3FzcWt3bWtrdXVuY3p1Y2RtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY1MzEyODIsImV4cCI6MjA2MjEwNzI4Mn0.EF6CGrpM3bjxBo4-ItU3S1BPjfVHdv2HnvoeAdfPZug";
+    const studentId = sessionStorage.getItem("studentId");
+
+    function fetchStudentData() {
+      fetch(`${BASE_URL}?student_id=eq.${studentId}&select=student_id,student_name,student_level,student_major,student_cgpa,institution(institution_name)`, {
+        headers: {
+          "apikey": API_KEY,
+          "Authorization": `Bearer ${API_KEY}`,
+        },
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.length > 0) {
+            const student = data[0];
+
+            document.getElementById("name").textContent = student.student_name;
+            document.getElementById("id").textContent = student.student_id;
+            document.getElementById("gpa").textContent = student.student_cgpa;
+            document.getElementById("dep").textContent = student.student_major;
+            document.getElementById("class").textContent = student.student_level;
+            document.getElementById("goodMorning").textContent = student.student_name;
+
+            if (student.institution) {
+              document.getElementById("institutionName").textContent = student.institution.institution_name;
+            } else {
+              document.getElementById("institutionName").textContent = "";
+            }
+          }
+        })
+        .catch(error => {
+          console.error("Error:", error);
+        });
+    }
+
+    fetchStudentData();
+
+
+
+
+//start from to day
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+
+// 7 days later
+const nextWeek = new Date(today);
+nextWeek.setDate(today.getDate() + 7);
+nextWeek.setHours(23, 59, 59, 999);
+
+// const weeklydeadline_URL = "https://iuiwdjtmdeempcqxeuhf.supabase.co/rest/v1/enrollment";
+// const weeklydeadlineAPI_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml1aXdkanRtZGVlbXBjcXhldWhmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ3NTY1MDcsImV4cCI6MjA2MDMzMjUwN30.XfSmnKA8wbsXIA1qkfYaRkzxtEdudIDNYbSJu-M5Zag";
+
+// fetch(
+//   `${weeklydeadline_URL}?student_id=eq.${studentId}&select=*,course(course_id,course_name,assignment(*))`,
+//   {
+//     headers: {
+//       apikey: weeklydeadlineAPI_KEY,
+//       Authorization: `Bearer ${weeklydeadlineAPI_KEY}`,
+//     },
+//   }
+// )
+//   .then((res) => res.json())
+//   .then((data) => {
+//     const deadlineContainer = document.querySelector(".deadlineBoxes");
+//     deadlineContainer.innerHTML = "";
+
+//     // 1. جمع كل المهام من جميع الكورسات في نطاق الأسبوع
+//     const allAssignments = [];
+//     data.forEach((enrollment) => {
+//       const courseName = enrollment.course.course_name;
+//       enrollment.course.assignment.forEach((assignment) => {
+//         // تأكد من أن التاريخ صالح، وافترضنا الحقل اسمه assign_duedate
+//         const dueDate = new Date(assignment.assign_duedate);
+//         // إذا كان التاريخ داخل نطاق اليوم وحتى نهاية الأسبوع
+//         if (dueDate >= today && dueDate <= nextWeek) {
+//           allAssignments.push({
+//             courseName,
+//             assignTitle: assignment.assign_title,
+//             dueDateRaw: assignment.assign_duedate,
+//             dueDate: dueDate
+//           });
+//         }
+//       });
+//     });
+
+//     // 2. ترتيب المهام حسب الوقت (من الأقرب للأبعد)
+//     allAssignments.sort((a, b) => a.dueDate.getTime() - b.dueDate.getTime());
+
+//     // Debug: طباعة التواريخ للتأكد
+//     console.log("Today's:", today);
+//     console.log("Next week:", nextWeek);
+//     console.log("Fetched assignments count:", allAssignments.length);
+//     allAssignments.forEach(a => {
+//       console.log(`${a.courseName}: ${a.dueDate.toLocaleDateString()} ${a.dueDate.toLocaleTimeString()}`);
+//     });
+
+//     // 3. عرض المهام
+//     allAssignments.forEach((assignment) => {
+//       const dateObj = assignment.dueDate;
+
+//       // تنسيق التاريخ
+//       const day = dateObj.getDate().toString().padStart(2, "0");
+//       const month = (dateObj.getMonth() + 1).toString().padStart(2, "0");
+//       const year = dateObj.getFullYear();
+//       const formattedDate = `${day}/${month}/${year}`;
+
+//       // تنسيق الوقت
+//       const formattedTime = dateObj.toLocaleTimeString("en-US", {
+//         hour: "numeric",
+//         minute: "numeric",
+//         hour12: true,
+//       });
+
+//       const assignDueDate = `${formattedDate}  ${formattedTime}`;
+
+//       const box = document.createElement("div");
+//       box.classList.add("box");
+
+//       box.innerHTML = `
+//         <div class="upper">${assignment.courseName}</div>
+//         <div class="lower">${assignment.assignTitle}</div>
+//         <div class="box__time-container">
+//           <p class="box__time">${assignDueDate}</p>
+//           <img class="imgCard" src="src/images/icons8-clock-60.png" />
+//         </div>
+//       `;
+
+//       deadlineContainer.appendChild(box);
+//     });
+//   })
+//   .catch((err) => {
+//     console.error("Error fetching deadlines:", err);
+//     const deadlineContainer = document.querySelector(".deadlineBoxes");
+//     deadlineContainer.innerHTML = "<p>Not found any assignment</p>";
+//   });
+
+
+    // Fetching today's Schedule
+    // const todaySessions_URL = "https://iuiwdjtmdeempcqxeuhf.supabase.co/rest/v1/enrollment?select=course_id,course:course_id(course_name,session:session(course_id,session_type,session_time))&student_id=eq." + studentId;
+    // const todaySessions_API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml1aXdkanRtZGVlbXBjcXhldWhmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ3NTY1MDcsImV4cCI6MjA2MDMzMjUwN30.XfSmnKA8wbsXIA1qkfYaRkzxtEdudIDNYbSJu-M5Zag";
+
+    // function fetchSchedule(options = {}) {
+    //   // Default options
+    //   const defaults = {
+    //     apiUrl: todaySessions_URL,
+    //     apiKey: todaySessions_API_KEY,
+    //     containerSelector: ".schedule-grid",
+    //     date: getCurrentDate(),
+    //     timeFormatter: (date) => date.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }),
+    //     itemRenderer: null,
+    //     sessionFilter: null
+    //   };
+
+    //   // Merge provided options with defaults
+    //   const config = { ...defaults, ...options };
+
+    //   // Get container element
+    //   const container = document.querySelector(config.containerSelector);
+    //   if (!container) {
+    //     console.error(`Container element not found: ${config.containerSelector}`);
+    //     return;
+    //   }
+
+    //   // Clear existing content
+    //   container.innerHTML = "";
+
+    //   // Show loading state
+    //   container.innerHTML = '<div class="loading-spinner"></div>';
+
+    //   // Fetch data from API
+    //   fetch(config.apiUrl, {
+    //     headers: {
+    //       apikey: config.apiKey,
+    //       Authorization: `Bearer ${config.apiKey}`,
+    //     },
+    //   })
+    //     .then((res) => {
+    //       if (!res.ok) {
+    //         throw new Error(`API response error: ${res.status}`);
+    //       }
+    //       return res.json();
+    //     })
+    //     .then((data) => {
+    //       // Clear loading message
+    //       container.innerHTML = "";
+
+    //       // Check if data is empty
+    //       if (!data || data.length === 0) {
+    //         container.innerHTML = '<div class="schedule-empty">No sessions scheduled for today</div>';
+    //         return;
+    //       }
+
+    //       // Process each enrollment
+    //       const sessions = [];
+
+    //       data.forEach((enrollment) => {
+
+    //         const course = enrollment.course;
+    //         if (!course || !course.session) return;
+
+    //         course.session.forEach((session) => {
+    //           const sessionTime = new Date(session.session_time);
+    //           const sessionDate = sessionTime.toISOString().split('T')[0];
+
+    //           // Apply filter if provided, otherwise filter by date
+    //           const filterFn = config.sessionFilter || ((s) => s.date === config.date);
+
+    //           if (filterFn({
+    //             date: sessionDate,
+    //             time: sessionTime,
+    //             type: session.session_type,
+    //             course: course.course_name
+    //           })) {
+    //             sessions.push({
+    //               courseId: course.course_id,
+    //               courseName: course.course_name,
+    //               sessionType: session.session_type,
+    //               time: sessionTime,
+    //               formattedTime: config.timeFormatter(sessionTime)
+    //             });
+    //           }
+    //         });
+    //       });
+
+    //       // Sort sessions by time
+    //       sessions.sort((a, b) => a.time - b.time);
+
+    //       // Check if we have any sessions after filtering
+    //       if (sessions.length === 0) {
+    //         container.innerHTML = '<div class="schedule-empty">No sessions scheduled for today</div>';
+    //         return;
+    //       }
+
+    //       // Render each session
+    //       sessions.forEach((session) => {
+    //         // Use custom renderer if provided, otherwise use default
+    //         if (typeof config.itemRenderer === 'function') {
+    //           const renderedItem = config.itemRenderer(session);
+    //           if (renderedItem instanceof Element) {
+    //             container.appendChild(renderedItem);
+    //           } else if (typeof renderedItem === 'string') {
+    //             const tempContainer = document.createElement('div');
+    //             tempContainer.innerHTML = renderedItem;
+    //             while (tempContainer.firstChild) {
+    //               container.appendChild(tempContainer.firstChild);
+    //             }
+    //           }
+    //         } else {
+    //           // Default rendering
+    //           const itemElement = document.createElement("div");
+    //           itemElement.classList.add("schedule-item");
+
+    //           // Create the item content
+    //           itemElement.innerHTML = `
+    //             <p>${session.courseName} ${session.sessionType}</p>
+    //             <span>At ${session.formattedTime}</span>
+    //           `;
+
+    //           container.appendChild(itemElement);
+    //         }
+    //       });
+    //     })
+    //     .catch((err) => {
+    //       console.error("Error fetching schedule data:", err);
+    //       container.innerHTML = `<div class="schedule-error">Error loading schedule: ${err.message}</div>`;
+    //     });
+    // }
+
+    // // Helper function to get current date in YYYY-MM-DD format
+    // function getCurrentDate() {
+    //   const today = new Date();
+    //   return today.toISOString().split('T')[0];
+    // }
+
+    // // Example usage with default options (today's schedule)
+    // fetchSchedule();
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+window.addEventListener("DOMContentLoaded", async() => {
+  // const institutionId = sessionStorage.getItem("institution_id");
+  const majorElement = document.getElementById("dep")?.parentElement;
+  const institutionId = await getInstitutionId(studentId);
+  if (!institutionId || !majorElement) return; // تأكد من وجود البيانات والعنصر
+
+  if (institutionId == "1") {
+    majorElement.style.display = "block"; // يظهر العنصر
+  } else if (institutionId == "2") {
+    majorElement.style.display = "none"; // يخفي العنصر
+  }
+});
+  </script>
+</body>
+
+</html>

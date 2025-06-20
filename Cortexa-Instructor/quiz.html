@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Instructor quiz</title>
+    <link rel="icon" type="image/x-icon" href="/src/images/favicon.ico" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="src/images/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="src/images/favicon-16x16.png"
+    />
+    <link rel="stylesheet" href="src/css/base.css" />
+    <link rel="stylesheet" href="src/css/session.css" />
+    <style>
+      .form__title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        position: sticky;
+      }
+
+      .input__group {
+        margin-bottom: 1rem;
+      }
+
+      .input__group label {
+        display: block;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+      }
+
+      .input__group input,
+      .input__group select {
+        width: 100%;
+        padding: 8px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+      }
+
+      .question-block {
+        margin-bottom: 2rem;
+        padding: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background: #f9f9f9;
+      }
+
+      .option-input {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 0.5rem;
+      }
+
+      .option-input input {
+        flex: 1;
+      }
+
+      .option-input button {
+        background-color: #da4c3c;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 4px 8px;
+        cursor: pointer;
+        font-size: 12px;
+      }
+
+      .upload-btn {
+        background-color: #6a5af9;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 4px 10px;
+        cursor: pointer;
+        font-size: 13px;
+        margin-top: 0.5rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .upload-btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(106, 90, 249, 0.3);
+      }
+
+      .add-option-btn {
+        margin-top: 0.5rem;
+        background-color: #6a5af9;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 3px 7px;
+        cursor: pointer;
+        font-size: 12px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .add-option-btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(106, 90, 249, 0.3);
+      }
+
+      .submission-section {
+        width: 100%;
+        height: 30rem;
+      }
+
+      .submission-list-card {
+        background-color: white;
+        border-radius: 15px;
+        padding: 2rem;
+        width: 100%;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        transition: transform 0.3s ease;
+        height: 100%;
+        position: relative;
+      }
+
+      .submission-list-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .upload-form-card h2,
+      .submission-list-card h2 {
+        color: #6a5af9;
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+      }
+
+      .submission-list-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .submission-list-table th,
+      .submission-list-table td {
+        padding: 12px 15px;
+        text-align: center;
+        border-bottom: 1px solid #eee;
+        color: #666;
+      }
+
+      .submission-list-table th {
+        background: linear-gradient(135deg, #6a5af9, #8a7af9);
+        color: white;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 14px;
+        width: 20%;
+      }
+
+      .submission-list-table td {
+        width: 20%;
+      }
+
+      .submission-list-table tr:hover {
+        background-color: #f1f5ff;
+      }
+
+      .sessions-header__file button,
+      .session__file button {
+        background-color: #6a5af9;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 4px 8px;
+        font-size: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-right: 5px;
+      }
+
+      .sessions-header__file button:hover,
+      .session__file button:hover {
+        transform: scale(1.1) rotate(5deg);
+        box-shadow: 0 4px 12px rgba(106, 90, 249, 0.5);
+        background-color: #5949e7;
+        letter-spacing: 0.5px;
+      }
+
+      .session__title {
+        flex: 1;
+        padding-left: 8px;
+        font-weight: 500;
+        color: #444;
+        max-width: 200px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .sessions-header {
+        display: flex;
+        align-items: center;
+        /* padding: 0.8rem 1rem; */
+  padding: 1.6rem 1rem;
+        background: linear-gradient(135deg, #6a5af9, #8a7af9);
+        color: white;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+      }
+
+      .sessions-header__number {
+        width: 15%;
+        text-align: center;
+        font-weight: 600;
+      }
+
+      .sessions-header__title {
+        width: 35%;
+        padding-left: 8px;
+        font-weight: 600;
+      }
+
+      .sessions-header__date {
+        width: 25%;
+        text-align: center;
+        font-weight: 600;
+      }
+
+      .sessions-header__file {
+        width: 25%;
+        text-align: center;
+        font-weight: 600;
+      }
+
+      .session {
+        display: flex;
+        align-items: center;
+        padding: 0.8rem 1rem;
+        margin-bottom: 0.5rem;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+      }
+
+      .session__number {
+        width: 15%;
+        text-align: center;
+      }
+
+      .session__title {
+        width: 35%;
+      }
+
+      .session__date {
+        width: 25%;
+        text-align: center;
+      }
+
+      .session__file {
+        width: 25%;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+      }
+
+      .upload-from {
+        padding: 1rem;
+        border-radius: 15px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+      }
+
+      .session-section {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .sessions-side {
+        /* flex: 1;
+        height: 45rem;
+        overflow-y: auto; */
+        width: 60%;
+  gap: 1rem;
+  overflow: hidden scroll;
+  display: flex;
+  flex-direction: column;
+      }
+
+      .sessions-container {
+        height: calc(100% - 4rem);
+      }
+
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+      }
+
+      .modal-content {
+        background-color: white;
+        margin: 5% auto;
+        padding: 20px;
+        border-radius: 10px;
+        width: 80%;
+        max-width: 600px;
+        max-height: 80vh;
+        overflow-y: auto;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      .modal-header h2 {
+        color: #6a5af9;
+        font-size: 1.5rem;
+      }
+
+      .close-modal {
+        background-color: #da4c3c;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 5px 10px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+
+      .close-modal:hover {
+        background-color: #c43b2e;
+      }
+
+      .quiz-results {
+        padding: 10px;
+      }
+
+      .score-details,
+      .question-review {
+        margin-bottom: 15px;
+      }
+
+      .score-details p,
+      .question-review p {
+        margin: 5px 0;
+      }
+
+      .review-item {
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+      }
+
+      .correct {
+        background-color: #d4edda;
+        border: 1px solid #c3e6cb;
+      }
+
+      .incorrect {
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+      }
+      .content{
+        overflow-y: scroll;
+      }
+
+      .result-progress {
+        width: 100%;
+        background-color: #e0e0e0;
+        border-radius: 5px;
+        overflow: hidden;
+      }
+
+      .result-bar {
+        height: 10px;
+        background-color: #5B50C6;
+        transition: width 0.3s ease-in-out;
+      }
+      .view__submission-btn {
+        background-color: #6a5af9;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 4px 8px;
+        font-size: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-right: 5px;
+      }
+      .view__submission-btn:hover,
+      .view__submission-btn:active {
+        transform: scale(1.1) rotate(5deg);
+        box-shadow: 0 4px 12px rgba(106, 90, 249, 0.5);
+        background-color: #5949e7;
+        letter-spacing: 0.5px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="logout-modal" id="confirmationModal">
+        <div class="logout-modal-content">
+          <div class="logout-modal-header">
+            <h2>Confirmation</h2>
+            <button id="logout-closeModal">&times;</button>
+          </div>
+          <div class="logout-modal-message">
+            <p>
+              Are you sure you want to logout?
+            </p>
+          </div>
+          <div class="logout-modal-buttons">
+            <button class="cancel-button" id="logout-cancelButton">Cancel</button>
+            <button class="confirm-button" id="logout-confirmButton">Yes</button>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div class="logo">
+          <img src="src/images/logo.svg" class="img-logo" alt="Cortexa Logo" />
+          <p class="logo-text">
+            Cortexa
+          </p>
+      </div>
+        <ul class="sidebar__list">
+          <li id="home" class="Sli homeli">
+            <a class="nav__link" href="home.html">Home</a>
+          </li>
+          <li id="session" class="Sli couli">
+            <a class="nav__link" href="session.html">Session</a>
+          </li>
+          <li id="quiz" class="Sli calli active-button">
+            <a class="nav__link" href="quiz.html">Quiz </a>
+          </li>
+          <li id="assignment" class="chatli">
+            <a class="Sli" href="assignment.html">Assignment</a>
+          </li>
+          <li id="project" class="chatli">
+            <a class="Sli" href="project.html">Project</a>
+          </li>
+          <li id="calendar" class="chatli">
+            <a class="Sli" href="calendar.html">Calendar</a>
+          </li>
+          <li id="chats" class="chatli">
+            <a class="Sli" href="chats.html">Chats</a>
+          </li>
+          <li id="reports" class="chatli">
+            <a class="Sli" href="reports.html">Reports</a>
+          </li>
+          <li class="log-out">
+            <a>
+              <button class="Btn">
+                <div class="sign">
+                  <svg viewBox="0 0 512 512">
+                    <path
+                      d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1
+                                      20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128
+                                      0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0
+                                      17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32
+                                      14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3
+                                      32 32s-14.3 32-32 32z"
+                    ></path>
+                  </svg>
+                </div>
+                <div class="text">Logout</div>
+              </button>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="main-content">
+        <h1 class="page-title">Quiz Management</h1>
+        <section class="session-section quiz-section">
+          <div class="sessions-side">
+            <header class="sessions-header">
+              <p class="sessions-header__number">Quiz number</p>
+              <p class="sessions-header__title">Quiz Title</p>
+              <p class="sessions-header__date">Quiz deadline</p>
+              <p class="sessions-header__file">Actions</p>
+            </header>
+            <div class="sessions-container" id="quizList">
+              <!-- Quizzes will be displayed here -->
+            </div>
+          </div>
+          <form class="upload-from">
+            <h2 class="form__title">Create Quiz</h2>
+            <div class="content">
+            <div class="form-content">
+              <div class="input__group">
+                <label for="course-select">Select Course</label>
+                <select id="course-select" required>
+                  <option value="">Select a course</option>
+                  <!-- Course options will be added -->
+                </select>
+              </div>
+
+              <div class="input__group">
+                <label for="quiz-title">Quiz Title</label>
+                <input type="text" id="quiz-title" required />
+              </div>
+
+              <div class="input__group">
+                <label for="quiz-duration">Quiz Duration (in minutes)</label>
+                <input type="number" id="quiz-duration" required min="1" />
+              </div>
+              <div class="input__group">
+                <label for="quiz-dueDateTime">Quiz Deadline</label>
+                <input type="datetime-local" id="quiz-dueDateTime" required />
+              </div>
+
+              <div class="input__group">
+                <label>Questions:</label>
+                <div id="questions-container"></div>
+                <button
+                  type="button"
+                  onclick="addQuestion()"
+                  class="upload-btn"
+                >
+                  Add Question
+                </button>
+              </div>
+
+              <button type="button" onclick="submitQuiz()" class="upload-btn">
+                Submit Quiz
+              </button>
+            </div>
+          </form>
+        </div>
+        </section>
+        <div class="submission-section">
+          <div class="submission-list-card">
+            <h2>Student Quiz Submissions</h2>
+            <table class="submission-list-table">
+              <thead>
+                <tr>
+                  <th>Student</th>
+                  <th>Student ID</th>
+                  <th>Score</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="submissionListBody">
+                <tr>
+                  <td colspan="5">Select a quiz to view submissions</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div id="reviewModal" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2>Quiz Review</h2>
+            <button class="close-modal" onclick="closeModal()">Close</button>
+          </div>
+          <div id="reviewContent"></div>
+        </div>
+      </div>
+
+      <script>
+        const questionsContainer = document.getElementById("questions-container");
+        const sessionsContainer = document.querySelector(".sessions-container");
+
+        const courseSelect = document.getElementById("course-select");
+        const instructorId = sessionStorage.getItem("instructorId");
+        const reviewModal = document.getElementById("reviewModal");
+        const reviewContent = document.getElementById("reviewContent");
+        const dueDateTime = document.getElementById("quiz-dueDateTime");
+        dueDateTime.min = new Date().toISOString().slice(0, 16);
+
+        const API_URL = "https://nwwqsqkwmkkuunczucdm.supabase.co/rest/v1/quiz";
+
+        document.addEventListener("DOMContentLoaded", function () {
+          fetchInstructorCourses();
+        });
+
+        async function fetchInstructorCourses() {
+          if (!instructorId) {
+            alert("Instructor ID is missing. Please log in again.");
+            return;
+          }
+
+          try {
+            const response = await fetch(
+              `https://nwwqsqkwmkkuunczucdm.supabase.co/rest/v1/enrollment?select=course_id,course:course_id(course_name)&instructor_id=eq.${instructorId}`,
+              {
+                method: "GET",
+                headers: {
+                  apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53d3FzcWt3bWtrdXVuY3p1Y2RtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY1MzEyODIsImV4cCI6MjA2MjEwNzI4Mn0.EF6CGrpM3bjxBo4-ItU3S1BPjfVHdv2HnvoeAdfPZug",
+                  Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53d3FzcWt3bWtrdXVuY3p1Y2RtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY1MzEyODIsImV4cCI6MjA2MjEwNzI4Mn0.EF6CGrpM3bjxBo4-ItU3S1BPjfVHdv2HnvoeAdfPZug",
+                  "Content-Type": "application/json",
+                },
+              }
+            );
+
+            const courses = await response.json();
+
+            courseSelect.innerHTML = '<option value="">Select a course</option>';
+
+            const uniqueCourses = new Map();
+            courses.forEach((course) => {
+              if (!uniqueCourses.has(course.course_id)) {
+                uniqueCourses.set(course.course_id, course.course.course_name);
+              }
+            });
+
+            uniqueCourses.forEach((courseName, courseId) => {
+              const option = document.createElement("option");
+              option.value = courseId;
+              option.textContent = courseName;
+              courseSelect.appendChild(option);
+            });
+
+            if (uniqueCourses.size > 0) {
+              courseSelect.value = Array.from(uniqueCourses.keys())[0];
+              fetchQuizzesByCourse(Array.from(uniqueCourses.keys())[0]);
+            }
+          } catch (error) {
+            console.error("Error fetching courses:", error);
+            alert("Failed to load courses. Please try again.");
+          }
+        }
+
+        courseSelect.addEventListener("change", function () {
+          const selectedCourseId = this.value;
+          if (selectedCourseId) {
+            fetchQuizzesByCourse(selectedCourseId);
+          } else {
+            document.getElementById("quizList").innerHTML = "";
+            document.getElementById("submissionListBody").innerHTML =
+              '<tr><td colspan="5">Select a course to view quizzes</td></tr>';
+          }
+        });
+
+        async function fetchQuizzesByCourse(courseId) {
+          try {
+            sessionsContainer.innerHTML = '<div class="loading-spinner"></div>';
+            const response = await fetch(
+              `https://nwwqsqkwmkkuunczucdm.supabase.co/rest/v1/quiz?course_id=eq.${courseId}&order=quiz_id.desc`,
+              {
+                method: "GET",
+                headers: {
+                  apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53d3FzcWt3bWtrdXVuY3p1Y2RtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY1MzEyODIsImV4cCI6MjA2MjEwNzI4Mn0.EF6CGrpM3bjxBo4-ItU3S1BPjfVHdv2HnvoeAdfPZug",
+                  Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53d3FzcWt3bWtrdXVuY3p1Y2RtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY1MzEyODIsImV4cCI6MjA2MjEwNzI4Mn0.EF6CGrpM3bjxBo4-ItU3S1BPjfVHdv2HnvoeAdfPZug",
+                  "Content-Type": "application/json",
+                },
+              }
+            );
+
+            if (!response.ok) {
+              const errorText = await response.text();
+              let errorMessage = "Server error";
+              try {
+                const errorJson = JSON.parse(errorText);
+                errorMessage = errorJson.message || errorJson.error || "Unknown error";
+              } catch (e) {
+                errorMessage = errorText || "Server error";
+              }
+              throw new Error(errorMessage);
+            }
+
+            const quizzes = await response.json();
+
+            if (!Array.isArray(quizzes)) {
+              console.error("Unexpected response format:", quizzes);
+              throw new Error("Invalid data format from server");
+            }
+
+            const quizList = document.getElementById("quizList");
+            quizList.innerHTML = "";
+
+            if (quizzes.length === 0) {
+              quizList.innerHTML =
+                '<div class="session section">No quizzes available for this course</div>';
+              document.getElementById("submissionListBody").innerHTML =
+                '<tr><td colspan="5">No quizzes available for this course</td></tr>';
+              return;
+            }
+
+            quizzes.sort((a, b) => new Date(a.quiz_duedatetime) - new Date(b.quiz_duedatetime));
+            quizzes.forEach((quiz, index) => {
+              const quizElement = document.createElement("div");
+              quizElement.className = "session lecture";
+
+              quizElement.innerHTML = `
+                <p class="session__number"><span>${index + 1}</span></p>
+                <p class="session__title">${quiz.quiz_title}</p>
+                <p class="session__date"><span>${formatDate(quiz.quiz_duedatetime)}</span></p>
+                <p class="session__file">
+                  <button onclick="previewQuiz(${quiz.quiz_id})">View</button>
+                </p>
+              `;
+
+              quizList.appendChild(quizElement);
+            });
+          } catch (error) {
+            console.error("Error fetching quizzes:", error);
+            alert(`Failed to load quizzes. Error: ${error.message}`);
+            document.getElementById("submissionListBody").innerHTML =
+              '<tr><td colspan="5">Failed to load quizzes</td></tr>';
+          }
+        }
+
+        function formatDate(dateString) {
+          const date = new Date(dateString);
+
+          // Format the date as DD/MM/YYYY
+          const day = String(date.getDate()).padStart(2, '0');
+          const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+          const year = date.getFullYear();
+          const formattedDate = `${day}/${month}/${year}`;
+
+          // Format the time as HH:MM AM/PM
+          let hours = date.getHours();
+          const minutes = String(date.getMinutes()).padStart(2, '0');
+          const ampm = hours >= 12 ? 'PM' : 'AM';
+          hours = hours % 12 || 12; // Convert to 12-hour format, handle midnight (0 -> 12)
+          const formattedTime = `${String(hours).padStart(2, '0')}:${minutes} ${ampm}`;
+
+          return `${formattedDate} ${formattedTime}`;
+        }
+
+        function previewQuiz(quizId) {
+          fetchQuizTitle(quizId);
+          fetchStudentSubmissions(quizId);
+          sessionStorage.setItem("selectedQuizId", quizId);
+        }
+
+        async function fetchStudentSubmissions(quizId) {
+          try {
+            const response = await fetch(
+              `https://nwwqsqkwmkkuunczucdm.supabase.co/rest/v1/student_quiz?quiz_id=eq.${quizId}&select=*,student:student_id(student_name)`,
+              {
+                method: "GET",
+                headers: {
+                  apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53d3FzcWt3bWtrdXVuY3p1Y2RtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY1MzEyODIsImV4cCI6MjA2MjEwNzI4Mn0.EF6CGrpM3bjxBo4-ItU3S1BPjfVHdv2HnvoeAdfPZug",
+                  Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53d3FzcWt3bWtrdXVuY3p1Y2RtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY1MzEyODIsImV4cCI6MjA2MjEwNzI4Mn0.EF6CGrpM3bjxBo4-ItU3S1BPjfVHdv2HnvoeAdfPZug",
+                  "Content-Type": "application/json",
+                },
+              }
+            );
+
+            if (!response.ok) {
+              throw new Error("Failed to fetch student submissions");
+            }
+
+            const submissions = await response.json();
+            displayStudentSubmissions(submissions, quizId);
+          } catch (error) {
+            console.error("Error fetching student submissions:", error);
+            document.getElementById("submissionListBody").innerHTML =
+              '<tr><td colspan="5">Failed to load student submissions</td></tr>';
+          }
+        }
+
+        function displayStudentSubmissions(submissions, quizId) {
+          const submissionListBody = document.getElementById("submissionListBody");
+          submissionListBody.innerHTML = "";
+
+          if (!submissions || submissions.length === 0) {
+            submissionListBody.innerHTML =
+              '<tr><td colspan="5">No submissions found for this quiz</td></tr>';
+            return;
+          }
+
+          submissions.forEach((submission) => {
+            const row = document.createElement("tr");
+            const studentName = submission.student?.student_name || "Unknown Student";
+            const score = submission.score !== null ? submission.score : "Not graded";
+
+            row.innerHTML = `
+              <td>${studentName}</td>
+              <td>${submission.student_id}</td>
+              <td>${score}</td>
+              <td>
+                <button class="view__submission-btn" onclick="showReview('${submission.student_id}', ${quizId})">
+                  View Review
+                </button>
+              </td>
+            `;
+            submissionListBody.appendChild(row);
+          });
+        }
+
+        async function fetchQuizTitle(quizId) {
+          try {
+            const response = await fetch(
+              `https://nwwqsqkwmkkuunczucdm.supabase.co/rest/v1/quiz?quiz_id=eq.${quizId}`,
+              {
+                method: "GET",
+                headers: {
+                  apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53d3FzcWt3bWtrdXVuY3p1Y2RtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY1MzEyODIsImV4cCI6MjA2MjEwNzI4Mn0.EF6CGrpM3bjxBo4-ItU3S1BPjfVHdv2HnvoeAdfPZug",
+                  Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53d3FzcWt3bWtrdXVuY3p1Y2RtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY1MzEyODIsImV4cCI6MjA2MjEwNzI4Mn0.EF6CGrpM3bjxBo4-ItU3S1BPjfVHdv2HnvoeAdfPZug",
+                  "Content-Type": "application/json",
+                },
+              }
+            );
+
+            const quizData = await response.json();
+
+            if (quizData.length > 0) {
+              const quizTitle = quizData[0].quiz_title;
+              const submissionTitle = document.querySelector(".submission-list-card h2");
+              submissionTitle.textContent = `Student Quiz Submissions for ${quizTitle}`;
+            } else {
+              const submissionTitle = document.querySelector(".submission-list-card h2");
+              submissionTitle.textContent = `Student Quiz Submissions`;
+            }
+          } catch (error) {
+            console.error("Error fetching quiz details:", error);
+            const submissionTitle = document.querySelector(".submission-list-card h2");
+            submissionTitle.textContent = `Student Quiz Submissions`;
+          }
+        }
+
+        function addQuestion() {
+          const questionBlock = document.createElement("div");
+          questionBlock.className = "question-block";
+          questionBlock.innerHTML = `
+            <label>Question:
+              <input type="text" class="question-text" required />
+            </label>
+
+            <div class="options-container"></div>
+            <button type="button" onclick="addOption(this)" class="add-option-btn">Add Option</button>
+
+            <label>Correct Answer:
+              <select class="correct-answer-dropdown"></select>
+            </label>
+
+            <label>Mark:
+              <input type="number" class="question-mark" required min="1" />
+            </label>
+          `;
+          questionsContainer.appendChild(questionBlock);
+        }
+
+        function addOption(button) {
+          const questionBlock = button.closest(".question-block");
+          const optionsContainer = questionBlock.querySelector(".options-container");
+          const optionDiv = document.createElement("div");
+          optionDiv.className = "option-input";
+          optionDiv.innerHTML = `
+            <input type="text" class="option-text" placeholder="Option" required />
+            <button type="button" onclick="removeOption(this)">Remove</button>
+          `;
+          optionsContainer.appendChild(optionDiv);
+          updateCorrectAnswerDropdown(questionBlock);
+        }
+
+        function removeOption(button) {
+          const questionBlock = button.closest(".question-block");
+          button.parentElement.remove();
+          updateCorrectAnswerDropdown(questionBlock);
+        }
+
+        function updateCorrectAnswerDropdown(questionBlock) {
+          const options = questionBlock.querySelectorAll(".option-text");
+          const dropdown = questionBlock.querySelector(".correct-answer-dropdown");
+
+          dropdown.innerHTML = "";
+
+          options.forEach((option, index) => {
+            const value = option.value || `Option ${index + 1}`;
+            const optionElement = document.createElement("option");
+            optionElement.value = index;
+            optionElement.textContent = value;
+            dropdown.appendChild(optionElement);
+          });
+        }
+
+        async function submitQuiz() {
+          const courseId = document.getElementById("course-select").value;
+          const title = document.getElementById("quiz-title").value;
+          const duration = document.getElementById("quiz-duration").value;
+          const dueDateTime = document.getElementById("quiz-dueDateTime").value;
+
+
+
+
+          if (!courseId) {
+            alert("Please select a course");
+            return;
+          }
+
+          if (!title || !duration || !dueDateTime) {
+            alert("Please fill in all fields");
+            return;
+          }
+
+          if (parseInt(duration) <= 0) {
+    alert("Quiz duration cannot be zero or negative. Please enter a valid duration.");
+    return;
+  }
+
+          if (!instructorId) {
+            alert("Instructor ID is missing. Please log in again.");
+            return;
+          }
+
+          // Get current date and time
+          const now = new Date();
+          const currentYear = now.getFullYear();
+          const currentMonth = now.getMonth();
+          const currentDay = now.getDate();
+          const currentHour = now.getHours();
+          const currentMinute = now.getMinutes();
+
+          // Parse selected due date and time
+          const selectedDueDate = new Date(dueDateTime);
+          const selectedYear = selectedDueDate.getFullYear();
+          const selectedMonth = selectedDueDate.getMonth();
+          const selectedDay = selectedDueDate.getDate();
+          const selectedHour = selectedDueDate.getHours();
+          const selectedMinute = selectedDueDate.getMinutes();
+
+          // Compare dates
+          const currentDate = new Date(currentYear, currentMonth, currentDay);
+          const selectedDate = new Date(selectedYear, selectedMonth, selectedDay);
+
+          // Check if the selected date is before today
+          if (selectedDate < currentDate) {
+            alert("Quiz deadline cannot be set to a date before today.");
+            return;
+          }
+
+          // If the selected date is today, check the time
+          if (selectedDate.getTime() === currentDate.getTime()) {
+            if (selectedHour < currentHour ||
+                (selectedHour === currentHour && selectedMinute <= currentMinute)) {
+              alert("Quiz deadline must be set to a time later than the current time today.");
+              return;
+            }
+          }
+
+          const questions = [];
+          const questionBlocks = document.querySelectorAll(".question-block");
+
+          if (questionBlocks.length === 0) {
+            alert("Please add at least one question");
+            return;
+          }
+
+          let formComplete = true;
+
+          questionBlocks.forEach((block, index) => {
+            const questionText = block.querySelector(".question-text").value;
+            const options = Array.from(block.querySelectorAll(".option-text")).map((i) => i.value);
+            const correctIndexElem = block.querySelector(".correct-answer-dropdown");
+            const mark = block.querySelector(".question-mark").value;
+
+            if (!questionText || options.some((opt) => !opt) || !mark || correctIndexElem.options.length === 0) {
+              formComplete = false;
+              return;
+            }
+            console.log("Mark value:", mark); // للتصحيح
+            if (!mark || isNaN(parseFloat(mark)) || parseFloat(mark) <= 0) {
+            alert(`Question ${index + 1} has an invalid mark. Mark must be greater than zero.`);
+            formComplete = false;
+            return;
+            }
+            const correctIndex = correctIndexElem.value;
+            const correctAnswer = options[correctIndex];
+
+            questions.push({
+              question: questionText,
+              options,
+              correct_answer: correctAnswer,
+              marks: parseFloat(mark),
+            });
+          });
+
+          if (!formComplete) {
+            alert("Please fill in all question fields and ensure each question has options");
+            return;
+          }
+
+          const quizData = {
+            quiz_title: title,
+            quiz_duration: formatQuizDuration(parseInt(duration)),
+            quiz_duedatetime: dueDateTime,
+            instructor_id: instructorId,
+            course_id: courseId,
+            quiz_questions: questions,
+          };
+
+          try {
+            const response = await fetch(
+              "https://nwwqsqkwmkkuunczucdm.supabase.co/rest/v1/quiz",
+              {
+                method: "POST",
+                headers: {
+                  apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53d3FzcWt3bWtrdXVuY3p1Y2RtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY1MzEyODIsImV4cCI6MjA2MjEwNzI4Mn0.EF6CGrpM3bjxBo4-ItU3S1BPjfVHdv2HnvoeAdfPZug",
+                  Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53d3FzcWt3bWtrdXVuY3p1Y2RtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY1MzEyODIsImV4cCI6MjA2MjEwNzI4Mn0.EF6CGrpM3bjxBo4-ItU3S1BPjfVHdv2HnvoeAdfPZug",
+                  "Content-Type": "application/json",
+                  Prefer: "return=representation",
+                },
+                body: JSON.stringify(quizData),
+              }
+            );
+
+            if (response.ok) {
+              const result = await response.json();
+              const insertedQuiz = result[0];
+
+              alert("Quiz submitted successfully!");
+              fetchQuizzesByCourse(courseId);
+              document.getElementById("quiz-title").value = "";
+              document.getElementById("quiz-duration").value = "";
+              document.getElementById("quiz-dueDateTime").value = "";
+              document.getElementById("questions-container").innerHTML = "";
+            } else {
+              const errorText = await response.text();
+              let errorMessage = "Server error";
+              try {
+                const errorJson = JSON.parse(errorText);
+                errorMessage = errorJson.message || errorJson.error || "Unknown error";
+              } catch (e) {
+                errorMessage = errorText || "Server error";
+              }
+              console.error("Error submitting quiz:", errorMessage);
+              alert("Error: " + errorMessage);
+            }
+          } catch (error) {
+            console.error("Network error:", error);
+            alert("Connection error. Please check your internet connection and try again.");
+          }
+        }
+
+        function formatQuizDuration(minutes) {
+          const hours = Math.floor(minutes / 60);
+          const remainingMinutes = minutes % 60;
+          return `${hours.toString().padStart(2, "0")}:${remainingMinutes.toString().padStart(2, "0")}:00`;
+        }
+
+        function closeModal() {
+          reviewModal.style.display = "none";
+        }
+
+        async function showReview(studentId, quizId) {
+          sessionStorage.setItem("selectedStudentId", studentId);
+          await fetchAndDisplayReview(studentId, quizId);
+          reviewModal.style.display = "block";
+        }
+
+        async function fetchAndDisplayReview(studentId, quizId) {
+          try {
+            // Fetch student submission data
+            console.log(`Fetching submission for student ${studentId} and quiz ${quizId}`);
+            const studentResponse = await fetch(
+              `https://nwwqsqkwmkkuunczucdm.supabase.co/rest/v1/student_quiz?student_id=eq.${studentId}&quiz_id=eq.${quizId}&select=*`,
+              {
+                method: "GET",
+                headers: {
+                  apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53d3FzcWt3bWtrdXVuY3p1Y2RtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY1MzEyODIsImV4cCI6MjA2MjEwNzI4Mn0.EF6CGrpM3bjxBo4-ItU3S1BPjfVHdv2HnvoeAdfPZug",
+                  Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53d3FzcWt3bWtrdXVuY3p1Y2RtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY1MzEyODIsImV4cCI6MjA2MjEwNzI4Mn0.EF6CGrpM3bjxBo4-ItU3S1BPjfVHdv2HnvoeAdfPZug",
+                  "Content-Type": "application/json",
+                },
+              }
+            );
+
+            if (!studentResponse.ok) {
+              const errorText = await studentResponse.text();
+              console.error("Student submission fetch error:", errorText);
+              throw new Error(`Failed to fetch student submission: ${errorText}`);
+            }
+
+            const studentQuizData = await studentResponse.json();
+            console.log("Student quiz data:", studentQuizData);
+
+            if (!studentQuizData || studentQuizData.length === 0) {
+              reviewContent.innerHTML = "<p>No submission data found for this student.</p>";
+              return;
+            }
+
+            const submission = studentQuizData[0];
+            let selectedAnswers = [];
+            if (submission.student_answers) {
+              try {
+                selectedAnswers = JSON.parse(submission.student_answers);
+                if (!Array.isArray(selectedAnswers)) {
+                  console.error("Parsed student_answers is not an array:", selectedAnswers);
+                  selectedAnswers = [];
+                }
+              } catch (parseError) {
+                console.error("Error parsing student_answers:", parseError, "Raw data:", submission.student_answers);
+                reviewContent.innerHTML = "<p>Error: Invalid student answers data format.</p>";
+                return;
+              }
+            } else {
+              console.warn("No student_answers found in submission:", submission);
+            }
+
+            // Fetch quiz questions
+            console.log(`Fetching quiz questions for quiz ${quizId}`);
+            const quizResponse = await fetch(
+              `https://nwwqsqkwmkkuunczucdm.supabase.co/rest/v1/quiz?quiz_id=eq.${quizId}&select=quiz_questions`,
+              {
+                method: "GET",
+                headers: {
+                  apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53d3FzcWt3bWtrdXVuY3p1Y2RtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY1MzEyODIsImV4cCI6MjA2MjEwNzI4Mn0.EF6CGrpM3bjxBo4-ItU3S1BPjfVHdv2HnvoeAdfPZug",
+                  Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53d3FzcWt3bWtrdXVuY3p1Y2RtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY1MzEyODIsImV4cCI6MjA2MjEwNzI4Mn0.EF6CGrpM3bjxBo4-ItU3S1BPjfVHdv2HnvoeAdfPZug",
+                  "Content-Type": "application/json",
+                },
+              }
+            );
+
+            if (!quizResponse.ok) {
+              const errorText = await quizResponse.text();
+              console.error("Quiz fetch error:", errorText);
+              throw new Error(`Failed to fetch quiz data: ${errorText}`);
+            }
+
+            const quizData = await quizResponse.json();
+            console.log("Quiz data:", quizData);
+
+            if (!quizData || quizData.length === 0) {
+              reviewContent.innerHTML = "<p>No quiz data found.</p>";
+              return;
+            }
+
+            const questions = quizData[0].quiz_questions || [];
+            if (!Array.isArray(questions) || questions.length === 0) {
+              console.warn("No questions found for this quiz:", quizData);
+              reviewContent.innerHTML = "<p>No questions found for this quiz.</p>";
+              return;
+            }
+
+            // Calculate score
+            const score = submission.score !== null ? submission.score : 0;
+            const totalPossibleScore = questions.reduce(
+              (sum, q) => sum + (parseFloat(q.marks) || 1),
+              0
+            );
+            let correctAnswersCount = 0;
+
+            for (let i = 0; i < questions.length; i++) {
+              const studentAnswer = selectedAnswers[i] || null;
+              const correctAnswer = questions[i].correct_answer || null;
+              if (studentAnswer && correctAnswer && studentAnswer === correctAnswer) {
+                correctAnswersCount++;
+              }
+            }
+
+            // Display review
+            reviewContent.innerHTML = `
+              <div class="quiz-results">
+                <div class="score-details">
+                  <p class="score">Student ID: ${studentId}</p>
+                  <p class="score">Total Questions: ${questions.length}</p>
+                  <p class="score">Correct Answers: ${correctAnswersCount}/${questions.length}</p>
+                  <p class="score">Score: ${score}/${totalPossibleScore}</p>
+                </div>
+                <div class="question-review">
+                  <h3>Question Review</h3>
+                  ${questions
+                    .map((question, index) => {
+                      const studentAnswer = selectedAnswers[index] || "Not answered";
+                      const correctAnswer = question.correct_answer || "Not specified";
+                      const isCorrect = studentAnswer === correctAnswer && studentAnswer !== "Not answered";
+                      return `
+                        <div class="review-item ${isCorrect ? "correct" : "incorrect"}">
+                          <p><strong>Question ${index + 1}:</strong> ${question.question || "Question text missing"}</p>
+                          <p>Student Answer: ${studentAnswer}</p>
+                          <p>Correct Answer: ${correctAnswer}</p>
+                        </div>
+                      `;
+                    })
+                    .join("")}
+                </div>
+              </div>
+            `;
+          } catch (error) {
+            console.error("Error in fetchAndDisplayReview:", error);
+            reviewContent.innerHTML = `<p>Error loading review data: ${error.message}</p>`;
+          }
+        }
+      </script>
+
+      <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+      <script type="module" src="src/js/main.js"></script>
+    </body>
+  </html>

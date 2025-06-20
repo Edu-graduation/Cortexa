@@ -1,0 +1,785 @@
+.container{
+  overflow: hidden;
+}
+.main-content {
+  padding: 2rem;
+  /* width: 100%; */
+  /* height: 100%; */
+  background-color: var(--color-grey-light-1);
+  border-radius: 5rem 0px 0px 5rem;
+  box-shadow: 0 0.4rem 2rem rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  /* align-content: center; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* overflow: scroll; */
+  overflow: hidden;
+  scrollbar-width: none;
+}
+
+.searchReplace1 {
+  margin: 1rem;
+  width: 50%;
+  height: 10%;
+  margin-bottom: 3.5rem;
+  border-radius: 5rem;
+  box-shadow: 2px 1px 20px 1px var(--color-primary);
+}
+
+.welcome {
+  margin: 1rem auto;
+  width: 90%;
+  height: 20%;
+  border-radius: 5rem;
+  border: none;
+  box-shadow: 2px 1px 20px 1px var(--color-primary);
+  padding-left: 20rem;
+  padding-top: 1.7rem;
+}
+
+.welcome img {
+  width: 35%;
+  position: relative;
+  left: 60%;
+  top: -12.5rem;
+}
+
+.welcome .goodMorning {
+  font-size: 2.5rem;
+  font-style: italic;
+  font-weight: bold;
+  color: var(--color-primary);
+  align-content: center;
+  margin-top: revert;
+}
+
+.welcome .niceDay {
+  font-size: 2.5rem;
+  color: var(--color-grey-dark-2);
+  align-content: center;
+}
+
+.Wdeadline {
+  /* width: 90%; */
+  padding: 1rem;
+  margin: auto;
+}
+
+.Wdeadline .deadline-title {
+  font-size: 2.6rem;
+  font-weight: bold;
+  color: var(--color-primary);
+  align-content: center;
+  /* margin-bottom: 1rem; */
+}
+
+.Wdeadline .deadlineBoxes {
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  width: 90rem;
+  overflow: scroll hidden;
+  padding: 2rem;
+  /* scrollbar-width: thin; */
+  scrollbar-width: none;
+  /* scrollbar-color: var(--color-primary) transparent; */
+  gap: 2rem;
+}
+.deadlineBoxes::-webkit-scrollbar {
+  height: 8px;
+}
+
+.deadlineBoxes::-webkit-scrollbar-thumb {
+  background-color: var(--color-primary);
+  border-radius: 10px;
+}
+.Wdeadline .deadlineBoxes .box {
+  width: 16rem;
+  flex-shrink: 0;
+  height: 16rem;
+  border-radius: 2.9rem;
+  background-color: var(--color-primary);
+  border: none;
+  box-shadow: 2px 1px 1.5rem 1px var(--color-primary);
+  transition: all 0.5s ease;
+}
+
+.nav-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1rem;
+  margin-left: -8rem;
+}
+.nav-button {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 2rem;
+  transition: all 0.3s ease;
+}
+.nav-button:hover {
+  background-color: var(--color-primary-dark);
+}
+.box:hover {
+  transform: scale(1.1);
+  z-index: 1;
+  transition: all 0.5s ease;
+}
+
+.Wdeadline .deadlineBoxes .box .upper {
+  height: 5.5rem;
+  width: 100%;
+  border-radius: 2.9rem 2rem 0rem 0rem;
+  background-color: var(--color-grey-light-1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--color-primary);
+  align-content: center;
+}
+
+.Wdeadline .deadlineBoxes .box .lower {
+  padding-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: var(--color-grey-light-1);
+  align-content: center;
+  text-align: center;
+}
+
+.courses-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+#text-box2 {
+  /* margin-left: 20px; */
+  margin-bottom: 1rem;
+  text-align: center;
+}
+#text-box1 {
+  /* margin-left: 50px; */
+  text-align: center;
+  margin-bottom: 1rem;
+}
+#box2 {
+  margin-top: 30px;
+  margin-left: -15px;
+  border-bottom: 5px solid #5648d1;
+  border-left: 6px solid #5648d1;
+
+  border-top-left-radius: 0;
+  border-top-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+#box1 {
+  margin-bottom: 30px;
+  margin-right: -20px;
+  border-top: 5px solid #5648d1;
+  border-right: 6px solid #5648d1;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 0px;
+}
+
+.course-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 2.5rem;
+  width: 30rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  font-family: "Segoe UI", sans-serif;
+}
+
+.course-card h3 {
+  margin-bottom: 10px;
+  color: #5a47ff;
+}
+
+.progress-track {
+  background: #eee;
+  border-radius: 30px;
+  height: 35px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  background: linear-gradient(to right, #7a5fff, #5a47ff);
+  height: 100%;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 0.4s ease;
+}
+.progress-text{
+  font-size: var(--fs-7);
+}
+
+.box__time-container {
+  margin: 1rem auto;
+  text-align: center;
+  padding: 0.4rem;
+  width: 75%;
+  font-size: 1.6rem;
+  background: var(--color-primary-dark);
+  color: var(--color-grey-light-1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 1.5rem;
+  /* box-shadow: 0.3rem 0.3rem 2rem rgba(0, 0, 0, 0.3); */
+  backdrop-filter: blur(10rem);
+}
+
+.box__time {
+  font-weight: bold;
+  width: 70%;
+  text-transform: uppercase;
+  /* font-size: small; */
+  font-size: var(--fs-7);
+}
+
+.imgCard {
+  width: 25%;
+  /* transition: all 0.4s ease; */
+}
+
+.box:hover > .box__time-container .imgCard {
+  /* transform: scale(1.3); */
+  animation: ring infinite 1s;
+}
+
+@keyframes ring {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  10% {
+    transform: rotate(10deg);
+  }
+
+  20% {
+    transform: rotate(0deg);
+  }
+
+  30% {
+    transform: rotate(10deg);
+  }
+
+  40% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(10deg);
+  }
+
+  60% {
+    transform: rotate(0deg);
+  }
+
+  70% {
+    transform: rotate(10deg);
+  }
+
+  80% {
+    transform: rotate(0deg);
+  }
+
+  90% {
+    transform: rotate(10deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.exam-countdown {
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem;
+}
+
+.countdown_boxF {
+  background-color: var(--color-grey-light-1);
+  border: 3px solid var(--color-primary-dark);
+  border-radius: 0rem 2.5rem 2.5rem 0rem;
+  padding: 2.5rem;
+  width: 50%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 0.4rem 1.5rem rgba(0, 0, 0, 0.4);
+  transition: countdown_boxF 1s linear;
+  /* Transition for smoothness */
+}
+
+.countdown_boxM {
+  background-color: white;
+  border: 3px solid var(--color-primary-dark);
+  border-radius: 2.5rem 0rem 0rem 2.5rem;
+  padding: 2.5rem;
+  width: 50%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 0.4rem 1.5rem rgba(0, 0, 0, 0.4);
+  transition: countdown_boxM 1s linear;
+  /* Transition for smoothness */
+}
+
+.countdown-box h4 {
+  color: var(--color-primary-dark);
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.timer {
+  display: flex;
+  align-items: center;
+}
+
+.timer-value {
+  font-size: 3.5rem;
+  border-radius: 0.4rem;
+  padding: 0.5rem 3.8rem;
+  margin: 0 0.5rem;
+}
+
+.timer-label {
+  font-size: 2.5rem;
+  color: var(--color-grey-dark-2);
+  margin-left: -4rem;
+}
+
+.refresh-icon {
+  position: absolute;
+  bottom: 0.9rem;
+  right: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 2rem;
+}
+
+.icon-number {
+  color: var(--color-primary-dark);
+  font-size: 1.4rem;
+  font-weight: bold;
+  width: 100%;
+}
+
+/* ==================================================== */
+
+/* User Profile Section */
+.img {
+  display: flex;
+  border-radius: 50%;
+  margin-left: 10rem;
+  margin-top: -8rem;
+  margin-bottom: 0.5rem;
+  width: 10rem;
+  height: 10rem;
+  object-fit: cover;
+  box-shadow: 0 0rem 2rem rgba(0, 0, 0, 0.4);
+}
+
+.user-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--color-grey-light-1);
+  padding: 8rem;
+  border-radius: 0rem 5rem 5rem 0rem;
+  box-shadow: 0 0rem 3rem rgba(0, 0, 0, 0.3);
+  margin-right: 1rem;
+  z-index: 1000;
+}
+
+.user-info {
+  box-shadow: 0 1rem 2.3rem rgba(0, 0, 0, 0.3);
+  width: 150%;
+  padding: 10%;
+  border-radius: 2rem;
+}
+
+.lines-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -1.5rem;
+  margin-bottom: -1.5rem;
+}
+
+.line {
+  height: 0.2rem;
+  background-color: #b3b3b3;
+  margin: 0.2rem 0;
+  border-radius: 0.5rem;
+}
+
+.line1 {
+  width: 15rem;
+}
+
+.line2 {
+  width: 20rem;
+}
+
+.line3 {
+  width: 10rem;
+}
+
+.user-profile h3 {
+  font-size: medium;
+  font-weight: bold;
+  text-align: center;
+  color: var(--color-primary);
+}
+
+.label {
+  color: var(--color-primary);
+  font-weight: bold;
+  font-size: 1.6rem;
+  display: inline-block;
+  /* Ensure it stays inline */
+  margin-right: 0.5rem;
+  /* Add spacing between label and value */
+}
+
+.value {
+  font-size: 1.6rem;
+  color: var(--color-grey-dark-2);
+  display: inline-block;
+}
+
+/* ====================================== */
+
+/* Calendar Section */
+.calendar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem;
+  border-radius: 2rem;
+  width: 100%;
+  margin: 2rem auto;
+}
+
+.calendar-header {
+  font-size: 2.4rem;
+  font-weight: bold;
+  color: var(--color-primary-dark);
+  margin-bottom: 1rem;
+  margin-inline-end: auto;
+}
+
+.calendar-days {
+  display: flex;
+  justify-content: space-between;
+  width: 130%;
+  background-color: var(--color-grey-light-1);
+}
+
+.calendar-days .day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.4rem;
+  color: var(--color-primary-dark);
+  text-shadow: 2px 3px 5px rgba(30, 61, 200, 0.9);
+}
+
+.calendar-days .day span {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-top: 0.5rem;
+  text-shadow: 0rem 0.1rem 0.9rem rgba(80, 91, 120, 1.5);
+}
+
+.calendar-days .active {
+  background-color: var(--color-primary-dark);
+  color: var(--color-grey-light-1);
+  border-radius: 50%;
+  padding: 1rem;
+  margin-top: -0.9rem;
+}
+
+.today-schedule {
+  margin-top: 2rem;
+  background-color: var(--color-grey-light-1);
+  padding: 0.9rem;
+  border-radius: 3rem;
+  box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.3);
+  width: 150%;
+}
+
+.today-schedule h4 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--color-primary-dark);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.schedule-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  text-align: center;
+}
+
+.schedule-item {
+  border-radius: 1rem;
+}
+
+.schedule-item p {
+  font-size: 1.4rem;
+  color: var(--color-primary-dark);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 1024px) {
+  html {
+    font-size: 55%;
+  }
+
+  .main-content {
+    flex-direction: column;
+    margin-left: 10rem;
+  }
+
+  .welcome img {
+    width: 15rem;
+    top: -3rem;
+  }
+
+  .Wdeadline .deadlineBoxes {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .Wdeadline .deadlineBoxes .box {
+    width: 80%;
+  }
+
+  .user-profile {
+    border-radius: 5rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  html {
+    font-size: 50%;
+  }
+
+  .sidebar {
+    width: 8rem;
+  }
+
+  .main-content {
+    margin-left: 8rem;
+  }
+
+  .welcome {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .welcome img {
+    position: static;
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .schedule-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  html {
+    font-size: 45%;
+  }
+
+  .sidebar {
+    width: 6rem;
+  }
+
+  .sidebar nav ul li a {
+    font-size: 1.4rem;
+  }
+
+  .main-content {
+    margin-left: 6rem;
+    padding: 1rem;
+  }
+
+  .course-card {
+    min-width: 100%;
+  }
+
+  .user-profile {
+    padding: 1rem;
+  }
+
+  .calendar-days .day {
+    font-size: 1rem;
+  }
+
+  .calendar-days .day span {
+    font-size: 1.4rem;
+  }
+}
+
+.Btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 2rem;
+  width: 45px;
+  height: 45px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition-duration: 0.3s;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+  background-color: #5a47ff;
+  background-color: #5a47ff;
+}
+
+/* plus sign */
+.sign {
+  width: 100%;
+  transition-duration: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sign svg {
+  width: 17px;
+}
+
+.sign svg path {
+  fill: white;
+}
+
+/* text */
+.text {
+  position: absolute;
+  right: 0%;
+  width: 0%;
+  opacity: 0;
+  color: white;
+  font-size: 1.2em;
+  font-weight: 600;
+  transition-duration: 0.3s;
+}
+
+/* hover effect on button width */
+.Btn:hover {
+  width: 125px;
+  border-radius: 40px;
+  transition-duration: 0.3s;
+}
+
+.Btn:hover .sign {
+  width: 30%;
+  transition-duration: 0.3s;
+  padding-left: 20px;
+}
+
+/* hover effect button's text */
+.Btn:hover .text {
+  opacity: 1;
+  width: 70%;
+  transition-duration: 0.3s;
+  padding-right: 10px;
+}
+.no-deadlines{
+  font-size: var(--fs-5);
+}
+.semester-progress-date{
+  font-size: var(--fs-5);
+  text-align: center;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  margin-bottom: 1rem;
+}
+.today-progress-text{
+  font-size: var(--fs-5);
+  text-align: center;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  margin-bottom: 1rem;
+}
+@media screen and (max-height: 620px) {
+  .Wdeadline .deadlineBoxes .box {
+    width: 14rem;
+    height: 14rem;
+  }
+  .course-card{
+    padding: 1.5rem;
+    width: 35rem;
+    margin-top: -2rem;
+  }
+  #text-box1{
+    margin-bottom: 1rem;
+  }
+  .welcome{
+    margin-left: 0;
+  }
+}
+@media screen and (max-width: 1500px) {
+.main-content{
+  /* margin-left: -1rem; */
+  /* width: 85rem; */
+}
+}
+.no-sessions{
+  font-size: var(--fs-7);
+  grid-column: span 2;
+}
+.nav-buttons{
+  position: relative;
+  z-index: 1000;
+}
+#prev{
+  position: absolute;
+  left: 10rem;
+  top: -2rem;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+}
+#next{
+  position: absolute;
+  right: 10rem;
+  top: -2rem;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+}

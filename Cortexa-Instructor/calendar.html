@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calendar</title>
+    <link rel="icon" type="image/x-icon" href="/src/images/favicon.ico" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="src/images/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="src/images/favicon-16x16.png"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="src/css/base.css" />
+    <link rel="stylesheet" href="src/css/calendar.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="logout-modal" id="confirmationModal">
+        <div class="logout-modal-content">
+          <div class="logout-modal-header">
+            <h2>Confirmation</h2>
+            <button id="logout-closeModal">&times;</button>
+          </div>
+          <div class="logout-modal-message">
+            <p>
+              Are you sure you want to logout?
+            </p>
+          </div>
+          <div class="logout-modal-buttons">
+            <button class="cancel-button" id="logout-cancelButton">Cancel</button>
+            <button class="confirm-button" id="logout-confirmButton">Yes</button>
+          </div>
+        </div>
+      </div>
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="logo">
+          <img src="src/images/logo.svg" class="img-logo" alt="Cortexa Logo" />
+          <p class="logo-text">
+            Cortexa
+          </p>
+      </div>
+        <ul class="sidebar__list">
+            <li id="home" class="Sli homeli">
+              <a class="nav__link" href="home.html">Home</a>
+            </li>
+            <li id="session" class="Sli couli">
+              <a class="nav__link" href="session.html">Session</a>
+            </li>
+            <li id="quiz" class="Sli calli">
+              <a class="nav__link" href="quiz.html">Quiz</a>
+            </li>
+            <li id="assignment" class="chatli">
+              <a class="Sli" href="assignment.html">Assignment</a>
+            </li>
+            <li id="project" class="chatli">
+              <a class="Sli" href="project.html">Project</a>
+            </li>
+            <li id="calendar" class="chatli active-button">
+              <a class="Sli" href="calendar.html">Calendar</a>
+            </li>
+            <li id="chats" class="chatli">
+              <a class="Sli" href="chats.html">Chats</a>
+            </li>
+            <li id="reports" class="chatli">
+              <a class="Sli" href="reports.html">Reports</a>
+            </li>
+            <li class="log-out">
+              <a>
+                <button class="Btn">
+                  <div class="sign">
+                    <svg viewBox="0 0 512 512">
+                      <path
+                        d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1
+                                          20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128
+                                          0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0
+                                          17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32
+                                          14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3
+                                          32 32s-14.3 32-32 32z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div class="text">Logout</div>
+                </button>
+              </a>
+            </li>
+          </ul>
+      </div>
+      <!-- Main Content -->
+      <div class="main-content">
+        <div class="event-modal modal-hidden">
+          <h2 class="event-modal-heading">Create Event</h2>
+          <p class="modal__title">
+            Every moment of learning is a step towards success .
+          </p>
+          <div class="modal__event-container">
+            <div class="modal__left">
+              <form class="modal__form" id="event-form">
+                <div class="group-input-special">
+                    <div class="group-input">
+                        <label class="event-date-label" for="event-title"
+                        >Event title</label
+                      >
+                      <input
+                        class="modal__input event-title-input"
+                        type="text"
+                        id="event-title"
+                      />
+                    </div>
+                    <div class="group-input">
+                        <label for="event-type">Event type</label>
+                        <select name="" id="event-type">
+                          <option value="">Select Event Type</option>
+                          <option value="Quiz">Quiz</option>
+                          <option value="Assignment">Assignment</option>
+                          <option value="Project">Project</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="date-container">
+                  <div class="group-input">
+                    <label class="event-date-label" for="event-date"
+                      >start date</label
+                    >
+                    <input
+                      class="modal__input start-end-input"
+                      type="datetime-local"
+                      id="event-start-date"
+                    />
+                  </div>
+                  <div class="group-input">
+                    <label class="event-date-label" for="event-date"
+                      >end date</label
+                    >
+                    <input
+                      class="modal__input start-end-input"
+                      type="datetime-local"
+                      id="event-end-date"
+                    />
+                  </div>
+                </div>
+
+                <div class="description">
+                  <label class="event-date-label" for="event-description"
+                    >Description</label
+                  >
+                  <textarea
+                    class="event-description"
+                    name="eventDescription"
+                    id="event-description"
+                    cols="40"
+                    rows="4"
+                    placeholder="Type Something Of You Want"
+                  ></textarea>
+                </div>
+                <button id="save-event">Save</button>
+              </form>
+            </div>
+            <div class="modal__right">
+              <img
+                class="modal__img"
+                src="src/images/welcome.png"
+                alt="event img"
+              />
+              <ul class="modal__list">
+                <li class="modal__list-item">
+                  <svg
+                    width="38"
+                    height="38"
+                    viewBox="0 0 38 38"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g
+                      clip-path="url(#clip0_28_36)"
+                      filter="url(#filter0_d_28_36)"
+                    >
+                      <path
+                        d="M33.76 25.2463L23.6762 1.94625C23.0262 0.351251 21.2025 -0.4225 19.6025 0.2325L18.445 0.705C17.9975 0.8875 17.6062 1.165 17.2937 1.51625C16.7462 0.60875 15.7512 0.00125046 14.6162 0.00125046H7.12499C5.40249 4.59258e-07 3.99999 1.40125 3.99999 3.125V26.875C3.99999 28.5987 5.40249 30 7.12499 30H14.6162C16.3387 30 17.7412 28.5987 17.7412 26.875V7.11125L26.8225 28.0988C27.475 29.7063 29.34 30.455 30.8962 29.8075L32.0525 29.335C33.6287 28.7275 34.435 26.8025 33.76 25.2463ZM19.6312 8.3325L24.2612 6.445L30.9737 21.9587L26.3437 23.8475L19.6312 8.3325ZM5.24999 7.5H10.2412V22.5H5.24999V7.5ZM11.4912 7.5H16.4912V22.5H11.4912V7.5ZM16.4912 3.125V6.25H11.4912V1.25H14.6162C15.65 1.25 16.4912 2.09125 16.4912 3.125ZM7.12499 1.25H10.2412V6.25H5.24999V3.125C5.24999 2.09125 6.09124 1.25 7.12499 1.25ZM5.24999 26.875V23.75H10.2412V28.75H7.12499C6.09124 28.75 5.24999 27.9088 5.24999 26.875ZM14.6162 28.75H11.4912V23.75H16.4912V26.875C16.4912 27.9088 15.65 28.75 14.6162 28.75ZM18.9175 1.86125L20.075 1.38875C21.0137 1.00125 22.1275 1.4525 22.5237 2.42875L23.765 5.29625L19.135 7.18375L17.8887 4.30375C17.4987 3.34625 17.96 2.25125 18.9175 1.86125ZM32.6012 27.1675C32.4075 27.6287 32.045 27.9875 31.5812 28.1775L30.425 28.65C29.4687 29.04 28.3712 28.58 27.9762 27.6138L26.8425 24.9938L31.4725 23.105L32.6087 25.7312C32.7987 26.195 32.795 26.705 32.6012 27.1675Z"
+                        fill="#817FFE"
+                      />
+                    </g>
+                    <defs>
+                      <filter
+                        id="filter0_d_28_36"
+                        x="0"
+                        y="0"
+                        width="28"
+                        height="28"
+                        filterUnits="userSpaceOnUse"
+                        color-interpolation-filters="sRGB"
+                      >
+                        <feFlood
+                          flood-opacity="0"
+                          result="BackgroundImageFix"
+                        />
+                        <feColorMatrix
+                          in="SourceAlpha"
+                          type="matrix"
+                          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                          result="hardAlpha"
+                        />
+                        <feOffset dy="4" />
+                        <feGaussianBlur stdDeviation="2" />
+                        <feComposite in2="hardAlpha" operator="out" />
+                        <feColorMatrix
+                          type="matrix"
+                          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+                        />
+                        <feBlend
+                          mode="normal"
+                          in2="BackgroundImageFix"
+                          result="effect1_dropShadow_28_36"
+                        />
+                        <feBlend
+                          mode="normal"
+                          in="SourceGraphic"
+                          in2="effect1_dropShadow_28_36"
+                          result="shape"
+                        />
+                      </filter>
+                      <clipPath id="clip0_28_36">
+                        <rect
+                          width="30"
+                          height="30"
+                          fill="white"
+                          transform="translate(4)"
+                        />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                  <span
+                    >With every event, we write a new chapter in our learning
+                    journey.</span
+                  >
+                </li>
+                <li class="modal__list-item">
+                  <svg
+                    width="28"
+                    height="28"
+                    viewBox="0 0 28 28"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g
+                      clip-path="url(#clip0_28_38)"
+                      filter="url(#filter0_d_28_38)"
+                    >
+                      <path
+                        d="M24 9.16667C24 7.85833 23.375 6.63333 22.3333 5.85V5.83333C22.3333 4.25 21.225 2.925 19.75 2.58333C19.4083 1.10833 18.0833 0 16.5 0C15.5083 0 14.6083 0.441667 14 1.13333C13.3917 0.441667 12.4917 0 11.5 0C9.91667 0 8.59167 1.10833 8.25 2.58333C6.775 2.925 5.66667 4.25 5.66667 5.83333V5.85C4.625 6.63333 4 7.85833 4 9.16667C4 9.90833 4.2 10.6167 4.575 11.25C4.2 11.8833 4 12.5917 4 13.3333C4 14.7417 4.71667 16.0333 5.89167 16.8083C6.49167 18.7083 8.23333 20 10.25 20C11.8 20 13.1667 19.225 14 18.05C14.8333 19.225 16.2 20 17.75 20C19.7667 20 21.5083 18.7 22.1083 16.8083C23.2833 16.0417 24 14.7417 24 13.3333C24 12.5917 23.8 11.8833 23.425 11.25C23.8 10.6167 24 9.90833 24 9.16667ZM10.25 18.3333C8.89167 18.3333 7.725 17.4 7.41667 16.075L7.33333 15.7083L7 15.5333C6.18333 15.0917 5.66667 14.25 5.66667 13.3417C5.66667 12.7833 5.85833 12.2417 6.23333 11.7833L6.65833 11.2583L6.23333 10.7333C5.86667 10.275 5.66667 9.73333 5.66667 9.175C5.66667 8.28333 6.15833 7.45 6.95 7.00833L7.46667 6.71667C7.46667 6.71667 7.33333 5.94167 7.33333 5.84167C7.33333 4.925 8.08333 4.175 9 4.175H9.83333V3.34167C9.83333 2.425 10.5833 1.675 11.5 1.675C12.4167 1.675 13.1667 2.425 13.1667 3.34167V15.425C13.1667 17.0333 11.8583 18.3417 10.25 18.3417V18.3333ZM21.7667 11.775C22.1333 12.2333 22.3333 12.775 22.3333 13.3333C22.3333 14.25 21.825 15.0833 21 15.525L20.6667 15.7L20.5833 16.0667C20.275 17.4 19.1083 18.325 17.75 18.325C16.1417 18.325 14.8333 17.0167 14.8333 15.4083V3.33333C14.8333 2.41667 15.5833 1.66667 16.5 1.66667C17.4167 1.66667 18.1667 2.41667 18.1667 3.33333V4.16667H19C19.9167 4.16667 20.6667 4.91667 20.6667 5.83333C20.6667 5.93333 20.5333 6.70833 20.5333 6.70833L21.05 7C21.8417 7.45 22.3333 8.275 22.3333 9.16667C22.3333 9.73333 22.1417 10.2667 21.7667 10.725L21.3417 11.25L21.7667 11.775Z"
+                        fill="#817FFE"
+                      />
+                    </g>
+                    <defs>
+                      <filter
+                        id="filter0_d_28_38"
+                        x="0"
+                        y="0"
+                        width="28"
+                        height="28"
+                        filterUnits="userSpaceOnUse"
+                        color-interpolation-filters="sRGB"
+                      >
+                        <feFlood
+                          flood-opacity="0"
+                          result="BackgroundImageFix"
+                        />
+                        <feColorMatrix
+                          in="SourceAlpha"
+                          type="matrix"
+                          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                          result="hardAlpha"
+                        />
+                        <feOffset dy="4" />
+                        <feGaussianBlur stdDeviation="2" />
+                        <feComposite in2="hardAlpha" operator="out" />
+                        <feColorMatrix
+                          type="matrix"
+                          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+                        />
+                        <feBlend
+                          mode="normal"
+                          in2="BackgroundImageFix"
+                          result="effect1_dropShadow_28_38"
+                        />
+                        <feBlend
+                          mode="normal"
+                          in="SourceGraphic"
+                          in2="effect1_dropShadow_28_38"
+                          result="shape"
+                        />
+                      </filter>
+                      <clipPath id="clip0_28_38">
+                        <rect
+                          width="20"
+                          height="20"
+                          fill="white"
+                          transform="translate(4)"
+                        />
+                      </clipPath>
+                    </defs>
+                  </svg>
+
+                  <span> learn, engage, and achive your dreams with us</span>
+                </li>
+                <li class="modal__list-item">
+                  <svg
+                    width="28"
+                    height="28"
+                    viewBox="0 0 28 28"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g filter="url(#filter0_d_28_40)">
+                      <path
+                        d="M11.5575 8.65667C11.4808 8.73333 11.4808 8.8575 11.5575 8.93417L12.9108 10.2317C13.2425 10.55 13.2542 11.0783 12.935 11.41C12.6158 11.7425 12.0883 11.7525 11.7567 11.4342L10.3917 10.1242C9.65333 9.38583 9.65333 8.20417 10.3792 7.4775L11.78 6.07667C12.1058 5.75083 12.6325 5.75083 12.9583 6.07667C13.2842 6.4025 13.2842 6.92917 12.9583 7.255L11.5575 8.65667ZM15.09 10.2317C14.7583 10.55 14.7467 11.0783 15.0658 11.41C15.385 11.7425 15.9125 11.7525 16.2442 11.4342L17.6217 10.1125C18.3483 9.38583 18.3483 8.20417 17.6217 7.47833L16.2208 6.0775C15.895 5.75167 15.3683 5.75167 15.0425 6.0775C14.7167 6.40333 14.7167 6.93 15.0425 7.25583L16.4433 8.65667C16.52 8.73333 16.52 8.8575 16.4558 8.92167L15.0908 10.2317H15.09ZM12.3333 13.3333H12.2617L11.6725 12.7442C11.5158 12.5875 11.3042 12.5 11.0833 12.5H7.33333V6.66667C7.33333 5.28833 8.455 4.16667 9.83333 4.16667H18.1667C19.545 4.16667 20.6667 5.28833 20.6667 6.66667C20.6667 7.12667 21.04 7.5 21.5 7.5C21.96 7.5 22.3333 7.12667 22.3333 6.66667C22.3333 4.36917 20.4642 2.5 18.1667 2.5H9.83333C7.53583 2.5 5.66667 4.36917 5.66667 6.66667V12.6533C4.69917 12.9983 4 13.915 4 15C4 16.3783 5.12167 17.5 6.5 17.5H10.6667C11.1267 17.5 11.5 17.1275 11.5 16.6667C11.5 16.2058 11.1267 15.8333 10.6667 15.8333H6.5C6.04083 15.8333 5.66667 15.46 5.66667 15C5.66667 14.54 6.04083 14.1667 6.5 14.1667H10.7383L11.3275 14.7558C11.4842 14.9125 11.6958 15 11.9167 15H12.3333C12.7933 15 13.1667 14.6275 13.1667 14.1667C13.1667 13.7058 12.7933 13.3333 12.3333 13.3333ZM23.2675 13.4342L17.6783 19.0233C17.0492 19.6533 16.2117 20 15.3217 20H14C13.54 20 13.1667 19.6275 13.1667 19.1667V17.845C13.1667 16.955 13.5142 16.1175 14.1433 15.4883L19.7325 9.89917C20.6767 8.95417 22.3233 8.95417 23.2683 9.89917C24.2425 10.8742 24.2417 12.4592 23.2675 13.4342ZM22.0892 11.0775C21.7742 10.7617 21.225 10.7617 20.9108 11.0775L15.3208 16.6667C15.0058 16.9817 14.8325 17.4 14.8325 17.845V18.3333H15.3208C15.7592 18.3333 16.1892 18.155 16.4992 17.845L22.0883 12.2558C22.4133 11.9308 22.4133 11.4025 22.0883 11.0775H22.0892Z"
+                        fill="#817FFE"
+                      />
+                    </g>
+                    <defs>
+                      <filter
+                        id="filter0_d_28_40"
+                        x="0"
+                        y="0"
+                        width="28"
+                        height="28"
+                        filterUnits="userSpaceOnUse"
+                        color-interpolation-filters="sRGB"
+                      >
+                        <feFlood
+                          flood-opacity="0"
+                          result="BackgroundImageFix"
+                        />
+                        <feColorMatrix
+                          in="SourceAlpha"
+                          type="matrix"
+                          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                          result="hardAlpha"
+                        />
+                        <feOffset dy="4" />
+                        <feGaussianBlur stdDeviation="2" />
+                        <feComposite in2="hardAlpha" operator="out" />
+                        <feColorMatrix
+                          type="matrix"
+                          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+                        />
+                        <feBlend
+                          mode="normal"
+                          in2="BackgroundImageFix"
+                          result="effect1_dropShadow_28_40"
+                        />
+                        <feBlend
+                          mode="normal"
+                          in="SourceGraphic"
+                          in2="effect1_dropShadow_28_40"
+                          result="shape"
+                        />
+                      </filter>
+                    </defs>
+                  </svg>
+
+                  <span
+                    >Let's explore the world of knowledge, step by step.</span
+                  >
+                </li>
+              </ul>
+            </div>
+            <div class="btn-close-modal">&times;</div>
+          </div>
+        </div>
+        <div class="left__side">
+          <header class="header">
+            <div class="welcome__message">
+              <div class="welcome__user">
+                <p class="user__name"></p>
+                <img
+                  class="welcome__icon"
+                  src="src/images/hand-wave.svg"
+                  alt="hand wave icon"
+                />
+              </div>
+              <p class="sub__message">Stay on track with your classes.</p>
+            </div>
+            <button class="add__event-btn">Add Event</button>
+          </header>
+          <!-- <button class="calendar__nav-button" id="prev-week-btn">prev</button> -->
+
+          <div class="week__calendar">
+            <div class="week__calendar-day-box">
+              <div class="week__calendar-day">
+                <span class="day__number Week__calendar-day--bg-1"></span>
+                <div class="day__name">Sat</div>
+              </div>
+
+              <i class="fa-solid fa-arrow-right event__arrow"></i>
+            </div>
+            <div class="week__calendar-day-box">
+              <div class="week__calendar-day">
+                <span class="day__number Week__calendar-day--bg-2"></span>
+                <div class="day__name">Sun</div>
+              </div>
+
+              <i class="fa-solid fa-arrow-right event__arrow"></i>
+            </div>
+            <div class="week__calendar-day-box">
+              <div class="week__calendar-day">
+                <span class="day__number Week__calendar-day--bg-3"></span>
+                <div class="day__name">Mon</div>
+              </div>
+
+              <i class="fa-solid fa-arrow-right event__arrow"></i>
+            </div>
+            <div class="week__calendar-day-box">
+              <div class="week__calendar-day">
+                <span class="day__number Week__calendar-day--bg-4"></span>
+                <div class="day__name">Tue</div>
+              </div>
+
+              <i class="fa-solid fa-arrow-right event__arrow"></i>
+            </div>
+            <div class="week__calendar-day-box">
+              <div class="week__calendar-day">
+                <span class="day__number Week__calendar-day--bg-5"></span>
+                <div class="day__name">Wed</div>
+              </div>
+
+              <i class="fa-solid fa-arrow-right event__arrow"></i>
+            </div>
+            <div class="week__calendar-day-box">
+              <div class="week__calendar-day">
+                <span class="day__number Week__calendar-day--bg-6"></span>
+                <div class="day__name">Thu</div>
+              </div>
+
+              <i class="fa-solid fa-arrow-right event__arrow"></i>
+            </div>
+            <div class="week__calendar-day-box">
+              <div class="week__calendar-day">
+                <span class="day__number Week__calendar-day--bg-7"></span>
+                <div class="day__name">Fri</div>
+              </div>
+
+              <i class="fa-solid fa-arrow-right event__arrow"></i>
+            </div>
+          </div>
+          <!-- <button class="calendar__nav-button" id="next-week-btn">next</button> -->
+          <!-- <div class="day__calendar">Day</div> -->
+        </div>
+        <div class="middle__side">
+          <div class="day__row saturday__row"></div>
+          <div class="line-sprator-top"></div>
+
+          <div class="day__row sunday__row"></div>
+          <div class="line-sprator-top"></div>
+
+          <div class="day__row monday__row"></div>
+          <div class="line-sprator-top"></div>
+
+          <div class="day__row tuesday__row"></div>
+          <div class="line-sprator-top"></div>
+
+          <div class="day__row wednesday__row"></div>
+          <div class="line-sprator-top"></div>
+
+          <div class="day__row thursday__row"></div>
+          <div class="line-sprator-top"></div>
+
+          <div class="day__row friday__row"></div>
+        </div>
+        <div class="right__side">
+          <!-- <div id="calendar" class="calendar full-calendar"></div> -->
+          <div class="calendar">
+            <header class="calendar__header">
+              <button class="calendar__nav-button" id="prevMonth">
+                <i class="fa-solid fa-angle-left"></i>
+              </button>
+              <div class="calendar__month-display" id="monthDisplay">
+                March 2025
+              </div>
+              <button class="calendar__nav-button" id="nextMonth">
+                <i class="fa-solid fa-angle-right"></i>
+              </button>
+            </header>
+
+            <div class="calendar__weekdays">
+              <div class="calendar__weekday calendar__weekday--weekday">
+                Mon
+              </div>
+              <div class="calendar__weekday calendar__weekday--weekday">
+                Tue
+              </div>
+              <div class="calendar__weekday calendar__weekday--weekday">
+                Wed
+              </div>
+              <div class="calendar__weekday calendar__weekday--weekday">
+                Thu
+              </div>
+              <div class="calendar__weekday calendar__weekday--weekend">
+                Fri
+              </div>
+              <div class="calendar__weekday calendar__weekday--weekend">
+                Sat
+              </div>
+              <div class="calendar__weekday calendar__weekday--weekday">
+                Sun
+              </div>
+            </div>
+
+            <div class="calendar__days-container" id="daysContainer">
+              <div class="calendar__days-grid" id="daysGrid"></div>
+            </div>
+          </div>
+
+          <div id="daily__calendar" class="daily__calendar">
+            <div class="today">
+              <span class="today__weak"></span
+              ><span class="today__in-month"> </span>
+            </div>
+            <div class="daily__schedule">
+              <div class="time">
+                <div class="hour"></div>
+                <div class="hour"></div>
+                <div class="hour"></div>
+                <div class="hour"></div>
+                <div class="hour"></div>
+                <div class="hour"></div>
+                <div class="hour"></div>
+              </div>
+              <div class="daily__event-container"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="overlay"></div>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script type="module" src="src/js/Calendar/calendar.js"></script>
+    <script type="module" src="src/js/Calendar/weeklyCalendar.js"></script>
+    <script type="module" src="src/js/Calendar/dailyCalendar.js"></script>
+    <script type="module" src="src/js/Calendar/addEventCalendar.js"></script>
+    <script type="module" src="src/js/main.js"></script>
+  </body>
+</html>

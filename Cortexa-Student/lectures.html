@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lectures</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="icon" type="image/x-icon" href="src/images/favicon.ico" />
+<link
+  rel="icon"
+  type="image/png"
+  sizes="32x32"
+  href="src/images/favicon-32x32.png"
+/>
+<link
+  rel="icon"
+  type="image/png"
+  sizes="16x16"
+  href="src/images/favicon-16x16.png"
+/>
+<link rel="stylesheet" href="src/css/base.css" />
+<link rel="stylesheet" href="src/css/lectures.css" />
+</head>
+
+<body>
+<div class="container">
+    <div class="logout-modal" id="confirmationModal">
+        <div class="logout-modal-content">
+          <div class="logout-modal-header">
+            <h2>Confirmation</h2>
+            <button id="logout-closeModal">&times;</button>
+          </div>
+          <div class="logout-modal-message">
+            <p>
+              Are you sure you want to logout?
+            </p>
+          </div>
+          <div class="logout-modal-buttons">
+            <button class="cancel-button" id="logout-cancelButton">Cancel</button>
+            <button class="confirm-button" id="logout-confirmButton">Yes</button>
+          </div>
+        </div>
+      </div>
+<!-- Sidebar -->
+    <div class="sidebar">
+    <div class="logo">
+
+            <img src="src/images/logo.svg" class="img-logo" alt="Cortexa Logo" />
+            <p class="logo-text">
+              Cortexa
+            </p>
+
+    </div>
+    <ul class="sidebar__list">
+        <li id="home" class="Sli homeli">
+            <a href="home.html">Home</a>
+        </li>
+        <li id="courses" class="Sli couli active-button">
+        <a href="courses.html">Courses</a>
+    </li>
+    <li id="calendar" class="Sli calli">
+        <a href="calendar.html">Calendar</a>
+    </li>
+    <li id="chats" class="chatli ">
+        <a href="chats.html">Chats</a>
+    </li>
+    <li class="log-out">
+        <button class="Btn">
+            <div class="sign">
+                <svg viewBox="0 0 512 512">
+                    <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1
+                    20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128
+                    0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0
+                    17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32
+                    14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3
+                    32 32s-14.3 32-32 32z">
+                    </path>
+                </svg>
+            </div>
+            <div class="text">Logout</div>
+        </button>
+    </li>
+    </ul>
+    </div>
+    <!-- Main Content -->
+     <div class="main-content">
+     <div class="Title_container">
+        <div class="back-button">
+            <button class="back-btn" onclick="window.history.back()">
+                <i class="fa-solid fa-angle-left"></i>
+            </button>
+        </div>
+        <h1 class="lecturs_title" id="lecturs_title">Programming</h1>
+        </div>
+
+        <div class="course__details">
+            <div class="card-container1">
+                <div class="card1">
+                    <img src="src/images/book.png" class="card1_img">
+                    <div class="card-content">
+                        <h1 class="title1" id="titleName"></h1>
+                        <p class="p">What Will We Study To Day ?</p>
+                        <div class="icon_container">
+                            <div class="row">
+                                <a  class="section-link" href="./section.html" style="text-decoration: none; color: inherit;">
+                                    <div class="Section">
+                                        <span>
+                                            <img src="./src/images/journal-alt.png" style="width: 20px; height: 20px;">
+                                        </span>
+                                        <span id="section">Section</span>
+                                    </div>
+                                </a>
+                                <a href="./assignments.html" style="text-decoration: none; color: inherit;">
+                                    <div class="Assignment">
+                                        <span>
+                                            <img src="./src/images/summary-check.png" style="width: 20px; height: 20px;">
+                                        </span>
+                                        <span id="assignment">Assignment</span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="row">
+                                <a href="./quiz.html" style="text-decoration: none; color: inherit;">
+                                    <div class="Quiz">
+                                        <span>
+                                            <img src="./src/images/quiz.png" style="width: 20px; height: 20px;">
+                                        </span>
+                                        <span id="quiz">Quiz</span>
+                                    </div>
+                                </a>
+                                <a href="./projects.html" style="text-decoration: none; color: inherit;">
+                                    <div class="Project">
+                                        <span>
+                                            <img src="./src/images/blueprint.png" style="width: 20px; height: 20px;">
+                                        </span>
+                                        <span id="project">Project</span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="row">
+                                <a href="./chats.html" style="text-decoration: none; color: inherit;">
+                                    <div class="Chats">
+                                        <span>
+                                            <img src="./src/images/comment.png" style="width: 20px; height: 20px;">
+                                        </span>
+                                        <span id="chats">Chats</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-container2">
+                <div class="bell-image">
+                    <!-- <img src="src/images/bell.png" width="30"> -->
+                </div>
+                <div class="course-box" id="course-info">
+                    <h2>Course Instructor</h2>
+                    <p id="instructor-name">Dr. Abeer Amer</p>
+
+                    <h2>About Course</h2>
+                    <p id="course-name">Programming</p>
+                    <!-- <p id="course-schedule">Mon/Wed – 10:00 AM</p> -->
+                </div>
+            </div>
+
+            <!-- Added a container for lectures -->
+            <div id="lectures-container" class="lectures-container"></div>
+        </div>
+
+        <div class="cards-container">
+
+            <!-- <div class="card-stack">
+                <div class="card"></div>
+                <div class="card"></div>
+                <div class="card">
+                    <img src="src/images/mysql.png" alt="MySQL" width="60">
+                    <p class="lec">Lec 1</p>
+                    <h2>Database</h2>
+                    <button class="open-btn" onclick="openLecture()">Open</button>
+                </div>
+            </div>
+
+
+            <div class="card-stack">
+                <div class="card"></div>
+                <div class="card"></div>
+                <div class="card">
+                    <img src="src/images/coding.png" alt="coding" width="60">
+                    <p class="lec">Lec 2</p>
+                    <h2>Programming Basics</h2>
+                    <button class="open-btn" onclick="openLecture()">Open</button>
+                </div>
+            </div>
+
+
+            <div class="card-stack">
+                <div class="card"></div>
+                <div class="card"></div>
+                <div class="card">
+                    <img src="src/images/coding (1).png" alt="Advanced Coding" width="60">
+                    <p class="lec">Lec 3</p>
+                    <h2>Advanced Topics</h2>
+                    <button class="open-btn" onclick="openLecture()">Open</button>
+                </div>
+            </div>
+
+            <div class="card-stack">
+                <div class="card"></div>
+                <div class="card"></div>
+                <div class="card">
+                    <img src="./src/images/coding.png" alt="Project" width="60">
+                    <p class="lec">Lec 4</p>
+                    <h2>Final Project</h2>
+                    <button class="open-btn" onclick="openLecture()">Open</button>
+                </div>
+            </div> -->
+    </div>
+    </div>
+    <div>
+    </div>
+    <script src=" https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script type="module" src="src/js/app.js"></script>
+    <script type="module">
+import { isInstitutionSchool } from "./src/js/app.js";
+        document.addEventListener("DOMContentLoaded", async () => {
+            const courseId = sessionStorage.getItem("courseId");
+            const titleElement = document.getElementById("titleName");
+            titleElement.textContent = "Loading data...";
+
+            const studentId = sessionStorage.getItem("studentId") || "demo_student_id";
+            sessionStorage.setItem("studentId", studentId);
+
+            const apiUrl = "https://nwwqsqkwmkkuunczucdm.supabase.co/rest/v1/enrollment";
+            const queryParams = "select=*,student(*),course(*)";
+            const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53d3FzcWt3bWtrdXVuY3p1Y2RtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY1MzEyODIsImV4cCI6MjA2MjEwNzI4Mn0.EF6CGrpM3bjxBo4-ItU3S1BPjfVHdv2HnvoeAdfPZug";
+
+            try {
+                const response = await fetch(`${apiUrl}?${queryParams}`, {
+                    method: "GET",
+                    headers: {
+                        "apikey": API_KEY,
+                        "Authorization": `Bearer ${API_KEY}`,
+                        "Content-Type": "application/json"
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                if (!data || data.length === 0) {
+                    titleElement.textContent = "No data found";
+                    return;
+                }
+
+                const myCourses = data.filter(item => item.student && item.student.student_id == studentId);
+                const currentCourse = myCourses.filter(item => item.course && item.course.course_id == courseId);
+
+                if (currentCourse.length === 0) {
+                    titleElement.textContent = "Course not found";
+                    return;
+                }
+
+                const instructorId = currentCourse[0].instructor_id;
+                const instructorApiUrl = `https://nwwqsqkwmkkuunczucdm.supabase.co/rest/v1/instructor?instructor_id=eq.${instructorId}`;
+
+                fetch(instructorApiUrl, {
+                    headers: {
+                        "apikey": API_KEY,
+                        "Authorization": `Bearer ${API_KEY}`,
+                    },
+                })
+                .then((res) => res.json())
+                .then((instructorData) => {
+                    if (instructorData.length > 0) {
+                        document.getElementById("instructor-name").textContent = instructorData[0].instructor_name;
+                    }
+                })
+                .catch((error) => console.error("Error fetching instructor:", error));
+
+                if (myCourses.length === 0) {
+                    titleElement.textContent = "No Courses Found";
+                    return;
+                }
+
+                const studentName = myCourses[0].student.student_name;
+                titleElement.textContent = `Hi, ${studentName}`;
+
+                const firstCourse = currentCourse[0].course;
+                document.getElementById("course-name").textContent = firstCourse.course_name;
+                document.getElementById("lecturs_title").textContent = firstCourse.course_name;
+
+                // -------------------------
+                // جلب المحاضرات
+                // -------------------------
+                const sessionsApiUrl = `https://nwwqsqkwmkkuunczucdm.supabase.co/rest/v1/session?course_id=eq.${courseId}&select=*`;
+
+                const sessionsResponse = await fetch(sessionsApiUrl, {
+                    headers: {
+                        "apikey": API_KEY,
+                        "Authorization": `Bearer ${API_KEY}`
+                    }
+                });
+
+                const sessions = await sessionsResponse.json();
+                console.log(sessions);
+                
+
+                // فلترة المحاضرات فقط
+                let lectures = sessions.filter(session =>
+                     session.session_type.toLowerCase().includes("lecture") || session.session_type.toLowerCase().includes("session")
+                );
+
+                // ترتيب المحاضرات حسب التاريخ
+                lectures.sort((a, b) => new Date(a.session_time) - new Date(b.session_time));
+
+                const container = document.querySelector('.cards-container');
+container.addEventListener('wheel', function (event) {
+  if (event.deltaY !== 0) {
+    event.preventDefault();
+    container.scrollLeft += event.deltaY;
+  }
+});
+                if(isInstitutionSchool()){
+                    const assignment= document.getElementById("assignment");
+                    assignment.textContent = "Homework";
+                    const project= document.getElementById("project");
+                    project.textContent = "Project";
+                    // const chats= document.getElementById("chats");
+                    // chats.textContent = "Chat";
+                    const section= document.querySelector(".section-link");
+                    section.style.display = "none";
+                    const iconContainer = document.querySelector(".icon_container");
+                    iconContainer.style.flexDirection = "row";
+                    iconContainer.style.flexWrap = "wrap";
+                    iconContainer.style.width = "40%";
+                    iconContainer.style.gap = "10px";
+                    iconContainer.style.justifyContent = "flex-start";
+                }
+                const cardsContainer = document.querySelector(".cards-container");
+                if (cardsContainer) {
+                    cardsContainer.innerHTML = "";
+
+                    let html = "";
+
+const lecturesToShow = lectures.filter(session =>
+    new Date(session.session_time) < new Date()
+);
+                    if (lecturesToShow.length === 0) {
+                        html += '<p class="no-lectures">No lectures available</p>';
+                    }
+
+                    lecturesToShow.forEach((lecture, index) => {
+                        const fileName = lecture.session_file_path?.split('/').pop() ?? "file.pdf";
+
+                        // const fileUrl = `https://iuiwdjtmdeempcqxeuhf.supabase.co/storage/v1/object/public/files/${fileName}`;
+
+                        html += `
+                            <div class="card-stack">
+                                <div class="card"></div>
+                                <div class="card"></div>
+                                <div class="card">
+                                    <img src="./src/images/material-icons/lecture-${index}.png" alt="coding" width="60"
+                                    onerror="this.onerror=null; this.src='src/images/material-icons/lecture-1.png';">
+                                    <p class="lecture-number">${isInstitutionSchool() ? "Lesson" : "Lecture"} ${index + 1}</p>
+                                    <p class="lec">${fileName}</p>
+                                    <p><small>${new Date(lecture.session_time).toLocaleDateString()}</small></p>
+                                    <a href="${lecture.session_file_path}" target="_blank" class="file-button-outline">
+                                        <i class="fas fa-file-alt"></i> Open File
+                                    </a>
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    cardsContainer.innerHTML = html;
+                }
+            }
+            catch (error) {
+                console.error("Error fetching data:", error);
+                titleElement.textContent = "Error loading data";
+            }
+        });
+
+</script>
+</body>
+
+</html>

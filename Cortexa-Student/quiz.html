@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Outfit"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/x-icon" href="/src/images/favicon.ico" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="src/images/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="src/images/favicon-16x16.png"
+    />
+    <link rel="stylesheet" href="src/css/base.css" />
+    <link rel="stylesheet" href="src/css/quiz.css" />
+    <style>
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .navigation-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-grow: 1;
+      }
+      .button {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .progress-container {
+        width: 100%;
+        background-color: #e0e0e0;
+        border-radius: 5px;
+        overflow: hidden;
+      }
+      .progress-bar {
+        height: 10px;
+        background-color: #5B50C6;
+        width: 0%;
+        transition: width 0.3s ease-in-out;
+      }
+      .quiz-results {
+        text-align: center;
+      }
+      .score-details {
+        margin: 20px 0;
+      }
+      .result-progress {
+        width: 100%;
+        background-color: #e0e0e0;
+        border-radius: 5px;
+        overflow: hidden;
+      }
+      .result-bar {
+        height: 10px;
+        background-color: #5B50C6;
+        transition: width 0.3s ease-in-out;
+      }
+      .question-review {
+        margin-top: 20px;
+      }
+      .review-item {
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: 5px;
+      }
+      .review-item.correct {
+        background-color: #d4edda;
+        color: #155724;
+      }
+      .review-item.incorrect {
+        background-color: #f8d7da;
+        color: #721c24;
+      }
+      .actions {
+        margin-top: 20px;
+      }
+      /* Modal Styles */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+      .modal-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        max-width: 500px;
+        width: 90%;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+      .modal-content h2 {
+        margin-bottom: 20px;
+      }
+      .modal-content p {
+        margin: 10px 0;
+      }
+      .modal-content .close-button {
+        background-color: #5B50C6;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 20px;
+      }
+      .modal-content .close-button:hover {
+        background-color: #4a41a3;
+      }
+      .quiz-list {
+        margin: 20px 0;
+        max-height: 300px;
+        overflow-y: auto;
+      }
+      .quiz-item {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        background-color: #f9f9f9;
+      }
+      .quiz-item:hover {
+        background-color: #e0e0e0;
+      }
+      /* Color coding for quiz statuses */
+      .quiz-item.new {
+        background-color: #c2beff9c; /* Light purple for untaken quizzes */
+      }
+      .quiz-item.completed {
+        background-color: #beecc9; /* Light green for completed quizzes */
+      }
+      .quiz-item.expired {
+        background-color: #ffe6e6; /* Light red for expired quizzes */
+      }
+      .no-quizzes {
+        color: #721c24;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="logout-modal" id="confirmationModal">
+        <div class="logout-modal-content">
+          <div class="logout-modal-header">
+            <h2>Confirmation</h2>
+            <button id="logout-closeModal">&times;</button>
+          </div>
+          <div class="logout-modal-message">
+            <p>
+              Are you sure you want to logout?
+            </p>
+          </div>
+          <div class="logout-modal-buttons">
+            <button class="cancel-button" id="logout-cancelButton">Cancel</button>
+            <button class="confirm-button" id="logout-confirmButton">Yes</button>
+          </div>
+        </div>
+      </div>
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="logo">
+
+          <img src="src/images/logo.svg" class="img-logo" alt="Cortexa Logo" />
+          <p class="logo-text">
+            Cortexa
+          </p>
+
+      </div>
+        <ul class="sidebar__list">
+          <li id="home" class="Sli homeli">
+            <a href="home.html">Home</a>
+          </li>
+          <li id="courses" class="Sli couli active-button">
+            <a href="courses.html">Courses</a>
+          </li>
+          <li id="calendar" class="Sli calli">
+            <a href="calendar.html">Calendar</a>
+          </li>
+          <li id="chats" class="chatli">
+            <a class="Sli" href="chats.html">Chats</a>
+          </li>
+          <li class="log-out">
+            <button class="Btn">
+              <div class="sign">
+                <svg viewBox="0 0 512 512">
+                  <path
+                    d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1
+20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128
+0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0
+17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32
+14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3
+32 32s-14.3 32-32 32z"
+                  ></path>
+                </svg>
+              </div>
+              <div class="text">Logout</div>
+            </button>
+          </li>
+        </ul>
+      </div>
+      <!-- Main Content Area -->
+      <div class="main-content">
+        <div class="header">
+          <div>
+            <h1 class="title">Programming Quiz</h1>
+            <div class="session">Quiz 1</div>
+          </div>
+          <!-- Progress Bar -->
+          <div class="progress">
+            <a id="progress-percent">0%</a>
+            <div class="progress-container">
+              <div class="progress-bar" id="progress-bar"></div>
+            </div>
+          </div>
+          <div class="timer">
+            <div class="timer-icon">
+              <img src="src/images/alarm-clock.png" alt="clock" />
+            </div>
+            <div class="timer-text">
+              <div class="timer-value" id="timer-value">00:00</div>
+              <div class="timer-label">Time Left</div>
+            </div>
+          </div>
+        </div>
+
+        <div id="content-container" class="content-container">
+          <!-- Quiz list or question content will be loaded here -->
+          <div class="loading">Loading quizzes...</div>
+        </div>
+
+        <div id="error-container"></div>
+
+        <div class="footer">
+          <div class="hide"></div>
+          <div class="navigation-buttons">
+            <button class="button button-secondary" id="prev-button" style="display: none;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+                <path
+                  fill="#5B50C6"
+                  transform="scale(-1,1) translate(-20,0)"
+                  d="M10 20A10 10 0 1 0 0 10a10 10 0 0 0 10 10zM8.711 4.3l5.7 5.766L8.7 15.711l-1.4-1.422 4.289-4.242-4.3-4.347z"
+                />
+              </svg>
+              <a class="previous">Previous</a>
+            </button>
+            <button class="button button-secondary" id="next-button" style="display: none;">
+              <a class="next">Next</a>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+                <path
+                  d=" M10 20A10 10 0 1 0 0 10a10 10 0 0 0 10 10zM8.711 4.3l5.7 5.766L8.7 15.711l-1.4-1.422 4.289-4.242-4.3-4.347z "
+                  fill="#5B50C6"
+                />
+              </svg>
+            </button>
+          </div>
+          <button id="finish-button" class="button button-primary" style="display: none;">
+            Finish
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for Quiz Selection -->
+    <div id="quiz-selection-modal" class="modal">
+      <div class="modal-content">
+        <h2>Available Quizzes</h2>
+        <div id="quiz-list" class="quiz-list"></div>
+        <button class="close-button" id="close-selection-modal">Close</button>
+      </div>
+    </div>
+
+    <!-- Modal for Quiz Results -->
+    <div id="quiz-modal" class="modal">
+      <div class="modal-content">
+        <h2>Quiz Results</h2>
+        <div id="modal-score-details" class="score-details">
+          <!-- Results will be dynamically inserted here -->
+        </div>
+        <button class="close-button" id="close-modal">Close</button>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script type="module" src="src/js/app.js"></script>
+    <script type="module" src="src/js/quiz.js"></script>
+    <script type="module">
+      import { supaClient } from "./src/js/app.js";
+
+document.addEventListener("DOMContentLoaded", async () => {
+  const courseId = sessionStorage.getItem("courseId");
+  const studentId = sessionStorage.getItem("studentId") || "demo_student_id";
+  const errorContainer = document.getElementById("error-container");
+  const contentContainer = document.getElementById("content-container");
+  const nextButton = document.getElementById("next-button");
+  const prevButton = document.getElementById("prev-button");
+  const finishButton = document.getElementById("finish-button");
+  const progressBar = document.getElementById("progress-bar");
+  const progressPercent = document.getElementById("progress-percent");
+  const timerValue = document.getElementById("timer-value");
+  const title = document.querySelector(".title");
+  const quizSelectionModal = document.getElementById("quiz-selection-modal");
+  const quizList = document.getElementById("quiz-list");
+  const closeSelectionModalButton = document.getElementById("close-selection-modal");
+  const modal = document.getElementById("quiz-modal");
+  const modalScoreDetails = document.getElementById("modal-score-details");
+  const closeModalButton = document.getElementById("close-modal");
+
+  async function getCourseName() {
+    const { data, error } = await supaClient
+      .from("course")
+      .select("course_name")
+      .eq("course_id", +courseId)
+      .single();
+
+    if (error) {
+      console.error("Error fetching course name:", error.message);
+      return null;
+    }
+    if (data) {
+      title.innerHTML = `<div class="back-button special">
+        <button class="back-btn" onclick="window.history.back()">
+            <i class="fa-solid fa-angle-left"></i>
+        </button>
+      </div><div>${data.course_name} Quiz </div>`;
+    }
+  }
+  await getCourseName();
+
+  // Check student's quiz history with JSON parsing error handling
+  async function checkStudentQuizHistory() {
+    const { data, error } = await supaClient
+      .from("student_quiz")
+      .select("quiz_id, score, student_answers")
+      .eq("student_id", studentId);
+
+    if (error) {
+      console.error("Error checking student quiz history:", error.message);
+      return [];
+    }
+    return data.map((record) => ({
+      quiz_id: record.quiz_id,
+      score: record.score || 0,
+      student_answers: record.student_answers ? (function() {
+        try {
+          return JSON.parse(record.student_answers);
+        } catch (e) {
+          console.error("Invalid JSON in student_answers:", record.student_answers, e);
+          return []; // Default to empty array if JSON parsing fails
+        }
+      })() : [],
+    }));
+  }
+
+  // Fetch all quizzes for the course
+  async function fetchAllQuizzes() {
+    const { data, error } = await supaClient
+      .from("quiz")
+      .select("*")
+      .eq("course_id", courseId);
+
+    if (error) {
+      console.error("Error fetching quizzes:", error.message);
+      return [];
+    }
+    return data;
+  }
+
+  // Record zero score for expired quizzes
+  async function recordZeroScoreForExpiredQuizzes(quizzes, completedQuizIds) {
+    const currentDate = new Date(); // Current date: June 18, 2025, 06:31 PM EEST
+    for (const quiz of quizzes) {
+      const deadline = new Date(quiz.quiz_duedatetime);
+      const isExpired = deadline < currentDate;
+      const isCompleted = completedQuizIds.includes(quiz.quiz_id);
+
+      if (isExpired && !isCompleted) {
+        const { data: existingSubmission, error: fetchError } = await supaClient
+          .from("student_quiz")
+          .select("*")
+          .eq("student_id", studentId)
+          .eq("quiz_id", quiz.quiz_id)
+          .single();
+
+        if (fetchError && fetchError.code !== "PGRST116") {
+          console.error("Error checking existing submission:", fetchError.message);
+          continue;
+        }
+
+        if (!existingSubmission) {
+          const { error: insertError } = await supaClient.from("student_quiz").insert({
+            student_id: studentId,
+            quiz_id: quiz.quiz_id,
+            score: 0,
+            student_answers: JSON.stringify([]),
+          });
+
+          if (insertError) {
+            console.error("Error recording zero score for expired quiz:", insertError.message);
+          } else {
+            console.log("Zero score recorded for expired quiz:", quiz.quiz_id);
+          }
+        }
+      }
+    }
+  }
+
+  // Show quiz selection popup
+  async function showQuizSelectionPopup() {
+    const quizHistory = await checkStudentQuizHistory();
+    const completedQuizIds = quizHistory.map((q) => q.quiz_id);
+    const allQuizzes = await fetchAllQuizzes();
+
+    // Record zero scores for expired quizzes
+    await recordZeroScoreForExpiredQuizzes(allQuizzes, completedQuizIds);
+
+    if (allQuizzes.length === 0) {
+      contentContainer.innerHTML = '<p class="no-quizzes">No quizzes available for this course.</p>';
+      return;
+    }
+
+    let html = "";
+    const currentDate = new Date(); // June 18, 2025, 06:31 PM EEST
+
+    // Sort quizzes by quiz_id in ascending order
+    allQuizzes.sort((a, b) => a.quiz_id - b.quiz_id);
+
+    allQuizzes.forEach((quiz) => {
+      const historyEntry = quizHistory.find((h) => h.quiz_id === quiz.quiz_id);
+      const isCompleted = completedQuizIds.includes(quiz.quiz_id);
+      const deadline = new Date(quiz.quiz_duedatetime);
+      const isExpired = deadline < currentDate;
+      let statusClass = "";
+
+      if (isCompleted) {
+        statusClass = "completed"; // Completed quizzes (green)
+      } else if (isExpired || (historyEntry && historyEntry.score === 0)) {
+        statusClass = "expired"; // Expired or untaken with score 0 (red)
+      } else {
+        statusClass = "new"; // Untaken and deadline not passed (purple)
+      }
+
+      // Format the deadline to show date and time (HH:mm)
+      const deadlineDate = new Date(quiz.quiz_duedatetime);
+      const day = String(deadlineDate.getDate()).padStart(2, '0');
+      const month = String(deadlineDate.getMonth() + 1).padStart(2, '0');
+      const year = deadlineDate.getFullYear();
+      const dateString = `${day}/${month}/${year}`;
+      let hours = deadlineDate.getHours();
+      const minutes = String(deadlineDate.getMinutes()).padStart(2, '0');
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12 || 12;
+      const timeString = `${String(hours).padStart(2, '0')}:${minutes} ${ampm}`;
+
+      // Allow clicking on all quizzes
+      html += `
+        <div class="quiz-item ${statusClass}"
+             onclick="startQuiz(${quiz.quiz_id})"
+             data-quiz-id="${quiz.quiz_id}">
+          ${quiz.quiz_title} (Deadline: ${dateString} ${timeString})
+        </div>
+      `;
+    });
+
+    if (html === "") {
+      contentContainer.innerHTML = '<p class="no-quizzes">No quizzes available for this course.</p>';
+      return;
+    }
+
+    quizList.innerHTML = html;
+    quizSelectionModal.style.display = "flex";
+
+    closeSelectionModalButton.onclick = () => {
+      quizSelectionModal.style.display = "none";
+    };
+  }
+
+  // Start the selected quiz
+  window.startQuiz = async (quizId) => {
+    quizSelectionModal.style.display = "none";
+    sessionStorage.setItem("selectedQuizId", quizId);
+    window.location.href = `quiz-details.html?quizId=${quizId}`;
+  };
+
+  // Initialize the page
+  async function initPage() {
+    await getCourseName();
+    await showQuizSelectionPopup();
+    nextButton.style.display = "none";
+    prevButton.style.display = "none";
+    finishButton.style.display = "none";
+  }
+
+  initPage();
+});
+    </script>
+  </body>
+</html>

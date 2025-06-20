@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz Details</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Outfit"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/x-icon" href="/src/images/favicon.ico" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="src/images/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="src/images/favicon-16x16.png"
+    />
+    <link rel="stylesheet" href="src/css/base.css" />
+    <link rel="stylesheet" href="src/css/quiz.css" />
+    <style>
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .navigation-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-grow: 1;
+      }
+      .button {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .progress-container {
+        width: 100%;
+        background-color: #e0e0e0;
+        border-radius: 5px;
+        overflow: hidden;
+      }
+      .progress-bar {
+        height: 10px;
+        background-color: #5B50C6;
+        width: 0%;
+        transition: width 0.3s ease-in-out;
+      }
+      .content {
+        padding: 20px;
+      }
+      .question-number {
+        font-size: 1.2em;
+        font-weight: bold;
+      }
+      .question-text {
+        margin: 10px 0;
+      }
+      .options {
+        margin-top: 10px;
+      }
+      .option {
+        display: flex;
+        align-items: center;
+        margin: 5px 0;
+      }
+      .option input {
+        margin-right: 10px;
+      }
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+      .modal-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        max-width: 500px;
+        width: 90%;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+      .modal-content h2 {
+        margin-bottom: 20px;
+      }
+      .modal-content p {
+        margin: 10px 0;
+      }
+      .modal-content .close-button {
+        background-color: #5B50C6;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 20px;
+      }
+      .modal-content .close-button:hover {
+        background-color: #4a41a3;
+      }
+      .quiz-results {
+        text-align: center;
+      }
+      .score-details {
+        margin: 20px 0;
+      }
+      .result-progress {
+        width: 100%;
+        background-color: #e0e0e0;
+        border-radius: 5px;
+        overflow: hidden;
+      }
+      .result-bar {
+        height: 10px;
+        background-color: #5B50C6;
+        transition: width 0.3s ease-in-out;
+      }
+      .question-review {
+        margin-top: 20px;
+      }
+      .review-item {
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: 5px;
+      }
+      .review-item.correct {
+        background-color: #d4edda;
+        color: #155724;
+      }
+      .review-item.incorrect {
+        background-color: #f8d7da;
+        color: #721c24;
+      }
+      .actions {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="logout-modal" id="confirmationModal">
+        <div class="logout-modal-content">
+          <div class="logout-modal-header">
+            <h2>Confirmation</h2>
+            <button id="logout-closeModal">&times;</button>
+          </div>
+          <div class="logout-modal-message">
+            <p>
+              Are you sure you want to logout?
+            </p>
+          </div>
+          <div class="logout-modal-buttons">
+            <button class="cancel-button" id="logout-cancelButton">Cancel</button>
+            <button class="confirm-button" id="logout-confirmButton">Yes</button>
+          </div>
+        </div>
+      </div>
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="logo">
+
+            <img src="src/images/logo.svg" class="img-logo" alt="Cortexa Logo" />
+            <p class="logo-text">
+              Cortexa
+            </p>
+          
+        </div>
+        <ul class="sidebar__list">
+          <li id="home" class="Sli homeli">
+            <a href="home.html">Home</a>
+          </li>
+          <li id="courses" class="Sli couli active-button">
+            <a href="courses.html">Courses</a>
+          </li>
+          <li id="calendar" class="Sli calli">
+            <a href="calendar.html">Calendar</a>
+          </li>
+          <li id="chats" class="chatli">
+            <a class="Sli" href="chats.html">Chats</a>
+          </li>
+          <li class="log-out">
+            <button class="Btn">
+              <div class="sign">
+                <svg viewBox="0 0 512 512">
+                  <path
+                    d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1
+20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128
+0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0
+17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32
+14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3
+32 32s-14.3 32-32 32z"
+                  ></path>
+                </svg>
+              </div>
+              <div class="text">Logout</div>
+            </button>
+          </li>
+        </ul>
+      </div>
+      <!-- Main Content Area -->
+      <div class="main-content">
+        <div class="header">
+          <div>
+            <h1 class="title">Quiz</h1>
+            <div class="session">Quiz</div>
+          </div>
+          <div class="progress">
+            <a id="progress-percent">0%</a>
+            <div class="progress-container">
+              <div class="progress-bar" id="progress-bar"></div>
+            </div>
+          </div>
+          <div class="timer">
+            <div class="timer-icon">
+              <img src="src/images/alarm-clock.png" alt="clock" />
+            </div>
+            <div class="timer-text">
+              <div class="timer-value" id="timer-value">00:00</div>
+              <div class="timer-label">Time Left</div>
+            </div>
+          </div>
+        </div>
+
+        <div id="content-container" class="content-container">
+          <!-- Question content will be loaded here -->
+          <div class="loading">Loading quiz...</div>
+        </div>
+
+        <div id="error-container"></div>
+
+        <div class="footer">
+          <div class="hide"></div>
+          <div class="navigation-buttons">
+            <button class="button button-secondary" id="prev-button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+                <path
+                  fill="#5B50C6"
+                  transform="scale(-1,1) translate(-20,0)"
+                  d="M10 20A10 10 0 1 0 0 10a10 10 0 0 0 10 10zM8.711 4.3l5.7 5.766L8.7 15.711l-1.4-1.422 4.289-4.242-4.3-4.347z"
+                />
+              </svg>
+              <a class="previous">Previous</a>
+            </button>
+            <button class="button button-secondary" id="next-button">
+              <a class="next">Next</a>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+                <path
+                  d=" M10 20A10 10 0 1 0 0 10a10 10 0 0 0 10 10zM8.711 4.3l5.7 5.766L8.7 15.711l-1.4-1.422 4.289-4.242-4.3-4.347z "
+                  fill="#5B50C6"
+                />
+              </svg>
+            </button>
+          </div>
+          <button id="finish-button" class="button button-primary">
+            Finish
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for Quiz Results -->
+    <div id="quiz-modal" class="modal">
+      <div class="modal-content">
+        <h2>Quiz Results</h2>
+        <div id="modal-score-details" class="score-details">
+          <!-- Results will be dynamically inserted here -->
+        </div>
+        <button class="close-button" id="close-modal">Close</button>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script type="module" src="src/js/app.js"></script>
+    <script type="module" src="src/js/quiz.js"></script>
+    <script type="module">
+      import { supaClient } from "./src/js/app.js";
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        // Retrieve courseId and studentId from sessionStorage
+        const courseId = sessionStorage.getItem("courseId");
+        const studentId = sessionStorage.getItem("studentId") || "demo_student_id";
+
+        // Retrieve quizId from URL or sessionStorage
+        const urlParams = new URLSearchParams(window.location.search);
+        const quizId = urlParams.get("quizId") || sessionStorage.getItem("selectedQuizId");
+
+        const errorContainer = document.getElementById("error-container");
+        const contentContainer = document.getElementById("content-container");
+        const nextButton = document.getElementById("next-button");
+        const prevButton = document.getElementById("prev-button");
+        const finishButton = document.getElementById("finish-button");
+        const progressBar = document.getElementById("progress-bar");
+        const progressPercent = document.getElementById("progress-percent");
+        const timerValue = document.getElementById("timer-value");
+        const title = document.querySelector(".title");
+        const modal = document.getElementById("quiz-modal");
+        const modalScoreDetails = document.getElementById("modal-score-details");
+        const closeModalButton = document.getElementById("close-modal");
+        let quizData = null;
+        let currentQuestionIndex = 0;
+        let selectedAnswers = [];
+        let timerInterval = null;
+        let remainingTime = 0;
+        let timerStarted = false;
+        let hasAnswered = false; // Track if the student has answered any question
+        let isSubmitting = false; // Flag to prevent multiple submissions
+
+        // Function to get the course name and update the title
+        async function getCourseName() {
+          const { data, error } = await supaClient
+            .from("course")
+            .select("course_name")
+            .eq("course_id", +courseId)
+            .single();
+
+          if (error) {
+            console.error("Error fetching course name", error);
+            return null;
+          }
+          if (data) {
+            title.textContent = `${data.course_name} Quiz`;
+          }
+        }
+        await getCourseName();
+
+        // Check if the student has already taken this specific quiz
+        async function checkStudentQuiz() {
+          const { data, error } = await supaClient
+            .from("student_quiz")
+            .select("score, student_answers")
+            .eq("student_id", studentId)
+            .eq("quiz_id", quizId)
+            .single();
+
+          if (error && error.code !== "PGRST116") { // PGRST116 means no rows found
+            console.error("Error checking student quiz:", error);
+            return null;
+          }
+          return data; // Returns the quiz record if found, or null if not
+        }
+
+        // Display quiz results (used for both previously taken quizzes and expired quizzes)
+        async function displayResults(score, studentAnswers, message = "Quiz Results") {
+          const questions = quizData.quiz_questions;
+          let totalPossibleScore = 0;
+          let correctAnswers = 0;
+
+          questions.forEach((question, index) => {
+            const mark = parseFloat(question.marks) || 1;
+            totalPossibleScore += mark;
+            const studentAnswer = studentAnswers[index];
+            const correctAnswer = question.correct_answer;
+            if (studentAnswer && studentAnswer === correctAnswer) {
+              correctAnswers++;
+            }
+          });
+
+          contentContainer.innerHTML = `
+            <div class="quiz-results">
+              <h2>${message}</h2>
+              <div class="score-details">
+                <p class="score">Total Questions: ${questions.length}</p>
+                <p class="score">Correct Answers: ${correctAnswers}/${questions.length}</p>
+                <p class="score">Score: ${score}/${totalPossibleScore}</p>
+              </div>
+              <div class="question-review">
+                <h3>Question Review</h3>
+                ${questions.map((question, index) => {
+                  const studentAnswer = studentAnswers[index] || "Not answered";
+                  const correctAnswer = question.correct_answer;
+                  const isCorrect = studentAnswer === correctAnswer && studentAnswer !== "Not answered";
+                  return `
+                    <div class="review-item ${isCorrect ? "correct" : "incorrect"}">
+                      <p><strong>Question ${index + 1}:</strong> ${question.question}</p>
+                      <p>Your Answer: ${studentAnswer}</p>
+                      <p>Correct Answer: ${correctAnswer}</p>
+                    </div>
+                  `;
+                }).join("")}
+              </div>
+              <div class="actions">
+                <button class="button button-primary" onclick="window.location.href='quiz.html'">
+                  Back to Quizzes
+                </button>
+              </div>
+            </div>
+          `;
+          // Hide navigation buttons
+          nextButton.style.display = "none";
+          prevButton.style.display = "none";
+          finishButton.style.display = "none";
+        }
+
+        // Save quiz results to the student_quiz table
+        async function saveQuizResults(score) {
+          const { data: existingSubmission, error: fetchError } = await supaClient
+            .from("student_quiz")
+            .select("*")
+            .eq("student_id", studentId)
+            .eq("quiz_id", quizId)
+            .single();
+
+          if (fetchError && fetchError.code !== "PGRST116") {
+            console.error("Error checking existing submission:", fetchError.message);
+            return false;
+          }
+
+          if (existingSubmission) {
+            // Update existing record
+            const { error: updateError } = await supaClient
+              .from("student_quiz")
+              .update({
+                score: score,
+                student_answers: JSON.stringify(selectedAnswers),
+              })
+              .eq("student_id", studentId)
+              .eq("quiz_id", quizId);
+
+            if (updateError) {
+              console.error("Error updating quiz results:", updateError);
+              return false;
+            }
+          } else {
+            // Insert new record
+            const { error: insertError } = await supaClient
+              .from("student_quiz")
+              .insert({
+                student_id: studentId,
+                quiz_id: quizId,
+                score: score,
+                student_answers: JSON.stringify(selectedAnswers),
+              });
+
+            if (insertError) {
+              console.error("Error saving quiz results:", insertError);
+              return false;
+            }
+          }
+          return true;
+        }
+
+        // Initialize timer based on quiz_duration
+        function startTimer(duration) {
+          if (timerStarted) return;
+          timerStarted = true;
+          const [hours, minutes, seconds] = duration.split(":").map(Number);
+          remainingTime = (hours * 3600) + (minutes * 60) + seconds; // Convert duration to seconds
+          updateTimerDisplay();
+
+          clearInterval(timerInterval); // Clear any existing timer
+          timerInterval = setInterval(() => {
+            remainingTime--;
+            updateTimerDisplay();
+
+            if (remainingTime <= 0) {
+              clearInterval(timerInterval);
+              submitQuiz(); // Auto-submit when time runs out
+            }
+          }, 1000);
+        }
+
+        function updateTimerDisplay() {
+          const minutes = Math.floor(remainingTime / 60);
+          const seconds = remainingTime % 60;
+          timerValue.textContent = `${minutes
+            .toString()
+            .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+        }
+
+        // Update progress bar
+        function updateProgress() {
+          const totalQuestions = quizData?.quiz_questions?.length || 1;
+          const answeredQuestions = selectedAnswers.filter(
+            (answer) => answer !== null && answer !== undefined
+          ).length;
+          const progress = (answeredQuestions / totalQuestions) * 100;
+          progressBar.style.width = `${progress}%`;
+          progressPercent.textContent = `${Math.round(progress)}%`;
+        }
+
+        // Fetch quiz data for the specific quizId and validate it belongs to the course
+        async function fetchQuizData() {
+          try {
+            contentContainer.innerHTML =
+              '<div class="loading">Loading quiz...</div>';
+
+            if (!quizId || !courseId) {
+              throw new Error("Quiz ID or Course ID is missing.");
+            }
+
+            // Fetch quiz data using quiz_id and validate it matches the course_id
+            const { data, error } = await supaClient
+              .from("quiz")
+              .select("*")
+              .eq("quiz_id", quizId)
+              .eq("course_id", courseId)
+              .single();
+
+            if (error) {
+              throw new Error(`Supabase error: ${error.message}`);
+            }
+
+            if (!data) {
+              throw new Error("No quiz found for this course and quiz ID.");
+            }
+
+            return data;
+          } catch (error) {
+            console.error("Error fetching quiz:", error);
+            errorContainer.innerHTML = `
+              <div class="error-message">
+                <h3>Error Loading Quiz</h3>
+                <p>${error.message}</p>
+                <p>Please check your selection and try again.</p>
+              </div>
+            `;
+            contentContainer.innerHTML = "";
+            return null;
+          }
+        }
+
+        // Render the current question from quiz_questions
+        function renderQuestion() {
+          if (
+            !quizData ||
+            !quizData.quiz_questions ||
+            quizData.quiz_questions.length === 0
+          ) {
+            contentContainer.innerHTML =
+              "<p>No questions available for this quiz.</p>";
+            return;
+          }
+
+          const question = quizData.quiz_questions[currentQuestionIndex];
+          const questionNumber = currentQuestionIndex + 1;
+
+          let questionHTML = `
+            <div class="content">
+              <div class="question-number">Question ${questionNumber}</div>
+              <div class="question-text">${
+                question.question || "No question text"
+              }</div>
+              <div class="options">
+          `;
+
+          if (question.options && Array.isArray(question.options)) {
+            question.options.forEach((option, optionIndex) => {
+              const isChecked =
+                selectedAnswers[currentQuestionIndex] === option;
+              questionHTML += `
+                <label class="option">
+                  <input type="radio" name="question${currentQuestionIndex}" value="${option}"
+                    ${isChecked ? "checked" : ""} />
+                  <span class="option-text">${option}</span>
+                  <span class="radio"></span>
+                </label>
+              `;
+            });
+          } else {
+            questionHTML += "<p>No options available for this question.</p>";
+          }
+
+          questionHTML += `
+              </div>
+            </div>
+          `;
+
+          contentContainer.innerHTML = questionHTML;
+
+          // Add event listeners to radio buttons
+          const radioButtons = document.querySelectorAll(
+            `input[name="question${currentQuestionIndex}"]`
+          );
+          radioButtons.forEach((radio) => {
+            radio.addEventListener("change", (e) => {
+              selectedAnswers[currentQuestionIndex] = e.target.value;
+              hasAnswered = true; // Mark that the student has answered a question
+              if (!timerStarted) {
+                const duration = quizData.quiz_duration || "00:30:00"; // Default to 30 minutes if not specified
+                startTimer(duration);
+              }
+              updateProgress();
+              updateFinishButton();
+            });
+          });
+
+          // Update navigation buttons
+          updateNavigationButtons();
+          updateProgress();
+        }
+
+        // Update the state of navigation and finish buttons
+        function updateNavigationButtons() {
+          if (currentQuestionIndex === 0) {
+            prevButton.disabled = true;
+          } else {
+            prevButton.disabled = false;
+          }
+
+          if (currentQuestionIndex === quizData.quiz_questions.length - 1) {
+            nextButton.style.display = "none";
+            finishButton.style.display = "inline-block";
+          } else {
+            nextButton.style.display = "inline-block";
+            finishButton.style.display = "none";
+          }
+        }
+
+        // Update the finish button state
+        function updateFinishButton() {
+          const answeredQuestions = selectedAnswers.filter(
+            (answer) => answer !== null && answer !== undefined
+          );
+          finishButton.disabled =
+            answeredQuestions.length !== quizData.quiz_questions.length;
+        }
+
+        // Show question review after closing the modal
+        function showQuestionReview(score, totalPossibleScore, correctAnswers, studentAnswers) {
+          contentContainer.innerHTML = `
+            <div class="quiz-results">
+              <h2>Quiz Review</h2>
+              <div class="score-details">
+                <p class="score">Total Questions: ${quizData.quiz_questions.length}</p>
+                <p class="score">Correct Answers: ${correctAnswers}/${quizData.quiz_questions.length}</p>
+                <p class="score">Score: ${score}/${totalPossibleScore}</p>
+                <div class="result-progress">
+                </div>
+              </div>
+
+              <div class="question-review">
+                <h3>Question Review</h3>
+                ${quizData.quiz_questions
+                  .map((question, index) => {
+                    const studentAnswer = studentAnswers[index] || "Not answered";
+                    const correctAnswer = question.correct_answer;
+                    const isCorrect = studentAnswer === correctAnswer && studentAnswer !== "Not answered";
+                    return `
+                    <div class="review-item ${
+                      isCorrect ? "correct" : "incorrect"
+                    }">
+                      <p><strong>Question ${index + 1}:</strong> ${
+                      question.question
+                    }</p>
+                      <p>Your answer: ${studentAnswer}</p>
+                      <p>Correct answer: ${correctAnswer}</p>
+                      <p>Result: ${isCorrect ? "Correct" : "Incorrect"}</p>
+                    </div>
+                  `;
+                  })
+                  .join("")}
+              </div>
+
+              <div class="actions">
+                <button class="button button-primary" onclick="window.location.href='quiz.html'">
+                  Back to Quizzes
+                </button>
+              </div>
+            </div>
+          `;
+        }
+
+        // Submit the quiz, save results, and show modal
+        async function submitQuiz() {
+          if (isSubmitting) return; // Prevent multiple submissions
+          isSubmitting = true;
+
+          clearInterval(timerInterval);
+
+          if (!quizData || !quizData.quiz_questions) {
+            alert("No quiz data available.");
+            isSubmitting = false;
+            return;
+          }
+
+          let score = 0;
+          let totalPossibleScore = 0;
+          let correctAnswers = 0;
+
+          quizData.quiz_questions.forEach((question, index) => {
+            const mark = parseFloat(question.marks) || 1; // Default to 1 if mark is not specified
+            totalPossibleScore += mark;
+
+            // Compare student's answer with the correct answer from the database
+            const studentAnswer = selectedAnswers[index];
+            const correctAnswer = question.correct_answer;
+            if (studentAnswer && studentAnswer === correctAnswer) {
+              score += mark;
+              correctAnswers++;
+            }
+          });
+
+          // Save the score to the student_quiz table
+          await saveQuizResults(score);
+
+          // Show the modal with quiz summary
+          modalScoreDetails.innerHTML = `
+            <p class="score">Total Questions: ${quizData.quiz_questions.length}</p>
+            <p class="score">Correct Answers: ${correctAnswers}/${quizData.quiz_questions.length}</p>
+            <p class="score">Score: ${score}/${totalPossibleScore}</p>
+            <div class="result-progress">
+            </div>
+          `;
+          modal.style.display = "flex";
+
+          // Hide navigation buttons when showing the modal
+          nextButton.style.display = "none";
+          prevButton.style.display = "none";
+          finishButton.style.display = "none";
+
+          // Disable navigation prompt after submission
+          window.onbeforeunload = null;
+
+          // Add event listener to close the modal and show the review
+          closeModalButton.onclick = () => {
+            modal.style.display = "none";
+            showQuestionReview(score, totalPossibleScore, correctAnswers, selectedAnswers);
+          };
+
+          isSubmitting = false;
+        }
+
+        // Initialize the quiz
+        async function initQuiz() {
+          // Fetch quiz data for the specific quizId and courseId
+          quizData = await fetchQuizData();
+
+          if (!quizData) {
+            return; // Error was already displayed by fetchQuizData
+          }
+
+          // Update the title with the quiz title
+          title.textContent = `${quizData.quiz_title}`;
+
+          // Check if the student has already taken the quiz
+          const previousResult = await checkStudentQuiz();
+          if (previousResult) {
+
+
+            // Case 1: Quiz already taken - Display previous results
+            const studentAnswers = previousResult.student_answers ? (function() {
+              try {
+                return JSON.parse(previousResult.student_answers);
+              } catch (e) {
+                console.error("Invalid JSON in student_answers:", previousResult.student_answers, e);
+                return [];
+              }
+            })() : [];
+            await displayResults(previousResult.score, studentAnswers, "Quiz Results");
+            return;
+          }
+
+          // Check if the quiz deadline has passed
+          const deadline = new Date(quizData.quiz_duedatetime);
+          const currentDate = new Date();
+          if (deadline < currentDate) {
+
+
+            // Case 2: Deadline passed and quiz not taken - Record a zero score and display
+            selectedAnswers = Array(quizData.quiz_questions.length).fill(null);
+            await saveQuizResults(0); // Save score as 0
+            await displayResults(0, selectedAnswers, "Quiz Expired - Missed Deadline");
+            return;
+          }
+
+          // Case 3: Quiz is new or deadline hasn't passed - Start the quiz
+          selectedAnswers = Array(quizData.quiz_questions.length).fill(null);
+
+          // Set up navigation prompt to warn if the student tries to leave
+          window.onbeforeunload = function (e) {
+            if (hasAnswered && !isSubmitting) {
+              const confirmationMessage = (
+                "If you leave now, the test will end and your grade will be calculated based only on the answers you provided. Do you want to continue?");
+              e.returnValue = confirmationMessage; // For most browsers
+              return confirmationMessage; // For some older browsers
+            }
+            return undefined; // No prompt if no answers or already submitting
+          };
+
+          // Handle browser back/forward navigation using popstate
+          window.addEventListener('popstate', async (e) => {
+            if (hasAnswered && !isSubmitting) {
+              const confirmLeave = confirm(
+                "If you leave now, the test will end and your grade will be calculated based only on the answers you provided. Do you want to continue?");
+              if (confirmLeave) {
+                await submitQuiz();
+                window.location.href = 'quiz.html'; // Redirect to quizzes page
+              } else {
+                history.pushState(null, null, window.location.href); // Prevent back navigation
+              }
+            }
+          });
+
+          // Push initial state to prevent back navigation
+          history.pushState(null, null, window.location.href);
+
+          // Add event listener to sidebar links to handle navigation
+          const sidebarLinks = document.querySelectorAll('.sidebar__list a');
+          sidebarLinks.forEach(link => {
+            link.addEventListener('click', async (e) => {
+              e.preventDefault();
+              if (hasAnswered && !isSubmitting) {
+                const confirmLeave = confirm(
+                  "If you leave now, the test will end and your grade will be calculated based only on the answers you provided. Do you want to continue?");
+                if (confirmLeave) {
+                  await submitQuiz();
+                  window.location.href = 'quiz.html'; // Redirect to quizzes page
+                }
+              } else {
+                window.location.href = link.href; // Allow navigation if no answers
+              }
+            });
+          });
+
+          // Set up event listeners for navigation buttons
+          nextButton.addEventListener("click", () => {
+            if (currentQuestionIndex < quizData.quiz_questions.length - 1) {
+              currentQuestionIndex++;
+              renderQuestion();
+            }
+          });
+
+          prevButton.addEventListener("click", () => {
+            if (currentQuestionIndex > 0) {
+              currentQuestionIndex--;
+              renderQuestion();
+            }
+          });
+
+          finishButton.addEventListener("click", submitQuiz);
+
+          // Start the quiz by rendering the first question
+          renderQuestion();
+          updateFinishButton();
+        }
+
+        // Start the quiz
+        initQuiz();
+      });
+    </script>
+  </body>
+</html>

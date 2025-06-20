@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Instructor assignment</title>
+    <link rel="icon" type="image/x-icon" href="/src/images/favicon.ico" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="src/images/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="src/images/favicon-16x16.png"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/uicons-bold-straight/css/uicons-bold-straight.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css"
+    />
+    <link rel="stylesheet" href="src/css/base.css" />
+    <link rel="stylesheet" href="src/css/assignment.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="logout-modal" id="confirmationModal">
+        <div class="logout-modal-content">
+          <div class="logout-modal-header">
+            <h2>Confirmation</h2>
+            <button id="logout-closeModal">&times;</button>
+          </div>
+          <div class="logout-modal-message">
+            <p>
+              Are you sure you want to logout?
+            </p>
+          </div>
+          <div class="logout-modal-buttons">
+            <button class="cancel-button" id="logout-cancelButton">Cancel</button>
+            <button class="confirm-button" id="logout-confirmButton">Yes</button>
+          </div>
+        </div>
+      </div>
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="logo">
+          <img src="src/images/logo.svg" class="img-logo" alt="Cortexa Logo" />
+          <p class="logo-text">
+            Cortexa
+          </p>
+      </div>
+        <ul class="sidebar__list">
+          <li id="home" class="Sli homeli">
+            <a class="nav__link" href="home.html">Home</a>
+          </li>
+          <li id="session" class="Sli couli">
+            <a class="nav__link" href="session.html">Session</a>
+          </li>
+          <li id="quiz" class="Sli calli">
+            <a class="nav__link" href="quiz.html">Quiz</a>
+          </li>
+          <li id="assignment" class="chatli active-button">
+            <a class="Sli" href="assignment.html">Assignment</a>
+          </li>
+          <li id="project" class="chatli">
+            <a class="Sli" href="project.html">Project</a>
+          </li>
+          <li id="calendar" class="chatli">
+            <a class="Sli" href="calendar.html">Calendar</a>
+          </li>
+          <li id="chats" class="chatli">
+            <a class="Sli" href="chats.html">Chats</a>
+          </li>
+          <li id="reports" class="chatli">
+            <a class="Sli" href="reports.html">Reports</a>
+          </li>
+          <li class="log-out">
+            <a>
+              <button class="Btn">
+                <div class="sign">
+                  <svg viewBox="0 0 512 512">
+                    <path
+                      d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1
+                                        20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128
+                                        0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0
+                                        17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32
+                                        14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3
+                                        32 32s-14.3 32-32 32z"
+                    ></path>
+                  </svg>
+                </div>
+                <div class="text">Logout</div>
+              </button>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="main-content">
+        <div class="content-wrapper">
+          <!-- Left Section: Assignment List -->
+          <div class="left-section">
+            <div class="assignment-list-card">
+              <h2 class="key-change">Assignments</h2>
+              <table class="assignment-list-table">
+                <thead>
+                  <tr>
+                    <th>Number</th>
+                    <th>Due Date</th>
+                    <th class="assignment-view key-change">View Assignment</th>
+                  </tr>
+                </thead>
+                <tbody id="assignmentListBody">
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="submission-section">
+            <div class="submission-list-card">
+              <header class="submission-header">
+                <h2>Student Submissions</h2>
+                <div class="group__input">
+                  <input class="search__input" type="search" placeholder="Search..." />
+                </div>
+              </header>
+              <table class="submission-list-table">
+                <thead>
+                  <tr>
+                    <th>Student</th>
+                    <!-- <th>Student ID</th> -->
+                    <th class="assignment-head key-change">Assignment</th>
+                    <th>View</th>
+                  </tr>
+                </thead>
+                <tbody id="submissionListBody">
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!-- Right Section: Upload Assignment Form -->
+        </div>
+
+        <!-- New Section: Student Submissions Table -->
+
+        <div class="right-section">
+          <div class="upload-form-card">
+            <h2 class="form-title key-change">Upload Assignment</h2>
+            <div class="form-group-special">
+              <label for="course-name">Course Name</label>
+              <select name="courseName" id="course-name">
+              </select>
+              <label class="assignment-title key-change"  for="assignmentTitle">Assignment Title</label>
+              <input
+                type="text"
+                id="assignmentTitle"
+                placeholder="Enter title"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label class="assignment-description key-change" for="assignmentDescription">Assignment Description</label>
+              <textarea
+                id="assignmentDescription"
+                placeholder="Enter description"
+                required
+              ></textarea>
+            </div>
+            <div class="form-group">
+              <label for="dueDate">Due Date</label>
+              <div class="due-date-wrapper">
+                <input
+                  type="datetime-local"
+                  id="dueDate"
+                  placeholder="mm/dd/yyyy --:-- --"
+                  required
+                />
+                <!-- <i class="fi fi-rr-calendar"></i> -->
+              </div>
+            </div>
+            <button class="submit-button key-change" id="submitAssignment">
+              Upload Assignment
+            </button>
+            <div class="success-message key-change" id="successMessage">
+              Assignment uploaded successfully!
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script type="module" src="src/js/main.js"></script>
+    <script type="module" src="src/js/assignment.js"></script>
+  </body>
+</html>

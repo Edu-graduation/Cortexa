@@ -1,0 +1,205 @@
+.main-content {
+  padding: 2rem;
+  /* width: 134rem; */
+  width: 100%;
+  background-color: var(--color-grey-light-1);
+  border-radius: 5rem 5rem 5rem 5rem;
+  margin-right: 1rem;
+  box-shadow: 0 0.4rem 2rem rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.top-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+}
+
+.profile-card {
+  background-color: white;
+  border-radius: 15px;
+  padding: 40px;
+  width: 45%;
+  box-shadow: 0 2px 3px #5955b3;
+  /* box-shadow: 0 4px 6px var(--color-primary); */
+}
+
+.welcome-card {
+  /* background: linear-gradient(135deg, var(--color-grid-1), var(--color-grid-2)); */
+  border-radius: 15px;
+  padding: 0 2rem;
+  width: 60rem;
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); */
+  box-shadow: 0 2px 3px #5955b3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--color-primary);
+}
+
+.welcome-card h2 {
+  /* color: var(--color-grey-light-1); */
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+
+.welcome-card p {
+  color: var(--color-grey-dark-2); 
+  font-size: var(--fs-5);
+  
+}
+
+.university-name {
+  font-size: 22px;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #333;
+  /* background: linear-gradient(
+    to right,
+    var(--color-grid-1),
+    var(--color-grid-2)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent; */
+
+}
+
+.profile-details {
+  margin-top: 10px;
+}
+
+.profile-details p {
+  margin-bottom: 8px;
+  color: #555;
+}
+
+.profile-details span {
+  font-weight: bold;
+  color: #333;
+}
+
+.schedule-section {
+  background-color: white;
+  border-radius: 15px;
+  padding: 20px;
+  /* width: 60rem;
+  min-width: 35rem;
+  max-width: 60rem; */
+  width: 100%;
+  margin-top: 20px;
+  box-shadow: 0 2px 3px #5955b3;
+  height: 100%;
+  min-height: 30rem;
+  overflow: hidden;
+}
+
+.schedule-header {
+  /* background-color: #9aafd9; */
+  background: linear-gradient(135deg, var(--color-grid-1), var(--color-grid-2));
+  padding: 15px;
+  border-radius: 10px;
+}
+.schedule-header h2{
+  color: var(--color-grey-light-1);
+  font-size: var(--fs-5);
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.schedule-table th {
+  text-align: left;
+  padding: 15px 10px;
+  border-bottom: 1px solid #eee;
+  /* color: #666666; */
+color: var(--color-heading);
+  font-weight: 600;
+}
+
+.schedule-table td {
+  padding: 15px 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.course-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.course-row {
+  display: flex;
+  align-items: center;
+}
+.schedule-table tr:hover {
+  background-color: var(--color-grey-light-2);
+}
+
+.tag {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.tag-lecture {
+  color: #8055e7;
+  background-color: #f1e6ff;
+}
+
+.tag-lab {
+  color: #4caf50;
+  background-color: #e8f5e9;
+}
+
+.tag-quiz {
+  color: #ff9451;
+  background-color: #fff2e6;
+}
+.schedules-section{
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+}
+@media screen and (max-width: 72em) {
+  .main-content{
+    gap: 0;
+  }
+  .schedule-section{
+    max-height: 25rem;
+  }
+}
+#enrollmentTableBody tr{
+  cursor: pointer;
+  height: 7rem;
+}
+#enrollmentTableBody th{
+  border: 1px solid var(--color-grey-dark-2);
+  color: var(--color-grid-1);
+}
+#scheduleTableBody tr{
+  cursor: pointer;
+  height: 7rem;
+}
+#scheduleTableBody th{
+  border: 1px solid var(--color-grey-dark-2);
+}
+.welcome-img{
+  display: block;
+  width: 20rem;
+}
+#welcomeMessage{
+  text-wrap: nowrap;
+}

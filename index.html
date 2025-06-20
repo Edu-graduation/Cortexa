@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In - Cortexa Learning Platform</title>
+    <link rel="icon" type="image/x-icon" href="Main/images/favicon.ico" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="Main/images/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="Main/images/favicon-16x16.png"
+    />
+    <link rel="stylesheet" href="Main/css/form.css" />
+    <style>
+      .logo-container{
+        position: absolute;
+        top: 1.5rem;
+        right: 1rem;
+        width: 11rem;
+        display: flex;
+}
+.logo{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* gap: 0.5rem; */
+}
+.logo img{
+
+}
+.logo p{
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+    </style>
+  </head>
+
+  <body>
+    <main class="authentcation-container">
+      <div class="container">
+        <!-- Sign-in Section -->
+        <div class="form-section sign-in-form">
+          <div class="form-content">
+            <h1>START YOUR JOURNEY.</h1>
+            <br />
+            <h2 class="form__title">Sign In</h2>
+            <p class="form__subtitle">
+              Start your journey with us.
+            </p>
+            <!-- <p class="form__subtitle">
+              Don't have an account? <a href="#" id="signUp">Sign up</a>
+            </p> -->
+            <br /><br />
+            <form id="signInForm">
+              <label class="form__label" for="id">ID</label>
+              <input
+                class="id-input"
+                type="text"
+                id="id"
+                name="id"
+                required
+              /><br />
+
+              <label class="form__label" for="password">PASSWORD</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                required
+                minlength="8"
+                maxlength="8"
+              /><br /><br />
+
+              <button class="sign-in-btn" type="submit">Sign In</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Image Section -->
+        <div class="image-section">
+          <!-- <div class="edu-container"></div> -->
+          <img
+            class="background"
+            src="main/images/background-new.webp"
+            alt="Login Image"
+          />
+          <div class="logo-container">
+            <div class="logo">
+              <img src="main/images/logo.svg" alt="Cortexa Logo" />
+              <!-- <p>
+                Cortexa
+              </p> -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Sign-up Section -->
+        <div class="form-section sign-up-form hidden">
+          <div class="form-content">
+            <h2 class="form__title">CREATE ACCOUNT</h2>
+            <br />
+            <p class="form__subtitle">
+              Already have an account? <a href="#" id="signIn">Sign in</a>
+            </p>
+            <br />
+            <form id="signUpForm">
+              <label class="form__label" for="signup-id">ID</label>
+              <input
+                type="text"
+                class="signup-id"
+                name="signup-id"
+                required
+              /><br />
+
+              <label class="form__label" for="signup-password">PASSWORD</label
+              ><br />
+              <input
+                type="password"
+                id="signup-password"
+                name="signup-password"
+                required
+                minlength="8"
+                maxlength="8"
+              /><br />
+
+              <label class="form__label" for="signup-repass">RE-PASSWORD</label
+              ><br />
+              <input
+                type="password"
+                id="signup-repass"
+                name="signup-repass"
+                required
+                minlength="8"
+                maxlength="8"
+              /><br />
+
+              <button class="sign-in-btn" type="submit">Sign Up</button><br />
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+
+    <script>
+      const signInBtn = document.getElementById("signIn");
+      const imageSection = document.querySelector(".image-section");
+      const signinForm = document.querySelector(".sign-in-form");
+
+      signInBtn.addEventListener("click", function (event) {
+        event.preventDefault();
+        signupForm.classList.add("hidden");
+        imageSection.classList.remove("slide-left");
+        signinForm.classList.remove("hidden");
+      });
+
+      // Input validation
+      function validateInput(id, password) {
+        if (password.length < 8) {
+          alert("Password must be exactly 8 characters.");
+          return false;
+        }
+        if (!id) {
+          alert("ID is required.");
+          return false;
+        }
+        // Restrict password to ASCII characters (optional, adjust as needed)
+        if (!/^[ -~]+$/.test(password)) {
+          alert(
+            "Password must contain only English letters, numbers, or standard symbols."
+          );
+          return false;
+        }
+        return true;
+      }
+
+      // API configuration
+      const API_KEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53d3FzcWt3bWtrdXVuY3p1Y2RtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY1MzEyODIsImV4cCI6MjA2MjEwNzI4Mn0.EF6CGrpM3bjxBo4-ItU3S1BPjfVHdv2HnvoeAdfPZug";
+      const STUDENT_BASE_URL =
+        "https://nwwqsqkwmkkuunczucdm.supabase.co/rest/v1/student";
+      const INSTRUCTOR_BASE_URL =
+        "https://nwwqsqkwmkkuunczucdm.supabase.co/rest/v1/instructor";
+
+      // Sign-In Handler
+      const handleSignIn = async (id, password) => {
+        if (!validateInput(id, password)) return;
+
+        const pwdEncoded = encodeURIComponent(password);
+        // Try student login first
+        const studentUrl = `${STUDENT_BASE_URL}?student_id=eq.${id}&student_password=eq.${pwdEncoded}`;
+        try {
+          const studentResponse = await fetch(studentUrl, {
+            headers: {
+              apikey: API_KEY,
+              Authorization: `Bearer ${API_KEY}`,
+            },
+          });
+
+          if (!studentResponse.ok) {
+            console.error("Student API Error:", {
+              status: studentResponse.status,
+              statusText: studentResponse.statusText,
+              url: studentUrl,
+            });
+
+            const errorData = await studentResponse.json();
+            console.error("Student Error Details:", errorData);
+            // Continue to instructor login even if student query fails
+          } else {
+            const studentData = await studentResponse.json();
+
+            if (studentData.length > 0) {
+              console.log("Student Data:", studentData[0]); // Log student data
+              sessionStorage.setItem("studentId", id);
+              window.location.href = "Cortexa-Student/home.html";
+              return;
+            }
+          }
+
+          // If student login fails, try instructor login
+          const instructorUrl = `${INSTRUCTOR_BASE_URL}?instructor_id=eq.${id}&instructor_pass=eq.${pwdEncoded}`;
+          const instructorResponse = await fetch(instructorUrl, {
+            headers: {
+              apikey: API_KEY,
+              Authorization: `Bearer ${API_KEY}`,
+            },
+          });
+
+          const instructorData = await instructorResponse.json();
+
+          if (!instructorResponse.ok) {
+            console.error("Instructor API Error:", {
+              status: instructorResponse.status,
+              statusText: instructorResponse.statusText,
+              url: instructorUrl,
+            });
+            console.error("Instructor Error Details:", instructorData);
+            throw new Error("Instructor API request failed");
+          }
+
+          if (instructorData.length > 0) {
+            console.log("Instructor Data:", instructorData[0]); // Log instructor data
+            sessionStorage.setItem("instructorId", id);
+            window.location.href = "Cortexa-Instructor/home.html";
+            return;
+          }
+
+          // If both fail, show error
+          alert("ID or Password is incorrect.");
+        } catch (err) {
+          console.error("Network Error:", err.message);
+          alert("There was a network error. Please try again.");
+        }
+      };
+
+      // Sign-In Form Submission
+      const signInForm = document.getElementById("signInForm");
+      const idInput = document.getElementById("id");
+      const passwordInput = document.getElementById("password");
+
+      signInForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const id = idInput.value.trim();
+        const password = passwordInput.value.trim();
+
+        await handleSignIn(id, password);
+      });
+      if(sessionStorage.getItem("studentId")){
+        getInstitutionId(sessionStorage.getItem("studentId")).then((institutionId) => {
+          console.log("institutionId:", institutionId);
+        });
+      }
+       async function getInstitutionId(studentId) {
+  console.log("Entering getInstitutionId with studentId:", studentId);
+  const { data, error } = await supaClient
+    .from("student")
+    .select("institution_id")
+    .eq("student_id", studentId);
+
+  if (error) {
+    console.error("Error fetching institution_id:", error);
+    return null;
+  }
+  if (data && data.length > 0) {
+    const institutionId = data[0].institution_id;
+    if (!sessionStorage.getItem("institution_id")) {
+      sessionStorage.setItem("institution_id", institutionId);
+    }
+    return institutionId;
+  } else {
+    console.log("No data found for studentId:", studentId);
+    return null;
+  }
+}
+    </script>
+  </body>
+</html>

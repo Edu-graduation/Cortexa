@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Instructor Home</title>
+    <link rel="icon" type="image/x-icon" href="src/images/favicon.ico" />
+    <link rel="stylesheet" href="src/css/base.css" />
+    <link rel="stylesheet" href="src/css/instructor-home.css" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="src/images/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="src/images/favicon-16x16.png"
+    />
+
+    <style>
+      .scrollable-table-container {
+        max-height: 200px; /* Adjust height as needed */
+        overflow-y: auto; /* Enable vertical scrolling */
+        width: 100%;
+        border: 1px solid #ddd; /* Optional: Add a border for better visibility */
+        border-radius: 5px; /* Optional: Add border radius for styling */
+      }
+
+      .schedule-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .schedule-table thead {
+        position: sticky;
+        top: 0;
+        background-color: #f8f9fa; /* Background color for sticky header */
+        z-index: 1;
+      }
+
+      .schedule-table th,
+      .schedule-table td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      /* Styling for course icons */
+      .course-row {
+        display: flex;
+        align-items: center;
+      }
+
+      .course-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 10px;
+        font-size: 18px;
+      }
+
+      .icon-programming {
+        background-color: rgba(149, 117, 205, 0.2);
+        color: #9575cd;
+      }
+
+      .icon-data {
+        background-color: rgba(255, 193, 7, 0.2);
+        color: #ffc107;
+      }
+
+      .icon-web {
+        background-color: rgba(77, 208, 225, 0.2);
+        color: #4dd0e1;
+      }
+
+      /* Styling for session type tags */
+      .tag {
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 500;
+      }
+
+      .tag-lecture {
+        background-color: rgba(103, 58, 183, 0.1);
+        color: #673ab7;
+      }
+      .tag-section {
+        background-color: rgba(240, 182, 10, 0.1);
+        color: #cbb43f;
+      }
+
+      .tag-lab {
+        background-color: rgba(76, 175, 80, 0.1);
+        color: #4caf50;
+      }
+
+      .tag-quiz {
+        background-color: rgba(255, 152, 0, 0.1);
+        color: #ff9800;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="logout-modal" id="confirmationModal">
+        <div class="logout-modal-content">
+          <div class="logout-modal-header">
+            <h2>Confirmation</h2>
+            <button id="logout-closeModal">&times;</button>
+          </div>
+          <div class="logout-modal-message">
+            <p>
+              Are you sure you want to logout?
+            </p>
+          </div>
+          <div class="logout-modal-buttons">
+            <button class="cancel-button" id="logout-cancelButton">Cancel</button>
+            <button class="confirm-button" id="logout-confirmButton">Yes</button>
+          </div>
+        </div>
+      </div>
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="logo">
+          <img src="src/images/logo.svg" class="img-logo" alt="Cortexa Logo" />
+          <p class="logo-text">
+            Cortexa
+          </p>
+      </div>
+        <ul class="sidebar__list">
+          <li id="home" class="Sli homeli active-button">
+            <a class="nav__link" href="home.html">Home</a>
+          </li>
+          <li id="session" class="Sli couli">
+            <a class="nav__link" href="session.html">Session</a>
+          </li>
+          <li id="quiz" class="Sli calli">
+            <a class="nav__link" href="quiz.html">Quiz</a>
+          </li>
+          <li id="assignment" class="chatli">
+            <a class="Sli" href="assignment.html">Assignment</a>
+          </li>
+          <li id="project" class="chatli">
+            <a class="Sli" href="project.html">Project</a>
+          </li>
+          <li id="calendar" class="chatli">
+            <a class="Sli" href="calendar.html">Calendar</a>
+          </li>
+          <li id="chats" class="chatli">
+            <a class="Sli" href="chats.html">Chats</a>
+          </li>
+          <li id="reports" class="chatli">
+            <a class="Sli" href="reports.html">Reports</a>
+          </li>
+          <li class="log-out">
+            <a>
+              <button class="Btn">
+                <div class="sign">
+                  <svg viewBox="0 0 512 512">
+                    <path
+                      d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1
+                                    20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128
+                                    0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0
+                                    17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32
+                                    14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3
+                                    32 32s-14.3 32-32 32z"
+                    ></path>
+                  </svg>
+                </div>
+                <div class="text">Logout</div>
+              </button>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="main-content">
+        <!-- Top section with profile and welcome cards -->
+        <div class="top-section">
+          <!-- Welcome Card (Right) -->
+          <div class="welcome-card">
+            <div class="welcome-message">
+            <h2 id="welcomeMessage">Welcome,</h2>
+            <p>Have a nice day!</p>
+            </div>
+            <img class="welcome-img" src="src/images/Mackbook.png" alt="Mackbook image">
+          </div>
+          <!-- Profile Card (Left) -->
+          <div class="profile-card">
+            <h2 class="university-name" id="universityName">
+              Alexandria University
+            </h2>
+            <div class="profile-details" id="instructorDetails">
+              <p>Name: <span id="instructorName">Loading...</span></p>
+              <p>ID: <span id="instructorId">Loading...</span></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Schedule Section (Middle) -->
+        <div class="schedules-section">
+          <div class="schedule-section">
+            <div class="schedule-header">
+              <h2>Today's Schedule</h2>
+              <p
+                id="scheduleStatusMessage"
+                style="
+                  color: #666;
+                  font-size: 14px;
+                  margin-top: -10px;
+                  margin-bottom: 10px;
+                "
+              ></p>
+            </div>
+            <div class="scrollable-table-container">
+              <table class="schedule-table">
+                <thead>
+                  <tr>
+                    <th id="course">Course</th>
+                    <th>Time</th>
+                    <th id="place">Place</th>
+                    <th id="type">Type</th>
+                  </tr>
+                </thead>
+                <tbody id="scheduleTableBody">
+                  <!-- Schedule data will be loaded here -->
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="schedule-section">
+            <div class="schedule-header">
+              <h2 class="schedule-title">Course Management</h2>
+            </div>
+            <div class="scrollable-table-container">
+              <table class="schedule-table">
+                <thead>
+                  <tr>
+                    <th class="course_name">Course Name</th>
+                    <th>Students Enrolled</th>
+                  </tr>
+                </thead>
+                <tbody id="enrollmentTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script type="module" src="src/js/main.js"></script>
+    <script type="module">
+      // API and Supabase configuration
+      // import { getInstitutionId } from "./src/js/main.js";
+      import { isInstitutionSchool } from "./src/js/main.js";
+      const API_KEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53d3FzcWt3bWtrdXVuY3p1Y2RtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY1MzEyODIsImV4cCI6MjA2MjEwNzI4Mn0.EF6CGrpM3bjxBo4-ItU3S1BPjfVHdv2HnvoeAdfPZug";
+      const INSTRUCTOR_BASE_URL =
+        "https://nwwqsqkwmkkuunczucdm.supabase.co/rest/v1/instructor";
+      const INSTRUCTOR_INSTITUTION_URL =
+        "https://nwwqsqkwmkkuunczucdm.supabase.co/rest/v1/instructor_institution";
+      const INSTITUTION_BASE_URL =
+        "https://nwwqsqkwmkkuunczucdm.supabase.co/rest/v1/institution";
+      const BASE_URL = "https://nwwqsqkwmkkuunczucdm.supabase.co/rest/v1";
+      const instructorId = sessionStorage.getItem("instructorId");
+      const InstitutionId = sessionStorage.getItem("institution_id");
+
+      // Function to set dynamic greeting based on time of day
+      function setDynamicGreeting() {
+        const hour = new Date().getHours();
+        let greeting = "Welcome";
+
+        if (hour < 12) {
+          greeting = "Good Morning";
+        } else if (hour < 18) {
+          greeting = "Good Afternoon";
+        } else {
+          greeting = "Good Evening";
+        }
+
+        document.getElementById("welcomeMessage").textContent = greeting;
+      }
+
+      // Function to fetch instructor data
+      async function fetchInstructorData() {
+        const instructorId = sessionStorage.getItem("instructorId");
+        const currentInstructorId = instructorId;
+
+        try {
+          // Step 1: Fetch instructor data
+          const response = await fetch(
+            `${INSTRUCTOR_BASE_URL}?instructor_id=eq.${currentInstructorId}`,
+            {
+              headers: {
+                apikey: API_KEY,
+                Authorization: `Bearer ${API_KEY}`,
+              },
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error(
+              `API request failed with status ${response.status}`
+            );
+          }
+
+          const instructorData = await response.json();
+
+          if (instructorData.length === 0) {
+            console.error(
+              "No instructor found with this ID:",
+              currentInstructorId
+            );
+            displayInstructorData({
+              instructor_id: currentInstructorId,
+              instructorName: "Dr. Sarah Johnson",
+              instructorId: currentInstructorId,
+              institution_id: 1,
+              institution_name: "Unknown Institution",
+            });
+          } else {
+            const instructor = instructorData[0];
+
+            // Step 2: Fetch institution_id from instructor_institution table
+            let institutionId = 1; // Default
+            let institutionName = "Unknown Institution"; // Default
+            try {
+              const institutionMappingResponse = await fetch(
+                `${INSTRUCTOR_INSTITUTION_URL}?instructor_id=eq.${currentInstructorId}`,
+                {
+                  headers: {
+                    apikey: API_KEY,
+                    Authorization: `Bearer ${API_KEY}`,
+                  },
+                }
+              );
+
+              if (!institutionMappingResponse.ok) {
+                throw new Error(
+                  `Institution mapping API request failed with status ${institutionMappingResponse.status}`
+                );
+              }
+
+              const institutionMappingData =
+                await institutionMappingResponse.json();
+
+              if (institutionMappingData.length > 0) {
+                institutionId = institutionMappingData[0].institution_id;
+
+                // Step 3: Fetch institution_name from institution table
+                const institutionResponse = await fetch(
+                  `${INSTITUTION_BASE_URL}?institution_id=eq.${institutionId}`,
+                  {
+                    headers: {
+                      apikey: API_KEY,
+                      Authorization: `Bearer ${API_KEY}`,
+                    },
+                  }
+                );
+
+                if (!institutionResponse.ok) {
+                  throw new Error(
+                    `Institution API request failed with status ${institutionResponse.status}`
+                  );
+                }
+
+                const institutionData = await institutionResponse.json();
+
+                institutionName =
+                  institutionData.length > 0
+                    ? institutionData[0].institution_name ||
+                      "Unknown Institution"
+                    : "Unknown Institution";
+              } else {
+                console.warn(
+                  "No institution mapping found for instructor:",
+                  currentInstructorId
+                );
+              }
+            } catch (institutionError) {
+              console.error(
+                "Error fetching institution data:",
+                institutionError
+              );
+            }
+
+            // Step 4: Prepare data for display
+            const dataToDisplay = {
+              instructor_id: instructor.instructor_id,
+              instructorName: instructor.instructor_name,
+              instructorId: instructor.instructor_id,
+              institution_id: institutionId,
+              institution_name: institutionName,
+            };
+
+            displayInstructorData(dataToDisplay);
+          }
+
+          try {
+            await loadSessionsData(currentInstructorId);
+          } catch (sessionError) {
+            console.error("Error in session loading:", sessionError);
+            loadDemoScheduleData();
+          }
+
+          try {
+            await fetchEnrollmentData(currentInstructorId);
+          } catch (enrollmentError) {
+            console.error("Error in enrollment loading:", enrollmentError);
+            loadDemoEnrollmentData();
+          }
+        } catch (error) {
+          console.error("Error fetching instructor data:", error);
+          displayInstructorData({
+            instructor_id: currentInstructorId,
+            instructorName: "Dr. Sarah Johnson",
+            instructorId: currentInstructorId,
+            institution_id: 1,
+            institution_name: "Unknown Institution",
+          });
+          loadDemoScheduleData();
+          loadDemoEnrollmentData();
+        }
+      }
+
+      // Function to display instructor data
+      function displayInstructorData(data) {
+        document.getElementById(
+          "instructorName"
+        ).textContent = ` ${data.instructorName}`;
+        document.getElementById(
+          "instructorId"
+        ).textContent = ` ${data.instructorId}`;
+        document.getElementById(
+          "universityName"
+        ).textContent = ` ${data.institution_name}`;
+
+        const welcomeElement = document.getElementById("welcomeMessage");
+        const currentGreeting = welcomeElement.textContent;
+        welcomeElement.textContent = `${currentGreeting} ${data.instructorName}`;
+      }
+
+      // Function to load sessions data from API
+      async function loadSessionsData(instructorId) {
+        try {
+          const tableBody = document.getElementById("scheduleTableBody");
+          tableBody.innerHTML =`<tr><td style="text-align:center" colspan="3"><div class="loading-spinner"></div></td></tr>`
+          const enrollmentResponse = await fetch(
+            `${BASE_URL}/enrollment?instructor_id=eq.${instructorId}`,
+            {
+              headers: {
+                apikey: API_KEY,
+                Authorization: `Bearer ${API_KEY}`,
+              },
+            }
+          );
+
+          if (!enrollmentResponse.ok) {
+            console.error(
+              "Failed to fetch enrollment data:",
+              enrollmentResponse.status
+            );
+            throw new Error(
+              `Enrollment API request failed with status ${enrollmentResponse.status}`
+            );
+          }
+
+          const enrollmentData = await enrollmentResponse.json();
+
+          if (!enrollmentData || enrollmentData.length === 0) {
+            loadDemoScheduleData();
+            return;
+          }
+
+          const courseIds = [
+            ...new Set(enrollmentData.map((item) => item.course_id)),
+          ];
+
+          const allSessionsData = [];
+          const today = new Date();
+          const todayYear = today.getFullYear();
+          const todayMonth = today.getMonth();
+          const todayDay = today.getDate();
+
+          for (const courseId of courseIds) {
+            try {
+              const sessionUrl = `${BASE_URL}/course?course_id=eq.${courseId}&select=*,session!inner(session_id,session_time,session_type,session_place)`;
+
+              const sessionResponse = await fetch(sessionUrl, {
+                headers: {
+                  apikey: API_KEY,
+                  Authorization: `Bearer ${API_KEY}`,
+                },
+              });
+
+              if (!sessionResponse.ok) {
+                console.error(
+                  `Failed to fetch sessions for course ${courseId}:`,
+                  sessionResponse.status
+                );
+                continue;
+              }
+
+              const courseSessionsData = await sessionResponse.json();
+              if(courseSessionsData.length === 0){
+                tableBody.innerHTML = "<tr style='text-align:center'><td colspan='3'>No sessions available</td></tr>";
+                return;
+              }
+
+
+              if (
+                courseSessionsData.length > 0 &&
+                courseSessionsData[0].session
+              ) {
+                tableBody.innerHTML = "<tr style='text-align:center'><td colspan='3'>No sessions available</td></tr>";
+                const courseName =
+                  courseSessionsData[0].course_name || `Course ${courseId}`;
+                const sessions = Array.isArray(courseSessionsData[0].session)
+                  ? courseSessionsData[0].session
+                  : [courseSessionsData[0].session];
+
+                sessions.forEach((session) => {
+                  const sessionDate = new Date(session.session_time);
+                  const sessionYear = sessionDate.getFullYear();
+                  const sessionMonth = sessionDate.getMonth();
+                  const sessionDay = sessionDate.getDate();
+
+                  if (
+                    sessionYear === todayYear &&
+                    sessionMonth === todayMonth &&
+                    sessionDay === todayDay
+                  ) {
+                    let icon = "icon-data";
+                    if (courseName.toLowerCase().includes("programming")) {
+                      icon = "icon-programming";
+                    } else if (courseName.toLowerCase().includes("web")) {
+                      icon = "icon-web";
+                    }
+
+                    const formattedDate = sessionDate.toLocaleDateString(
+                      "en-US",
+                      {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      }
+                    );
+
+                    const startTime = formatTimeTo12Hour(sessionDate);
+                    const endTime = new Date(sessionDate);
+                    endTime.setMinutes(endTime.getMinutes() + 90);
+                    const formattedEndTime = formatTimeTo12Hour(endTime);
+
+                    const sessionType =
+                      session.session_type.charAt(0).toUpperCase() +
+                      session.session_type.slice(1).toLowerCase();
+
+                    allSessionsData.push({
+                      course: courseName,
+                      icon: icon,
+
+                      time: `${startTime} - ${formattedEndTime}`,
+                      place: session.session_place || "N/A",
+                      type: sessionType,
+                    });
+                  }
+                });
+              }
+            } catch (error) {
+              console.error(
+                `Error fetching sessions for course ${courseId}:`,
+                error
+              );
+            }
+          }
+
+          if (allSessionsData.length > 0) {
+            allSessionsData.sort((a, b) => {
+              const timeA = a.time.split(" - ")[0];
+              const timeB = b.time.split(" - ")[0];
+              return timeA.localeCompare(timeB);
+            });
+
+            renderScheduleData(allSessionsData);
+          } else {
+            // loadDemoScheduleData();
+          }
+        } catch (error) {
+          console.error("Error loading sessions data:", error);
+          // loadDemoScheduleData();
+        }
+      }
+
+      // Helper function to format time to 12-hour format
+      function formatTimeTo12Hour(date) {
+        let hours = date.getHours();
+        const minutes = String(date.getMinutes()).padStart(2, "0");
+        const period = hours >= 12 ? "PM" : "AM";
+        hours = hours % 12 || 12;
+        return `${hours}:${minutes} ${period}`;
+      }
+
+      // Function to load demo schedule data (fallback)
+
+      // Function to fetch enrollment data with student counts
+      async function fetchEnrollmentData(instructorId) {
+        try {
+          const response = await fetch(
+            `${BASE_URL}/enrollment?instructor_id=eq.${instructorId}`,
+            {
+              headers: {
+                apikey: API_KEY,
+                Authorization: `Bearer ${API_KEY}`,
+              },
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error(
+              `Enrollment API request failed with status ${response.status}`
+            );
+          }
+
+          const enrollmentData = await response.json();
+
+          if (!enrollmentData || enrollmentData.length === 0) {
+            console.log("No enrollment data found");
+            loadDemoEnrollmentData();
+            return;
+          }
+
+          const courseIds = [
+            ...new Set(enrollmentData.map((item) => item.course_id)),
+          ];
+          const courseEnrollments = [];
+
+          for (const courseId of courseIds) {
+            try {
+              const courseResponse = await fetch(
+                `${BASE_URL}/course?course_id=eq.${courseId}`,
+                {
+                  headers: {
+                    apikey: API_KEY,
+                    Authorization: `Bearer ${API_KEY}`,
+                  },
+                }
+              );
+
+              if (!courseResponse.ok) {
+                console.error(
+                  `Failed to fetch course ${courseId}:`,
+                  courseResponse.status
+                );
+                continue;
+              }
+
+              const courseData = await courseResponse.json();
+              const courseName =
+                courseData.length > 0
+                  ? courseData[0].course_name
+                  : `Course ${courseId}`;
+
+              const studentCountResponse = await fetch(
+                `${BASE_URL}/enrollment?course_id=eq.${courseId}&instructor_id=eq.${instructorId}`,
+                {
+                  headers: {
+                    ...{
+                      apikey: API_KEY,
+                      Authorization: `Bearer ${API_KEY}`,
+                    },
+                    Prefer: "count=exact",
+                  },
+                }
+              );
+
+              const contentRange =
+                studentCountResponse.headers.get("content-range");
+              let studentCount = 0;
+
+              if (contentRange) {
+                studentCount = parseInt(contentRange.split("/")[1]) || 0;
+              } else {
+                const enrolledStudents = await studentCountResponse.json();
+                studentCount = enrolledStudents.length;
+              }
+
+              courseEnrollments.push({
+                course_name: courseName,
+                student_count: studentCount,
+              });
+            } catch (error) {
+              console.error(`Error processing course ${courseId}:`, error);
+            }
+          }
+
+          if (courseEnrollments.length > 0) {
+            renderEnrollmentData(courseEnrollments);
+          } else {
+            loadDemoEnrollmentData();
+          }
+        } catch (error) {
+          console.error("Error fetching enrollment data:", error);
+          loadDemoEnrollmentData();
+        }
+      }
+
+      // Function to render schedule data in the table
+      function renderScheduleData(scheduleData) {
+        const tableBody = document.getElementById("scheduleTableBody");
+        tableBody.innerHTML = "";
+
+        const statusMessageElem = document.getElementById(
+          "scheduleStatusMessage"
+        );
+
+        if (scheduleData.length > 0) {
+          statusMessageElem.textContent = "";
+        } else {
+          statusMessageElem.textContent = "No sessions scheduled for today";
+        }
+
+        if (!scheduleData || scheduleData.length === 0) {
+          const row = document.createElement("tr");
+          const cell = document.createElement("td");
+          cell.colSpan = 5;
+          cell.textContent = "No sessions available";
+          cell.style.textAlign = "center";
+          row.appendChild(cell);
+          tableBody.appendChild(row);
+          return;
+        }
+
+        scheduleData.forEach((item) => {
+          const row = document.createElement("tr");
+
+          const courseCell = document.createElement("td");
+          const courseDiv = document.createElement("div");
+          courseDiv.className = "course-row";
+
+          const iconDiv = document.createElement("div");
+
+          const iconSymbol = document.createElement("span");
+
+          iconDiv.appendChild(iconSymbol);
+          courseDiv.appendChild(iconDiv);
+
+          const courseName = document.createElement("span");
+          courseName.textContent = item.course;
+          courseDiv.appendChild(courseName);
+
+          courseCell.appendChild(courseDiv);
+          row.appendChild(courseCell);
+
+          const timeCell = document.createElement("td");
+          timeCell.textContent = item.time;
+          row.appendChild(timeCell);
+
+          const placeCell = document.createElement("td");
+          placeCell.textContent = item.place;
+          // placeCell.colSpan = 2;
+          row.appendChild(placeCell);
+
+          const typeCell = document.createElement("td");
+          const typeTag = document.createElement("span");
+
+          typeTag.textContent = item.type;
+          if(item.type.toLowerCase() === "lecture" && isInstitutionSchool()){
+            typeTag.textContent = "Lesson";
+          }
+          if (item.type.toLowerCase() === "session") {
+            typeTag.textContent = "Lesson";
+            typeTag.className = "tag tag-lecture";
+          }
+          else if (item.type.toLowerCase() === "lecture") {
+            typeTag.className = "tag tag-lecture";
+          }
+          else if (item.type.toLowerCase() === "lab") {
+            typeTag.className = "tag tag-lab";
+          }
+          else if (item.type.toLowerCase() === "quiz") {
+            typeTag.className = "tag tag-quiz";
+          } 
+          else if (item.type.toLowerCase() === "section") {
+            typeTag.className = "tag tag-section";
+          } else {
+            typeTag.className = "tag";
+          }
+
+          typeCell.appendChild(typeTag);
+
+          row.appendChild(typeCell);
+
+          tableBody.appendChild(row);
+        });
+      }
+
+      // Function to render enrollment data in the table
+      function renderEnrollmentData(enrollmentData) {
+        const tableBody = document.getElementById("enrollmentTableBody");
+        tableBody.innerHTML = "";
+
+        if (!enrollmentData || enrollmentData.length === 0) {
+          const row = document.createElement("tr");
+          const cell = document.createElement("td");
+          cell.colSpan = 2;
+          cell.textContent = "No enrollment data available";
+          cell.style.textAlign = "center";
+          row.appendChild(cell);
+          tableBody.appendChild(row);
+          return;
+        }
+
+        enrollmentData.forEach((item) => {
+          const row = document.createElement("tr");
+
+          const courseNameCell = document.createElement("td");
+          courseNameCell.textContent = item.course_name;
+          row.appendChild(courseNameCell);
+
+          const studentCountCell = document.createElement("td");
+          studentCountCell.textContent = item.student_count;
+          row.appendChild(studentCountCell);
+
+          tableBody.appendChild(row);
+        });
+      }
+
+      //institiution
+      window.addEventListener("DOMContentLoaded", async () => {
+        const institutionId = sessionStorage.getItem("institution_id");
+
+        const typeHeader = document.getElementById("type");
+        const typeColumnIndex = typeHeader?.cellIndex;
+        if (!institutionId) return;
+
+        if (institutionId && typeHeader) {
+          // typeHeader.style.display = "none";
+          if (isInstitutionSchool()) {
+            typeHeader.style.display = "none";
+            document.querySelector("#place").colSpan = 2; // Adjust colspan for place header
+          } else {
+            typeHeader.style.display = "table-cell";
+          }
+
+          const rows = document.querySelectorAll(
+            ".schedule-table tbody tr td type "
+          );
+
+          rows.forEach((row) => {
+            const cells = row.cells;
+            if (cells[typeColumnIndex]) {
+              cells[typeColumnIndex].style.display = "none";
+            }
+          });
+        }
+      });
+
+      // Initialize the page
+      window.onload = () => {
+        setDynamicGreeting();
+        fetchInstructorData();
+      };
+    </script>
+  </body>
+</html>
